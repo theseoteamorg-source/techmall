@@ -111,7 +111,7 @@
                 <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @forelse ($products as $product)
                         <div class="product-card">
-                            <a href="{{ route('product.show', ['slug' => $product->slug]) }}">
+                            <a href="#">
                                 <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-56 object-cover">
                             </a>
                             <div class="p-5">
@@ -119,7 +119,7 @@
                                 <p class="text-gray-600 mt-1 truncate">{{ $product->description }}</p>
                                 <div class="mt-4 flex justify-between items-center">
                                     <p class="text-xl font-bold text-gray-900">${{ $product->price }}</p>
-                                    <a href="{{ route('product.show', ['slug' => $product->slug]) }}" class="action-button font-semibold py-2 px-4 rounded-lg text-sm">
+                                    <a href="#" class="action-button font-semibold py-2 px-4 rounded-lg text-sm">
                                         View Details
                                     </a>
                                 </div>
