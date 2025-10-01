@@ -41,7 +41,7 @@
                                     <td>{{ $product->brand->name }}</td>
                                     <td>{{ $product->price }}</td>
                                     <td>
-                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="100">
+                                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" width="100">
                                     </td>
                                     <td>{{ $product->created_at->format('d-m-Y') }}</td>
                                     <td>

@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -51,7 +52,7 @@ class ProductController extends Controller
         }
 
         $imageName = $slug . '-' . time() . '.' . $request->image->extension();
-        $request->image->move(public_path('storage/products'), $imageName);
+        Storage::disk('products')->put($imageName, file_get_contents($request->image));
 
         Product::create([
             'name' => $request->name,
@@ -60,7 +61,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
-            'image' => 'products/' . $imageName,
+            'image' => $imageName,
         ]);
 
         return redirect()->route('admin.products.index')
@@ -109,12 +110,12 @@ class ProductController extends Controller
         $data['slug'] = $slug;
 
         if ($request->hasFile('image')) {
-            if ($product->image && file_exists(public_path('storage/' . $product->image))) {
-                unlink(public_path('storage/' . $product->image));
+            if ($product->image && Storage::disk('products')->exists($product->image)) {
+                Storage::disk('products')->delete($product->image);
             }
             $imageName = $slug . '-' . time() . '.' . $request->image->extension();
-            $request->image->move(public_path('storage/products'), $imageName);
-            $data['image'] = 'products/' . $imageName;
+            Storage::disk('products')->put($imageName, file_get_contents($request->image));
+            $data['image'] = $imageName;
         }
 
         $product->update($data);
@@ -128,8 +129,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if ($product->image && file_exists(public_path('storage/' . $product->image))) {
-            unlink(public_path('storage/' . $product->image));
+        if ($product->image && Storage::disk('products')->exists($product->image)) {
+            Storage::disk('products')->delete($product->image);
         }
 
         $product->delete();
