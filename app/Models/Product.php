@@ -15,15 +15,33 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'details',
         'price',
         'category_id',
         'brand_id',
         'image',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 
     protected $appends = [
         'image_url',
     ];
+
+    public static function booted()
+    {
+        static::deleting(function (Product $product) {
+            $product->variants()->delete();
+            $product->images()->each(function (ProductImage $image) {
+                Storage::disk('products')->delete($image->image_path);
+                $image->delete();
+            });
+            if ($product->image && Storage::disk('products')->exists($product->image)) {
+                Storage::disk('products')->delete($product->image);
+            }
+        });
+    }
 
     public function category()
     {
@@ -33,6 +51,16 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
     }
 
     protected function imageUrl(): Attribute

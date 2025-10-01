@@ -11,4 +11,5 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/categories', CategoryController::class);
     Route::resource('/brands', BrandController::class);
     Route::resource('/products', ProductController::class);
+    Route::get('/products/images/{image}', [ProductController::class, 'destroyImage'])->name('products.images.destroy');
 });

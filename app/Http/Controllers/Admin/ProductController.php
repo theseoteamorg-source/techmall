@@ -6,24 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $products = Product::with(['category', 'brand'])->latest()->paginate(10);
         return view('admin.products.index', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories = Category::all();
@@ -31,18 +26,24 @@ class ProductController extends Controller
         return view('admin.products.create', compact('categories', 'brands'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:products',
             'description' => 'required|string',
+            'details' => 'nullable|string',
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
+            'variants.*.name' => 'required_with:variants.*.price,variants.*.sku,variants.*.stock|string|max:255',
+            'variants.*.price' => 'required_with:variants.*.name|numeric',
+            'variants.*.sku' => 'nullable|string|max:255',
+            'variants.*.stock' => 'nullable|integer',
         ]);
 
         $slug = Str::slug($request->name);
@@ -54,50 +55,70 @@ class ProductController extends Controller
         $imageName = $slug . '-' . time() . '.' . $request->image->extension();
         Storage::disk('products')->put($imageName, file_get_contents($request->image));
 
-        Product::create([
+        $product = Product::create([
             'name' => $request->name,
             'slug' => $slug,
             'description' => $request->description,
+            'details' => $request->details,
             'price' => $request->price,
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
             'image' => $imageName,
+            'meta_title' => $request->meta_title,
+            'meta_description' => $request->meta_description,
+            'meta_keywords' => $request->meta_keywords,
         ]);
+
+        if ($request->has('variants')) {
+            foreach ($request->variants as $variantData) {
+                $product->variants()->create($variantData);
+            }
+        }
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $slug . '-' . uniqid() . '.' . $image->extension();
+                Storage::disk('products')->put($imageName, file_get_contents($image));
+                $product->images()->create(['image_path' => $imageName]);
+            }
+        }
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Product created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Product $product)
     {
         return view('admin.products.show', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Product $product)
     {
         $categories = Category::all();
         $brands = Brand::all();
+        $product->load(['images', 'variants']);
         return view('admin.products.edit', compact('product', 'categories', 'brands'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Product $product)
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:products,name,' . $product->id,
             'description' => 'required|string',
+            'details' => 'nullable|string',
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
+            'variants.*.id' => 'nullable|exists:product_variants,id',
+            'variants.*.name' => 'required_with:variants.*.price,variants.*.sku,variants.*.stock|string|max:255',
+            'variants.*.price' => 'required_with:variants.*.name|numeric',
+            'variants.*.sku' => 'nullable|string|max:255',
+            'variants.*.stock' => 'nullable|integer',
         ]);
 
         $slug = Str::slug($request->name);
@@ -106,7 +127,7 @@ class ProductController extends Controller
             $slug = $slug . '-' . ($count + 1);
         }
 
-        $data = $request->all();
+        $data = $request->except(['_token', '_method', 'images', 'variants']);
         $data['slug'] = $slug;
 
         if ($request->hasFile('image')) {
@@ -120,22 +141,62 @@ class ProductController extends Controller
 
         $product->update($data);
 
+        if ($request->has('variants')) {
+            $variantIds = [];
+            foreach ($request->variants as $variantData) {
+                if (isset($variantData['id'])) {
+                    $variant = $product->variants()->find($variantData['id']);
+                    if ($variant) {
+                        $variant->update($variantData);
+                        $variantIds[] = $variant->id;
+                    }
+                } else {
+                    $newVariant = $product->variants()->create($variantData);
+                    $variantIds[] = $newVariant->id;
+                }
+            }
+            $product->variants()->whereNotIn('id', $variantIds)->delete();
+        } else {
+            $product->variants()->delete();
+        }
+
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $slug . '-' . uniqid() . '.' . $image->extension();
+                Storage::disk('products')->put($imageName, file_get_contents($image));
+                $product->images()->create(['image_path' => $imageName]);
+            }
+        }
+
         return redirect()->route('admin.products.index')
             ->with('success', 'Product updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
         if ($product->image && Storage::disk('products')->exists($product->image)) {
             Storage::disk('products')->delete($product->image);
+        }
+        foreach ($product->images as $image) {
+            if (Storage::disk('products')->exists($image->image_path)) {
+                Storage::disk('products')->delete($image->image_path);
+            }
         }
 
         $product->delete();
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Product deleted successfully');
+    }
+
+    public function destroyImage(ProductImage $image)
+    {
+        if (Storage::disk('products')->exists($image->image_path)) {
+            Storage::disk('products')->delete($image->image_path);
+        }
+        $image->delete();
+
+        return back()->with('success', 'Image deleted successfully.');
     }
 }

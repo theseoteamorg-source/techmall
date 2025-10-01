@@ -32,26 +32,41 @@ This document outlines the definitive plan to redesign **Techmall** (techmall.pk
 *   **"Contact Us" Page:** A page displaying contact information from the admin settings and a contact form.
 *   **Contact Form Submission:** The contact form sends an email to the administrator's email address (from settings).
 *   **Application Layout:** A consistent `layouts.app` blade template for the main application layout.
+*   **"Contact Us" Page Design:** A sleek and sophisticated design with a soft color palette, improved typography, iconography, and subtle interactive elements.
+*   **Footer Link Styling:** Footer links are styled to be dark with no underline, and an underline appears on hover.
+*   **Product Details:** A separate `details` field for products to store more comprehensive information, editable with a rich text editor.
+*   **Multiple Product Images:** Products can now have multiple images, which can be uploaded and managed from the admin panel.
+*   **Product Variants:** Products can have multiple variants, each with its own `name`, `price`, `sku`, and `stock` level.
+*   **SEO Implementation:** Products now have fields for `meta_title`, `meta_description`, and `meta_keywords` to improve search engine visibility, all manageable from the admin panel.
 
 ### 2.3. Future/Planned Features
 
 *   **Admin Panel:** A backend interface to manage products, categories, orders, and site settings.
 
-## 3. Plan for Current Request: "Contact Us" Page & Form
+## 3. Plan for Last Request: Enhanced Product Management
 
-This section summarizes the recent changes to implement the "Contact Us" page and its functionality.
+This section outlines the steps taken to add product variants, multiple images, and SEO features.
 
-1.  **"Contact Us" Page Creation:**
-    *   Created a `ContactController` to display the contact page.
-    *   Created a `contact.blade.php` view to display contact information and a form. The view pulls dynamic content (address, phone, email) from the `settings` table.
-    *   Added a `/contact` route in `web.php`.
-2.  **Contact Form Functionality:**
-    *   Created a `MailController` to handle sending emails.
-    *   Created a `ContactMail` mailable class to define the email structure.
-    *   Created an email view at `resources/views/emails/contact.blade.php`.
-    *   Added a `POST` route (`/contact`) to handle the form submission.
-3.  **Layout and Welcome Page:**
-    *   Created a main application layout at `resources/views/layouts/app.blade.php`.
-    *   Updated the `welcome.blade.php` to extend the new `app.blade.php` layout.
+1.  **Updated Database Schema:**
+    *   Added a `details` column to the `products` table.
+    *   Added `meta_title`, `meta_description`, and `meta_keywords` columns to the `products` table.
+    *   Created a `product_images` table with `product_id` and `image_path` columns.
+    *   Updated the `product_variants` table to include `name`, `price`, `sku`, and `quantity`.
 
-These changes have successfully added a functional "Contact Us" page to the application.
+2.  **Enhanced Admin Product Forms:**
+    *   Modified `create.blade.php` and `edit.blade.php` to include:
+        *   A "Details" textarea with a Summernote rich text editor.
+        *   A file input for uploading multiple product images using `bootstrap-fileinput`.
+        *   A dynamic form section to add, remove, and edit product variants.
+        *   Fields for SEO meta tags (`meta_title`, `meta_description`, `meta_keywords`).
+
+3.  **Updated `ProductController`:**
+    *   Modified the `store` and `update` methods to handle the new `details`, `images`, `variants`, and SEO fields.
+    *   Added a `destroyImage` method to handle the deletion of individual product images.
+
+4.  **Updated `Product` and `ProductImage` Models:**
+    *   Updated the `Product` model's `booted` method to ensure that when a product is deleted, its associated images and variants are also deleted from both the database and storage.
+    *   Created a `booted` method in the `ProductImage` model to automatically delete the image file from storage when a record is deleted.
+
+5.  **Added New Route:**
+    *   Added a route in `routes/admin.php` for deleting product images.
