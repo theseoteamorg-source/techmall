@@ -61,6 +61,7 @@
             background-color: var(--surface-color);
         }
 
+<<<<<<< HEAD
         .footer a {
             color: var(--text-color);
             text-decoration: none;
@@ -70,6 +71,8 @@
             text-decoration: underline;
         }
 
+=======
+>>>>>>> 9ecd0fba1cec535f1608f86edf9f210068e43dc1
     </style>
 </head>
 <body>

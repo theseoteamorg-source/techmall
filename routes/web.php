@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MailController;
@@ -15,7 +16,7 @@ Route::get('/checkout', [ShopController::class, 'checkout'])->name('shop.checkou
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [MailController::class, 'send'])->name('contact.send');
 
-// User Authentication Routes (provided by Laravel's authentication system)
+// User Authentication Routes
 require __DIR__.'/auth.php';
 
 // Authenticated User Routes
@@ -25,7 +26,9 @@ Route::middleware('auth')->group(function () {
 });
 
 // Admin Routes
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('products', ProductController::class);
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
     Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
 });

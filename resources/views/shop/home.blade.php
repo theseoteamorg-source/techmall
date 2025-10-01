@@ -10,7 +10,11 @@
             <div class="carousel-caption d-none d-md-block">
                 <h5>Latest MacBook Pro</h5>
                 <p>Supercharged for pros. The most powerful MacBook Pro ever.</p>
+<<<<<<< HEAD
                 <a href="{{ route('shop.products') }}" class="btn btn-primary">Shop Now</a>
+=======
+                <a href="#" class="btn btn-primary">Shop Now</a>
+>>>>>>> 9ecd0fba1cec535f1608f86edf9f210068e43dc1
             </div>
         </div>
         <div class="carousel-item">
@@ -18,7 +22,11 @@
             <div class="carousel-caption d-none d-md-block">
                 <h5>Gaming Headsets</h5>
                 <p>Immerse yourself in the game with crystal clear audio.</p>
+<<<<<<< HEAD
                 <a href="{{ route('shop.products') }}" class="btn btn-primary">Explore</a>
+=======
+                <a href="#" class="btn btn-primary">Explore</a>
+>>>>>>> 9ecd0fba1cec535f1608f86edf9f210068e43dc1
             </div>
         </div>
     </div>
@@ -60,9 +68,15 @@
     <!-- Featured Categories -->
     <h3 class="text-center mb-4">Shop by Category</h3>
     <div class="row">
+<<<<<<< HEAD
         <div class="col-md-4 text-center"><a href="{{ route('shop.products') }}"><img src="https://placehold.co/400x300/F8F9FA/000?text=Laptops" class="img-fluid rounded mb-2"></a><h5>Laptops</h5></div>
         <div class="col-md-4 text-center"><a href="{{ route('shop.products') }}"><img src="https://placehold.co/400x300/F8F9FA/000?text=Mobiles" class="img-fluid rounded mb-2"></a><h5>Mobiles</h5></div>
         <div class="col-md-4 text-center"><a href="{{ route('shop.products') }}"><img src="https://placehold.co/400x300/F8F9FA/000?text=Accessories" class="img-fluid rounded mb-2"></a><h5>Accessories</h5></div>
+=======
+        <div class="col-md-4 text-center"><a href="#"><img src="https://placehold.co/400x300/F8F9FA/000?text=Laptops" class="img-fluid rounded mb-2"></a><h5>Laptops</h5></div>
+        <div class="col-md-4 text-center"><a href="#"><img src="https://placehold.co/400x300/F8F9FA/000?text=Mobiles" class="img-fluid rounded mb-2"></a><h5>Mobiles</h5></div>
+        <div class="col-md-4 text-center"><a href="#"><img src="https://placehold.co/400x300/F8F9FA/000?text=Accessories" class="img-fluid rounded mb-2"></a><h5>Accessories</h5></div>
+>>>>>>> 9ecd0fba1cec535f1608f86edf9f210068e43dc1
     </div>
 
     <!-- Featured Products -->
@@ -71,9 +85,15 @@
         @for ($i = 0; $i < 4; $i++)
         <div class="col-md-3 mb-4">
             <div class="product-card card h-100">
+<<<<<<< HEAD
                 <a href="{{ route('shop.products') }}"><img src="https://placehold.co/300x300/F8F9FA/000?text=Product" class="card-img-top" alt="Product"></a>
                 <div class="card-body text-center">
                     <h6 class="card-title"><a href="{{ route('shop.products') }}" class="text-decoration-none text-dark">Product Name</a></h6>
+=======
+                <img src="https://placehold.co/300x300/F8F9FA/000?text=Product" class="card-img-top" alt="Product">
+                <div class="card-body text-center">
+                    <h6 class="card-title">Product Name</h6>
+>>>>>>> 9ecd0fba1cec535f1608f86edf9f210068e43dc1
                     <p class="card-text fw-bold text-primary">Rs.99.99</p>
                     <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
                 </div>
@@ -98,9 +118,15 @@
          @for ($i = 0; $i < 4; $i++)
         <div class="col-md-3 mb-4">
             <div class="product-card card h-100">
+<<<<<<< HEAD
                 <a href="{{ route('shop.products') }}"><img src="https://placehold.co/300x300/F8F9FA/000?text=Product" class="card-img-top" alt="Product"></a>
                 <div class="card-body text-center">
                     <h6 class="card-title"><a href="{{ route('shop.products') }}" class="text-decoration-none text-dark">Product Name</a></h6>
+=======
+                <img src="https://placehold.co/300x300/F8F9FA/000?text=Product" class="card-img-top" alt="Product">
+                <div class="card-body text-center">
+                    <h6 class="card-title">Product Name</h6>
+>>>>>>> 9ecd0fba1cec535f1608f86edf9f210068e43dc1
                     <p class="card-text fw-bold text-primary">Rs.99.99</p>
                     <a href="#" class="btn btn-sm btn-outline-primary">Add to Cart</a>
                 </div>
@@ -143,6 +169,20 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+    <!-- Brand Carousel -->
+    <h3 class="text-center my-5">Our Brands</h3>
+    <div class="row">
+        <div class="col-2"><img src="https://placehold.co/150x80/F8F9FA/CCC?text=Brand" class="img-fluid"></div>
+        <div class="col-2"><img src="https://placehold.co/150x80/F8F9FA/CCC?text=Brand" class="img-fluid"></div>
+        <div class="col-2"><img src="https://placehold.co/150x80/F8F9FA/CCC?text=Brand" class="img-fluid"></div>
+        <div class="col-2"><img src="https://placehold.co/150x80/F8F9FA/CCC?text=Brand" class="img-fluid"></div>
+        <div class="col-2"><img src="https://placehold.co/150x80/F8F9FA/CCC?text=Brand" class="img-fluid"></div>
+        <div class="col-2"><img src="https://placehold.co/150x80/F8F9FA/CCC?text=Brand" class="img-fluid"></div>
+    </div>
+>>>>>>> 9ecd0fba1cec535f1608f86edf9f210068e43dc1
 </div>
 
 <!-- Newsletter Signup -->
@@ -161,6 +201,7 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 <!-- Follow Us -->
 <div class="container mt-5">
     <h3 class="text-center mb-4">Follow Us</h3>
@@ -171,6 +212,18 @@
             <a href="#" class="fs-3 text-dark me-3"><i class="bi bi-instagram"></i></a>
             <a href="#" class="fs-3 text-dark"><i class="bi bi-youtube"></i></a>
         </div>
+=======
+<!-- Instagram Feed -->
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Follow Us on Instagram</h3>
+    <div class="row g-2">
+        <div class="col-2"><a href="#"><img src="https://placehold.co/200x200/F8F9FA/000?text=Insta" class="img-fluid"></a></div>
+        <div class="col-2"><a href="#"><img src="https://placehold.co/200x200/F8F9FA/000?text=Insta" class="img-fluid"></a></div>
+        <div class="col-2"><a href="#"><img src="https://placehold.co/200x200/F8F9FA/000?text=Insta" class="img-fluid"></a></div>
+        <div class="col-2"><a href="#"><img src="https://placehold.co/200x200/F8F9FA/000?text=Insta" class="img-fluid"></a></div>
+        <div class="col-2"><a href="#"><img src="https://placehold.co/200x200/F8F9FA/000?text=Insta" class="img-fluid"></a></div>
+        <div class="col-2"><a href="#"><img src="https://placehold.co/200x200/F8F9FA/000?text=Insta" class="img-fluid"></a></div>
+>>>>>>> 9ecd0fba1cec535f1608f86edf9f210068e43dc1
     </div>
 </div>
 
