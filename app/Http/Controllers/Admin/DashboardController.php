@@ -1,1 +1,14 @@
-\n<?php\n\nnamespace App\\Http\\Controllers\\Admin;\n\nuse App\\Http\\Controllers\\Controller;\nuse Illuminate\Http\\Request;\n\nclass DashboardController extends Controller\n{\n    public function index()\n    {\n        return view(\'admin.dashboard\');\n    }\n}\n
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class DashboardController extends Controller
+{
+    public function index()
+    {
+        return view('admin.dashboard');
+    }
+}
