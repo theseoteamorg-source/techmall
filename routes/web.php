@@ -1,30 +1,20 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShopController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// Publicly Accessible Routes
+Route::get('/', [ShopController::class, 'home'])->name('shop.home');
+Route::get('/products', [ShopController::class, 'products'])->name('shop.products');
+Route::get('/products/{product}', [ShopController::class, 'productDetail'])->name('shop.product.detail');
+Route::get('/cart', [ShopController::class, 'cart'])->name('shop.cart');
+Route::get('/checkout', [ShopController::class, 'checkout'])->name('shop.checkout');
 
-Route::get('/', [ProductController::class, 'index']);
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
+// User Authentication Routes (provided by Laravel's authentication system)
 require __DIR__.'/auth.php';
+
+// Authenticated User Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [ShopController::class, 'dashboard'])->name('dashboard');
+    Route::get('/profile', [ShopController::class, 'profile'])->name('profile');
+});
