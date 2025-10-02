@@ -85,3 +85,16 @@ A merge conflict arose from diverging branches. The following steps were taken t
 5.  **Commit & Push:** All changes were committed and pushed to the `main` branch to synchronize the local and remote repositories.
 
 The project is now in a clean, merged, and up-to-date state.
+
+### Performance Optimization
+
+To make the website ultra-fast, the following optimizations have been implemented:
+
+*   **Full-Page Caching:** Installed and configured the `spatie/laravel-responsecache` package to cache entire pages, dramatically reducing response times.
+*   **Laravel Optimization:** Cached the application's configuration, routes, and views using `php artisan config:cache`, `php artisan route:cache`, and `php artisan view:cache`.
+
+**Next Steps for Performance Enhancement:**
+
+*   **Asset Optimization:** Minify and bundle CSS and JavaScript files.
+*   **Image Optimization:** Compress and resize images.
+*   **Content Delivery Network (CDN):** Deploy assets to a CDN like Firebase Hosting for faster delivery.
