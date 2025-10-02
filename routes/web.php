@@ -13,6 +13,7 @@ Route::get('/products', [ShopController::class, 'products'])->name('shop.product
 Route::get('/products/{product}', [ShopController::class, 'productDetail'])->name('shop.product.detail');
 Route::get('/cart', [ShopController::class, 'cart'])->name('shop.cart');
 Route::get('/checkout', [ShopController::class, 'checkout'])->name('shop.checkout');
+Route::get('/thank-you', [ShopController::class, 'thankYou'])->name('shop.thank-you');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [MailController::class, 'send'])->name('contact.send');
 
