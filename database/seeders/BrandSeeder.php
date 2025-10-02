@@ -13,8 +13,11 @@ class BrandSeeder extends Seeder
      */
     public function run(): void
     {
-        Brand::create(['name' => 'Apple', 'slug' => 'apple']);
-        Brand::create(['name' => 'Nike', 'slug' => 'nike']);
-        Brand::create(['name' => 'Penguin Books', 'slug' => 'penguin-books']);
+        Brand::truncate();
+
+        Brand::create(['name' => 'Apple', 'slug' => 'apple', 'logo' => 'https://via.placeholder.com/150x50']);
+        Brand::create(['name' => 'Samsung', 'slug' => 'samsung', 'logo' => 'https://via.placeholder.com/150x50']);
+        Brand::create(['name' => 'Nike', 'slug' => 'nike', 'logo' => 'https://via.placeholder.com/150x50']);
+        Brand::create(['name' => 'Penguin Books', 'slug' => 'penguin-books', 'logo' => 'https://via.placeholder.com/150x50']);
     }
 }

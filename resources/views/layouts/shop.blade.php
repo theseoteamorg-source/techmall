@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Techmall</title>
+    <title>Techmall - Modern & Stylish</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,123 +18,272 @@
 
     <style>
         :root {
-            --primary-color: #007bff;
-            --background-color: #FFFFFF;
-            --surface-color: #F8F9FA;
+            --primary-color: #007bff; 
+            --primary-hover: #0056b3;
+            --accent-color: #fd7e14;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
             --text-color: #212529;
-            --border-color: #DEE2E6;
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            --border-radius: 1rem;
+            --shadow-sm: 0 .125rem .25rem rgba(0,0,0,.075);
+            --shadow-md: 0 .5rem 1rem rgba(0,0,0,.15);
+            --shadow-lg: 0 1rem 3rem rgba(0,0,0,.175);
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
+            font-weight: 400;
+            line-height: 1.6;
         }
 
-        .top-bar {
-            background-color: var(--surface-color);
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.85rem;
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--text-color);
         }
-
-        .main-header {
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .main-nav {
+        
+        .btn-primary {
             background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
         }
 
-        .main-nav .nav-link {
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .gaming-header {
+            background-color: var(--surface-color);
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .gaming-header .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        .gaming-header .nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+        }
+        .gaming-header .nav-link:hover, .gaming-header .nav-link.active {
+            color: var(--primary-color);
+        }
+        .gaming-header .search-bar {
+            position: relative;
+        }
+        .gaming-header .search-input {
+            background-color: #f1f1f1;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 25px;
+            padding-left: 20px;
+        }
+        .gaming-header .search-input::placeholder {
+            color: var(--text-muted);
+        }
+        .gaming-header .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .gaming-header .header-icons .nav-link {
+            font-size: 1.5rem;
+        }
+
+        .hero-carousel-image {
+            height: 80vh; max-height: 700px;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        .carousel-caption p {
+            color: var(--text-color) !important;
+        }
+
+        .section-container {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .product-card-new {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        .product-card-new:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        .product-card-new .product-image {
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card-new .product-image img {
+            transition: transform 0.4s ease;
+        }
+        .product-card-new:hover .product-image img {
+            transform: scale(1.1);
+        }
+        .product-card-new .product-image .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-color);
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+        .product-card-new .product-content {
+            padding: 20px;
+        }
+        .product-card-new .product-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+        .product-card-new .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        .product-card-new .add-to-cart-btn {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+        .product-card-new .add-to-cart-btn:hover {
+            background: var(--primary-color);
             color: #fff;
         }
 
-        .product-card {
-            border: 1px solid var(--border-color);
-            transition: box-shadow 0.2s ease-in-out;
+        .category-card {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            display: block;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
         }
-
-        .product-card:hover {
-            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+        .category-card:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-lg);
+        }
+        .category-card img {
+            transition: transform 0.4s ease;
+        }
+        .category-card:hover img {
+            transform: scale(1.1);
+        }
+        .category-card .category-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: #fff;
         }
 
         .footer {
             background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
         }
 
-<<<<<<< HEAD
-        .footer a {
-            color: var(--text-color);
-            text-decoration: none;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .footer a:hover {
-            text-decoration: underline;
+        @media (max-width: 992px) {
+            .gaming-header .navbar-nav {
+                background-color: var(--surface-color);
+                padding: 1rem;
+                border-radius: 10px;
+            }
         }
 
-=======
->>>>>>> 9ecd0fba1cec535f1608f86edf9f210068e43dc1
+        @media (max-width: 768px) {
+            .hero-carousel-image { height: 60vh; }
+        }
+
     </style>
 </head>
 <body>
-    <header>
-        <!-- Top Bar -->
-        <div class="top-bar py-2">
+    <header class="gaming-header sticky-top">
+        <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <div class="row">
-                    <div class="col-6 text-muted">
-                        Welcome to Techmall!
-                    </div>
-                    <div class="col-6 text-end">
-                        <a href="#" class="text-decoration-none text-muted me-3">About Us</a>
-                        <a href="#" class="text-decoration-none text-muted">Contact</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Header -->
-        <div class="main-header py-4">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-3">
-                        <a class="fs-3 fw-bold text-decoration-none text-dark" href="{{ route('shop.home') }}">TECHMALL</a>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for products...">
-                            <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
-                        </div>
-                    </div>
-                    <div class="col-md-3 text-end">
-                        <a href="{{ route('login') }}" class="text-dark me-3"><i class="bi bi-person fs-4"></i></a>
-                        <a href="{{ route('shop.cart') }}" class="text-dark"><i class="bi bi-cart fs-4"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Navigation -->
-        <nav class="main-nav navbar navbar-expand-lg">
-            <div class="container">
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
+                <a class="navbar-brand" href="{{ route('shop.home') }}">TECHMALL</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-list text-primary"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('shop.home') }}">Home</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('shop.home') }}">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach($categories as $category)
+                                    <li><a class="dropdown-item" href="{{ route('shop.category', $category->slug) }}">{{ $category->name }}</a></li>
+                                @endforeach
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('shop.products') }}">Shop</a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link" href="#">Laptops</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Mobiles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Accessories</a>
-                        </li>
                     </ul>
+                    <div class="d-flex align-items-center">
+                        <div class="search-bar me-3">
+                            <input type="text" class="form-control search-input" placeholder="Search...">
+                            <button class="search-btn"><i class="bi bi-search"></i></button>
+                        </div>
+                        <div class="header-icons d-flex align-items-center">
+                            <a href="{{ route('login') }}" class="nav-link"><i class="bi bi-person-circle"></i></a>
+                            <a href="{{ route('shop.cart') }}" class="nav-link position-relative">
+                                <i class="bi bi-cart-fill"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -143,48 +293,57 @@
         @yield('content')
     </main>
 
-    <footer class="footer pt-5 pb-4 mt-5">
-        <div class="container">
+    <footer class="footer text-muted pt-5 pb-4 mt-5">
+        <div class="container text-center text-md-start">
             <div class="row">
-                <div class="col-md-3">
-                    <h5>Information</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Delivery Information</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms & Conditions</a></li>
-                    </ul>
+                <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+                    <h5 class="text-uppercase fw-bold mb-4">
+                        <i class="bi bi-gem me-3"></i>TECHMALL
+                    </h5>
+                    <p>
+                        The future of tech, delivered to your doorstep. We are committed to providing the best electronic gadgets with unparalleled customer service and a seamless shopping experience.
+                    </p>
                 </div>
-                <div class="col-md-3">
-                    <h5>Customer Service</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Returns</a></li>
-                        <li><a href="#">Site Map</a></li>
-                    </ul>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Products</h6>
+                    <p><a href="{{ route('shop.products') }}" class="text-reset">Laptops</a></p>
+                    <p><a href="{{ route('shop.products') }}" class="text-reset">Mobiles</a></p>
+                    <p><a href="{{ route('shop.products') }}" class="text-reset">Accessories</a></p>
+                    <p><a href="{{ route('shop.products') }}" class="text-reset">Gaming</a></p>
                 </div>
-                <div class="col-md-3">
-                    <h5>My Account</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">My Account</a></li>
-                        <li><a href="#">Order History</a></li>
-                        <li><a href="#">Wish List</a></li>
-                        <li><a href="#">Newsletter</a></li>
-                    </ul>
+
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Useful Links</h6>
+                    <p><a href="{{ route('login') }}" class="text-reset">Your Account</a></p>
+                    <p><a href="{{ route('shop.cart') }}" class="text-reset">Track Order</a></p>
+                    <p><a href="{{ route('contact') }}" class="text-reset">Support</a></p>
+                    <p><a href="{{ route('contact') }}" class="text-reset">About Us</a></p>
                 </div>
-                <div class="col-md-3">
-                    <h5>Contact Us</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-geo-alt-fill"></i> 123 Tech Street, Lahore</li>
-                        <li><i class="bi bi-telephone-fill"></i> +92 123 4567890</li>
-                        <li><i class="bi bi-envelope-fill"></i> support@techmall.pk</li>
-                    </ul>
+
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <p><i class="bi bi-house me-3"></i> 123 Tech Street, Lahore, PK</p>
+                    <p><i class="bi bi-envelope me-3"></i> support@techmall.pk</p>
+                    <p><i class="bi bi-phone me-3"></i> +92 123 4567890</p>
                 </div>
             </div>
-            <hr>
-            <div class="text-center">
-                <p class="text-muted">&copy; 2023 Techmall. All Rights Reserved.</p>
+             <div class="d-flex justify-content-center justify-content-lg-between p-4 border-top">
+                <div class="me-5 d-none d-lg-block">
+                    <span>Get connected with us on social networks:</span>
+                </div>
+                <div>
+                    <a href="#" class="me-4 text-reset"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="me-4 text-reset"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="me-4 text-reset"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class-="me-4 text-reset"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="me-4 text-reset"><i class="bi bi-github"></i></a>
+                </div>
             </div>
+        </div>
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            &copy; 2023 Copyright:
+            <a class="text-reset fw-bold" href="{{ route('shop.home') }}">Techmall.pk</a>
         </div>
     </footer>
 

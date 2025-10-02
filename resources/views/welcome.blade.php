@@ -1,70 +1,118 @@
 @extends('layouts.shop')
 
 @section('content')
-    <div class="container mx-auto px-4">
-        <div class="text-center py-16 md:py-24 fade-in-up">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
-                Welcome to <span class="text-blue-600">Our Shop</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-                Discover a wide variety of products, from the latest trends to timeless classics.
-            </p>
-            <a href="#products" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-500 transition-transform transform hover:scale-105">
-                Explore Products
-            </a>
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach ($sliders as $key => $slider)
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                    <img src="{{ Storage::url($slider->image_path) }}" class="d-block w-100 hero-carousel-image" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>{{ $slider->heading }}</h1>
+                        <p>{{ $slider->sub_heading }}</p>
+                    </div>
+                </div>
+            @endforeach
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
 
-        <div class="flex justify-center items-center mb-16 fade-in-up" style="animation-delay: 200ms;">
-            <form action="/" method="GET" class="flex items-center w-full max-w-xl">
-                <input type="text" name="search" placeholder="Search for products..." class="w-full px-6 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
-                <button type="submit" class="ml-[-45px] bg-blue-600 text-white rounded-full p-2.5 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </button>
-            </form>
-        </div>
+    <div class="container mt-5">
+        <section id="featured-categories" class="text-center py-5">
+            <h2 class="mb-4">Featured Categories</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card category-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Category 1">
+                        <div class="card-body">
+                            <h3 class="card-title">Category 1</h3>
+                            <a href="#" class="btn btn-outline-dark">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card category-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Category 2">
+                        <div class="card-body">
+                            <h3 class="card-title">Category 2</h3>
+                            <a href="#" class="btn btn-outline-dark">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card category-card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Category 3">
+                        <div class="card-body">
+                            <h3 class="card-title">Category 3</h3>
+                            <a href="#" class="btn btn-outline-dark">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <main id="products" class="fade-in-up" style="animation-delay: 400ms;">
-            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <main id="products">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
                 @forelse ($products as $product)
-                    <div class="product-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <a href="{{ route('products.show', $product) }}">
-                            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-full h-56 object-cover">
-                        </a>
-                        <div class="p-5">
-                            <p class="text-sm font-medium text-gray-500">{{ $product->category->name }}</p>
-                            <h3 class="text-lg font-semibold text-gray-900 truncate">{{ $product->name }}</h3>
-                            <p class="text-gray-600 mt-1 h-12 overflow-hidden">{{ $product->description }}</p>
-                            <div class="mt-4 flex justify-between items-center">
-                                <p class="text-xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</p>
-                                <a href="{{ route('products.show', $product) }}" class="action-button bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg text-sm hover:bg-blue-500 transition-colors">
-                                    View Details
+                    <div class="col">
+                        <div class="product-card-new">
+                            <div class="product-image">
+                                <a href="{{ route('products.show', $product) }}">
+                                    <img src="{{ $product->image }}" alt="{{ $product->name }}" class="card-img-top">
                                 </a>
+                                <div class="product-badge">New</div>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="product-title">{{ $product->name }}</h3>
+                                <p class="product-price">${{ number_format($product->price, 2) }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-dark">View</a>
+                                    <button class="btn btn-sm btn-dark add-to-cart-btn">
+                                        <i class="bi bi-cart-plus"></i> Add to Cart
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 @empty
-                    <div class="col-span-full text-center py-12">
-                        <h2 class="text-2xl font-semibold text-gray-700">No Products Available</h2>
-                        <p class="mt-2 text-gray-500">Please check back later or refine your search.</p>
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <h2 class="display-5">No Products Found</h2>
+                            <p class="lead">Please check back later for new products.</p>
+                        </div>
                     </div>
                 @endforelse
             </div>
         </main>
 
-        <section class="text-center py-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Follow Us</h2>
-            <div class="flex justify-center space-x-6">
-                <a href="https://tecmall.pk/facebook" target="_blank" class="text-gray-600 hover:text-blue-600">
-                    <i class="fab fa-facebook-f fa-2x"></i>
-                </a>
-                <a href="https://tecmall.pk/twitter" target="_blank" class="text-gray-600 hover:text-blue-400">
-                    <i class="fab fa-twitter fa-2x"></i>
-                </a>
-                <a href="https://tecmall.pk/instagram" target="_blank" class="text-gray-600 hover:text-pink-600">
-                    <i class="fab fa-instagram fa-2x"></i>
-                </a>
+        <x-brand-list :brands="$brands" />
+
+        <section id="newsletter" class="text-center py-5 mt-5 bg-light">
+            <h2 class="mb-4">Stay in the Know</h2>
+            <p class="lead mb-4">Subscribe to our newsletter for the latest products and offers.</p>
+            <form class="row g-3 justify-content-center">
+                <div class="col-auto">
+                    <label for="newsletter-email" class="visually-hidden">Email</label>
+                    <input type="email" class="form-control" id="newsletter-email" placeholder="Enter your email">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-outline-dark">Subscribe</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="text-center py-5 mt-5">
+            <h2 class="mb-4">Follow Us</h2>
+            <div class="d-flex justify-content-center gap-4">
+                <a href="#" class="text-muted"><i class="bi bi-facebook fs-2"></i></a>
+                <a href="#" class="text-muted"><i class="bi bi-twitter fs-2"></i></a>
+                <a href="#" class="text-muted"><i class="bi bi-instagram fs-2"></i></a>
             </div>
         </section>
     </div>

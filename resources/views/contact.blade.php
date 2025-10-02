@@ -71,32 +71,33 @@
         <div class="contact-us-card">
             <div class="row">
                 <div class="col-lg-6">
-                    <h2 class="contact-us-title">Get in Touch</h2>
+                    <h1 class="contact-us-title">Get in Touch</h1>
                     <p class="contact-us-subtitle">We'd love to hear from you. Here's how you can reach us.</p>
 
                     <div class="contact-info-item">
                         <i class="bi bi-geo-alt-fill contact-info-icon"></i>
                         <div>
-                            <h5 class="mb-0">Address</h5>
+                            <h2 class="h5 mb-0">Address</h2>
                             <p class="mb-0 text-muted">{{ $settings['address']->value ?? '' }}</p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="bi bi-telephone-fill contact-info-icon"></i>
                         <div>
-                            <h5 class="mb-0">Phone</h5>
+                            <h2 class="h5 mb-0">Phone</h2>
                             <p class="mb-0 text-muted">{{ $settings['phone']->value ?? '' }}</p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="bi bi-envelope-fill contact-info-icon"></i>
                         <div>
-                            <h5 class="mb-0">Email</h5>
+                            <h2 class="h5 mb-0">Email</h2>
                             <p class="mb-0 text-muted">{{ $settings['email']->value ?? '' }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
+                    <h2 class="h3 mb-3">Send a Message</h2>
                     @if(session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
@@ -104,15 +105,15 @@
                     @endif
                     <form action="{{ route('contact.send') }}" method="POST" class="contact-form">
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" class="form-control" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" class="form-control" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="message">Message</label>
                             <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
                         </div>

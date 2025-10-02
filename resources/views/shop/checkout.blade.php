@@ -4,40 +4,40 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-12">
-            <h1 class="display-5 fw-bold mb-4">Checkout</h1>
+            <h1 class="display-5 fw-bold mb-4">Secure Checkout</h1>
         </div>
     </div>
     <div class="row g-5">
         <div class="col-md-5 col-lg-4 order-md-last">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-primary">Your cart</span>
                 <span class="badge bg-primary rounded-pill">3</span>
-            </h4>
+            </h2>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
-                        <h6 class="my-0">Product name</h6>
+                        <h3 class="my-0">Product name</h3>
                         <small class="text-muted">Brief description</small>
                     </div>
                     <span class="text-muted">Rs.9999</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
-                        <h6 class="my-0">Second product</h6>
+                        <h3 class="my-0">Second product</h3>
                         <small class="text-muted">Brief description</small>
                     </div>
                     <span class="text-muted">Rs.4999</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-sm">
                     <div>
-                        <h6 class="my-0">Third item</h6>
+                        <h3 class="my-0">Third item</h3>
                         <small class="text-muted">Brief description</small>
                     </div>
                     <span class="text-muted">Rs.2000</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
-                        <h6 class="my-0">Promo code</h6>
+                        <h3 class="my-0">Promo code</h3>
                         <small>EXAMPLECODE</small>
                     </div>
                     <span class="text-success">−Rs.1000</span>
@@ -56,7 +56,7 @@
             </form>
         </div>
         <div class="col-md-7 col-lg-8">
-            <h4 class="mb-3">Billing address</h4>
+            <h2 class="mb-3">Billing address</h2>
             <form class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-sm-6">
@@ -152,7 +152,7 @@
 
                 <hr class="my-4">
 
-                <h4 class="mb-3">Payment</h4>
+                <h2 class="mb-3">Payment</h2>
 
                 <div class="my-3">
                     <div class="form-check">
