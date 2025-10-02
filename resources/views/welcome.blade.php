@@ -52,5 +52,20 @@
                 @endforelse
             </div>
         </main>
+
+        <section class="text-center py-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Follow Us</h2>
+            <div class="flex justify-center space-x-6">
+                <a href="https://tecmall.pk/facebook" target="_blank" class="text-gray-600 hover:text-blue-600">
+                    <i class="fab fa-facebook-f fa-2x"></i>
+                </a>
+                <a href="https://tecmall.pk/twitter" target="_blank" class="text-gray-600 hover:text-blue-400">
+                    <i class="fab fa-twitter fa-2x"></i>
+                </a>
+                <a href="https://tecmall.pk/instagram" target="_blank" class="text-gray-600 hover:text-pink-600">
+                    <i class="fab fa-instagram fa-2x"></i>
+                </a>
+            </div>
+        </section>
     </div>
 @endsection
