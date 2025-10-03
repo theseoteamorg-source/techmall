@@ -39,16 +39,26 @@ This project is a full-stack Laravel e-commerce application. The goal is to crea
 *   **Categories Dropdown:** Added a "Categories" dropdown menu to the main navigation, ahead of the "Shop" link.
 *   **Dynamic Category Links:** The dropdown is populated with all available categories, and each category links to its own dedicated page.
 
-## 7. Current Plan: Light Theme Conversion and Product Page
+## 7. Admin Panel
+*   **Admin Dashboard:** Created a new admin dashboard accessible at `/admin/dashboard`.
+*   **Admin Middleware:** Implemented an `AdminMiddleware` to ensure that only authenticated admin users can access the admin panel.
+*   **User Model:** The `User` model now includes an `is_admin` boolean attribute to distinguish admin users.
+*   **Admin Layout:** A dedicated layout has been created for the admin panel, including a header, footer, and sidebar for navigation.
 
-*   **Step 1: Theme Conversion to Light Mode**
-    *   Update the color scheme of the entire website to a light and clean aesthetic.
-    *   Adjust primary and accent colors to complement the new light theme.
+## 8. Admin Routes
+*   **Comprehensive Routes:** The `routes/admin.php` file has been updated to include routes for all existing admin controllers:
+    *   `BrandController`
+    *   `CategoryController`
+    *   `DashboardController`
+    *   `ProductController`
+    *   `SettingController`
+    *   `UserController`
+    *   `OrderController`
+    *   `CustomerController`
+    *   `RedirectController`
 
-*   **Step 2: Product Seeding**
-    *   Add new products to the store, including Apple and Samsung chargers, and wireless earbuds.
+## 9. Controller Consolidation
+*   **Settings Controller:** Merged the functionality of `SettingsController` into `SettingController` and deleted the redundant `SettingsController.php` file. All settings-related logic is now handled by `SettingController`.
 
-*   **Step 3: Product Detail Page**
-    *   Create a new view for the product detail page.
-    *   Include a product image gallery, product name, description, price, and quantity selector.
-    *   Add "Add to Cart," "Buy Now," and "Checkout" buttons.
+## 10. Current Plan: Admin Panel Development
+*   With the admin panel foundation in place, the next steps will involve building out the functionality for each of the admin sections.

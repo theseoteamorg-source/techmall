@@ -1,53 +1,59 @@
 @extends('layouts.admin')
 
+@section('title', 'Settings')
+@section('content-header', 'Settings')
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Settings</li>
+@endsection
+
 @section('content')
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-8">Settings</h1>
-
-        @if (session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6" role="alert">
-                <span class="block sm:inline">{{ session('success') }}</span>
-            </div>
-        @endif
-
-        <form action="{{ route('admin.settings.update') }}" method="POST">
-            @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-6">General Settings</h2>
-                    <div class="mb-6">
-                        <label for="store_name" class="block text-gray-700 font-bold mb-2">Store Name</label>
-                        <input type="text" name="store_name" id="store_name" value="{{ old('store_name', $settings['store_name']->value ?? '') }}" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="mb-6">
-                        <label for="address" class="block text-gray-700 font-bold mb-2">Address</label>
-                        <input type="text" name="address" id="address" value="{{ old('address', $settings['address']->value ?? '') }}" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="mb-6">
-                        <label for="phone" class="block text-gray-700 font-bold mb-2">Phone</label>
-                        <input type="text" name="phone" id="phone" value="{{ old('phone', $settings['phone']->value ?? '') }}" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div class="mb-6">
-                        <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-                        <input type="email" name="email" id="email" value="{{ old('email', $settings['email']->value ?? '') }}" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Update Settings</h3>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-6">SEO Settings</h2>
-                    <div class="mb-6">
-                        <label for="sitemap" class="block text-gray-700 font-bold mb-2">Sitemap URL</label>
-                        <input type="text" name="sitemap" id="sitemap" value="{{ old('sitemap', $settings['sitemap']->value ?? '') }}" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <!-- /.card-header -->
+                <form action="{{ route('admin.settings.update') }}" method="POST">
+                    @csrf
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="site_name">Site Name</label>
+                            <input type="text" name="site_name" id="site_name" class="form-control" value="{{ $settings['site_name']->value ?? '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="site_email">Site Email</label>
+                            <input type="email" name="site_email" id="site_email" class="form-control" value="{{ $settings['site_email']->value ?? '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="site_phone">Site Phone</label>
+                            <input type="text" name="site_phone" id="site_phone" class="form-control" value="{{ $settings['site_phone']->value ?? '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="site_address">Site Address</label>
+                            <textarea name="site_address" id="site_address" class="form-control">{{ $settings['site_address']->value ?? '' }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="social_facebook">Facebook</label>
+                            <input type="text" name="social_facebook" id="social_facebook" class="form-control" value="{{ $settings['social_facebook']->value ?? '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="social_twitter">Twitter</label>
+                            <input type="text" name="social_twitter" id="social_twitter" class="form-control" value="{{ $settings['social_twitter']->value ?? '' }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="social_instagram">Instagram</label>
+                            <input type="text" name="social_instagram" id="social_instagram" class="form-control" value="{{ $settings['social_instagram']->value ?? '' }}">
+                        </div>
                     </div>
-                    <div class="mb-6">
-                        <label for="robots" class="block text-gray-700 font-bold mb-2">Robots.txt</label>
-                        <textarea name="robots" id="robots" rows="10" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('robots', $settings['robots']->value ?? '') }}</textarea>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
-                </div>
+                </form>
             </div>
-
-            <div class="mt-8">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save Settings</button>
-            </div>
-        </form>
+            <!-- /.card -->
+        </div>
     </div>
 @endsection

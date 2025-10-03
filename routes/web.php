@@ -1,1 +1,42 @@
-<?php\n\nuse Illuminate\\Support\\Facades\\Route;\nuse App\\Http\Controllers\\ShopController;\nuse App\\Http\\Controllers\\SliderController;\nuse App\\Http\\Controllers\\Auth\\LoginController;\n\nRoute::get(\'/\', [ShopController::class, \'home\'])->name(\'shop.home\');\nRoute::get(\'/products\', [ShopController::class, \'products\'])->name(\'shop.products\');\nRoute::get(\'/products/{product}\', [ShopController::class, \'productDetail\'])->name(\'products.show\');\nRoute::get(\'/cart\', [ShopController::class, \'cart\'])->name(\'shop.cart\');\nRoute::get(\'/category/{category}\', [ShopController::class, \'category\'])->name(\'shop.category\');\nRoute::get(\'contact\', function(){\n    return view(\'contact\');\n})->name(\'contact\');\n\nRoute::post(\'/cart/add\', [ShopController::class, \'addToCart\'])->name(\'cart.add\');\n\nRoute::middleware([\n    \'auth:sanctum\',\n    config(\'jetstream.auth_session\'),\n    \'verified\',\n])->group(function () {\n    Route::get(\'/dashboard\', function () {\n        return view(\'dashboard\');\n    })->name(\'dashboard\');\n\n    Route::resource(\'sliders\', SliderController::class);\n});\n\nRoute::get(\'login\', [LoginController::class, \'showLoginForm\'])->name(\'login\');\nRoute::post(\'login\', [LoginController::class, \'login\']);\n
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\SliderController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\OrderController;
+
+Route::get('/', [ShopController::class, 'home'])->name('shop.home');
+Route::get('/products', [ShopController::class, 'products'])->name('shop.products');
+Route::get('/products/{product}', [ShopController::class, 'productDetail'])->name('products.show');
+Route::get('/cart', [ShopController::class, 'cart'])->name('shop.cart');
+Route::get('/category/{category}', [ShopController::class, 'category'])->name('shop.category');
+Route::get('contact', function(){
+    return view('contact');
+})->name('contact');
+
+Route::post('/cart/add', [ShopController::class, 'addToCart'])->name('cart.add');
+
+Auth::routes();
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::resource('sliders', SliderController::class);
+});
+
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+
+    Route::resource('users', UserController::class);
+    Route::resource('orders', OrderController::class);
+});

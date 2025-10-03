@@ -1,30 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.settings.index') }}">
-                                Settings
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                @yield('content')
-            </main>
-        </div>
+    <title>@yield('title', 'Admin Panel')</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+
+    <!-- Styles -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="antialiased">
+    @include('layouts.admin-header')
+
+    <div class="d-flex">
+        @include('layouts.sidebar')
+
+        <main class="w-100">
+            @yield('content')
+        </main>
     </div>
+
+    @include('layouts.admin-footer')
 </body>
 </html>
