@@ -17,7 +17,8 @@ class BrandSeeder extends Seeder
 
         Brand::create(['name' => 'Apple', 'slug' => 'apple', 'logo' => 'https://via.placeholder.com/150x50']);
         Brand::create(['name' => 'Samsung', 'slug' => 'samsung', 'logo' => 'https://via.placeholder.com/150x50']);
-        Brand::create(['name' => 'Nike', 'slug' => 'nike', 'logo' => 'https://via.placeholder.com/150x50']);
-        Brand::create(['name' => 'Penguin Books', 'slug' => 'penguin-books', 'logo' => 'https://via.placeholder.com/150x50']);
+        Brand::create(['name' => 'Google', 'slug' => 'google', 'logo' => 'https://via.placeholder.com/150x50']);
+        Brand::create(['name' => 'Razer', 'slug' => 'razer', 'logo' => 'https://via.placeholder.com/150x50']);
+        Brand::create(['name' => 'Logitech', 'slug' => 'logitech', 'logo' => 'https://via.placeholder.com/150x50']);
     }
 }

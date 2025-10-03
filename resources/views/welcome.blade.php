@@ -1,4 +1,4 @@
-@extends('layouts.shop')
+@extends('layouts.app')
 
 @section('content')
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">

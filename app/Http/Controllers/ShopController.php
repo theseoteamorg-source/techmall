@@ -18,26 +18,41 @@ class ShopController extends Controller
         return view('welcome', compact('sliders', 'products', 'brands'));
     }
 
-    public function products()
+    public function products(Request $request)
     {
-        $products = Product::all();
-        return view('shop.products', compact('products'));
+        $categories = Category::all();
+        $brands = Brand::all();
+        $products = Product::query();
+
+        if ($request->has('search')) {
+            $products->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->has('category')) {
+            $products->whereHas('category', function ($query) use ($request) {
+                $query->where('slug', $request->category);
+            });
+        }
+
+        if ($request->has('brand')) {
+            $products->whereHas('brand', function ($query) use ($request) {
+                $query->where('slug', $request->brand);
+            });
+        }
+
+        $products = $products->get();
+
+        return view('products.index', compact('products', 'categories', 'brands'));
     }
 
     public function productDetail(Product $product)
     {
-        return view('shop.product-detail', compact('product'));
+        return view('product.show', compact('product'));
     }
 
     public function cart()
     {
         return view('shop.cart');
-    }
-
-    public function category(Category $category)
-    {
-        $products = $category->products;
-        return view('shop.category', compact('category', 'products'));
     }
 
     public function addToCart(Request $request)
