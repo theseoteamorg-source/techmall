@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -12,22 +13,42 @@ class CartController extends Controller
         return view('cart.index');
     }
 
-    public function add(Product $product)
+    public function add(Request $request, Product $product)
     {
+        $variantId = $request->input('variant_id');
+        $quantity = $request->input('quantity', 1);
+
         $cart = session()->get('cart', []);
 
-        if(isset($cart[$product->id])) {
-            $cart[$product->id]['quantity']++;
+        $cartKey = $variantId ? $product->id . '-' . $variantId : $product->id;
+
+        if(isset($cart[$cartKey])) {
+            $cart[$cartKey]['quantity'] += $quantity;
         } else {
-            $cart[$product->id] = [
-                "name" => $product->name,
-                "quantity" => 1,
-                "price" => $product->price,
-                "image" => $product->image
-            ];
+            if($variantId) {
+                $variant = ProductVariant::find($variantId);
+                $cart[$cartKey] = [
+                    "name" => $product->name . ' (' . $variant->name . ')',
+                    "quantity" => $quantity,
+                    "price" => $variant->price,
+                    "image" => $product->image
+                ];
+            } else {
+                $cart[$cartKey] = [
+                    "name" => $product->name,
+                    "quantity" => $quantity,
+                    "price" => $product->price,
+                    "image" => $product->image
+                ];
+            }
         }
 
         session()->put('cart', $cart);
+
+        if ($request->input('action') == 'buy_now') {
+            return redirect()->route('cart.index')->with('success', 'Product added to cart!');
+        }
+
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
 

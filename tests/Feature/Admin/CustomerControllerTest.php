@@ -12,7 +12,7 @@ class CustomerControllerTest extends TestCase
 
     public function test_admin_can_see_customer_index_page()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(['is_admin' => true]);
         $this->actingAs($user);
 
         $response = $this->get(route('admin.customers.index'));

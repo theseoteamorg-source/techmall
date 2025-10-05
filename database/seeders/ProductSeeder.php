@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Product;
+use App\Models\ProductVariant;
+use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
 {
@@ -14,65 +14,169 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::truncate();
+        ProductVariant::truncate();
 
-        Product::create([
-            'name' => 'Apple 20W USB-C Power Adapter',
-            'slug' => 'apple-20w-usb-c-power-adapter',
-            'description' => 'The Apple 20W USB-C Power Adapter offers fast, efficient charging at home, in the office, or on the go.',
-            'price' => 19.00,
+        // Spigen Cases
+        $spigenCase = Product::create([
+            'name' => 'Spigen Thin Fit Case for iPhone 14',
+            'slug' => 'spigen-thin-fit-case-for-iphone-14',
+            'description' => 'The Thin Fit case for the iPhone 14 is a slim and lightweight case that provides everyday protection against scratches and drops.',
+            'price' => 19.99,
             'category_id' => 1,
             'brand_id' => 1,
-            'image' => 'https://images.unsplash.com/photo-1588665564283-16086e64177c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'image' => 'https://via.placeholder.com/640x480.png/000000?text=Spigen+Case',
         ]);
 
-        Product::create([
+        ProductVariant::create([
+            'product_id' => $spigenCase->id,
+            'name' => 'Black',
+            'price' => 19.99,
+            'sku' => 'SPG-TF-IP14-BLK',
+            'stock' => 100,
+            'status' => true,
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $spigenCase->id,
+            'name' => 'Gunmetal',
+            'price' => 21.99,
+            'sku' => 'SPG-TF-IP14-GUN',
+            'stock' => 75,
+            'status' => true,
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $spigenCase->id,
+            'name' => 'Rose Gold',
+            'price' => 22.99,
+            'sku' => 'SPG-TF-IP14-ROS',
+            'stock' => 50,
+            'status' => true,
+        ]);
+
+        // Anker Power Bank
+        $ankerPowerBank = Product::create([
+            'name' => 'Anker PowerCore 10000',
+            'slug' => 'anker-powercore-10000',
+            'description' => 'One of the smallest and lightest 10000mAh portable chargers. Provides almost three-and-a-half iPhone 8 charges or two-and-a-half Galaxy S8 charges.',
+            'price' => 25.99,
+            'category_id' => 4,
+            'brand_id' => 2,
+            'image' => 'https://via.placeholder.com/640x480.png/0000FF?text=Anker+Power+Bank',
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $ankerPowerBank->id,
+            'name' => 'Black',
+            'price' => 25.99,
+            'sku' => 'ANK-PC-10K-BLK',
+            'stock' => 200,
+            'status' => true,
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $ankerPowerBank->id,
+            'name' => 'White',
+            'price' => 26.99,
+            'sku' => 'ANK-PC-10K-WHT',
+            'stock' => 150,
+            'status' => true,
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $ankerPowerBank->id,
+            'name' => 'Blue',
+            'price' => 27.99,
+            'sku' => 'ANK-PC-10K-BLU',
+            'stock' => 100,
+            'status' => true,
+        ]);
+
+        // Belkin Screen Protector
+        $belkinScreenProtector = Product::create([
+            'name' => 'Belkin UltraGlass Screen Protector for iPhone 14',
+            'slug' => 'belkin-ultraglass-screen-protector-for-iphone-14',
+            'description' => 'An ultra-impact-proof screen protector that provides twice the strength of tempered glass.',
+            'price' => 39.99,
+            'category_id' => 2,
+            'brand_id' => 3,
+            'image' => 'https://via.placeholder.com/640x480.png/FFFFFF?text=Belkin+Protector',
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $belkinScreenProtector->id,
+            'name' => 'Clear',
+            'price' => 39.99,
+            'sku' => 'BLK-UG-IP14-CLR',
+            'stock' => 300,
+            'status' => true,
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $belkinScreenProtector->id,
+            'name' => 'Anti-Glare',
+            'price' => 44.99,
+            'sku' => 'BLK-UG-IP14-AG',
+            'stock' => 150,
+            'status' => true,
+        ]);
+
+        // Samsung Charger
+        $samsungCharger = Product::create([
             'name' => 'Samsung 45W USB-C Wall Charger',
             'slug' => 'samsung-45w-usb-c-wall-charger',
             'description' => 'Give your devices the powerful charging support they deserve. The Wall Charger for Super Fast Charging (45W) provides Super Fast Charging at up to 45W for capable devices.',
             'price' => 49.99,
-            'category_id' => 1,
-            'brand_id' => 2,
-            'image' => 'https://images.unsplash.com/photo-1618384887928-16ec33434542?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        ]);
-
-        Product::create([
-            'name' => 'Apple AirPods Pro (2nd Generation)',
-            'slug' => 'apple-airpods-pro-2nd-generation',
-            'description' => 'The Apple AirPods Pro (2nd Generation) have been re-engineered for even richer audio experiences. Next-level Active Noise Cancellation and Adaptive Transparency reduce more external noise.',
-            'price' => 249.00,
-            'category_id' => 2,
-            'brand_id' => 1,
-            'image' => 'https://images.unsplash.com/photo-1609249789396-d1fda59a4431?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        ]);
-
-        Product::create([
-            'name' => 'Razer Blade 15 Gaming Laptop',
-            'slug' => 'razer-blade-15-gaming-laptop',
-            'description' => 'The Razer Blade 15 is a compact gaming laptop with a powerful NVIDIA GeForce RTX 30-series GPU, 12th Gen Intel Core i9 processor, and a QHD 240Hz display.',
-            'price' => 2999.99,
-            'category_id' => 4,
-            'brand_id' => 4,
-            'image' => 'https://images.unsplash.com/photo-1593642702821-c8da67585048?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        ]);
-
-        Product::create([
-            'name' => 'Google Pixel 7 Pro',
-            'slug' => 'google-pixel-7-pro',
-            'description' => 'The Google Pixel 7 Pro is the most powerful Pixel phone yet, with a Google Tensor G2 processor, a pro-level camera system, and a beautiful 6.7-inch QHD+ 120Hz display.',
-            'price' => 899.00,
             'category_id' => 3,
-            'brand_id' => 3,
-            'image' => 'https://images.unsplash.com/photo-1667148174787-0b7c46f6b7c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'brand_id' => 4,
+            'image' => 'https://via.placeholder.com/640x480.png/000000?text=Samsung+Charger',
         ]);
 
-        Product::create([
-            'name' => 'Logitech G Pro X Superlight',
-            'slug' => 'logitech-g-pro-x-superlight',
-            'description' => 'The Logitech G Pro X Superlight is a lightweight wireless gaming mouse with a HERO 25K sensor and a long-lasting battery.',
-            'price' => 159.99,
+        ProductVariant::create([
+            'product_id' => $samsungCharger->id,
+            'name' => 'Charger Only',
+            'price' => 49.99,
+            'sku' => 'SAM-WC-45W-BLK-ONLY',
+            'stock' => 120,
+            'status' => true,
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $samsungCharger->id,
+            'name' => 'Charger + Cable',
+            'price' => 59.99,
+            'sku' => 'SAM-WC-45W-BLK-CBL',
+            'stock' => 80,
+            'status' => true,
+        ]);
+
+        // Apple EarPods
+        $appleEarPods = Product::create([
+            'name' => 'Apple EarPods with Lightning Connector',
+            'slug' => 'apple-earpods-with-lightning-connector',
+            'description' => 'Unlike traditional, circular earbuds, the design of the EarPods is defined by the geometry of the ear. Which makes them more comfortable for more people than any other earbud-style headphones.',
+            'price' => 19.00,
             'category_id' => 5,
             'brand_id' => 5,
-            'image' => 'https://images.unsplash.com/photo-1615664119641-3b6313175865?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            'image' => 'https://via.placeholder.com/640x480.png/FFFFFF?text=Apple+EarPods',
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $appleEarPods->id,
+            'name' => 'White',
+            'price' => 19.00,
+            'sku' => 'APL-EP-LTN-WHT',
+            'stock' => 500,
+            'status' => true,
+        ]);
+
+         ProductVariant::create([
+            'product_id' => $appleEarPods->id,
+            'name' => 'Black',
+            'price' => 22.50,
+            'sku' => 'APL-EP-LTN-BLK',
+            'stock' => 300,
+            'status' => true,
         ]);
     }
 }

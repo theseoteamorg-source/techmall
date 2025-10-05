@@ -339,7 +339,7 @@
                         </form>
                         <div class="header-icons d-flex align-items-center">
                             <a href="{{ route('login') }}" class="nav-link"><i class="bi bi-person-circle"></i></a>
-                            <a href="{{ route('shop.cart') }}" class="nav-link position-relative">
+                            <a href="{{ route('cart.index') }}" class="nav-link position-relative">
                                 <i class="bi bi-cart-fill"></i>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
                             </a>
@@ -377,7 +377,7 @@
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Useful Links</h6>
                     <p><a href="{{ route('login') }}" class="text-reset">Your Account</a></p>
-                    <p><a href="{{ route('shop.cart') }}" class="text-reset">Track Order</a></p>
+                    <p><a href="{{ route('cart.index') }}" class="text-reset">Track Order</a></p>
                     <p><a href="{{ route('contact') }}" class="text-reset">Support</a></p>
                     <p><a href="{{ route('contact') }}" class="text-reset">About Us</a></p>
                 </div>

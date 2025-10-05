@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Slider;
 use App\Models\Brand;
 use App\Models\Category;
+use Spatie\SchemaOrg\Schema;
 
 class ShopController extends Controller
 {
@@ -15,7 +16,15 @@ class ShopController extends Controller
         $sliders = Slider::all();
         $products = Product::all();
         $brands = Brand::all();
-        return view('welcome', compact('sliders', 'products', 'brands'));
+
+        $siteSchema = Schema::webSite()
+            ->url(url('/'))
+            ->name(config('app.name'))
+            ->description('E-commerce website')
+            ->inLanguage('en-US')
+            ->publisher(Schema::organization()->name(config('app.name')));
+
+        return view('welcome', compact('sliders', 'products', 'brands', 'siteSchema'));
     }
 
     public function products(Request $request)
@@ -47,7 +56,27 @@ class ShopController extends Controller
 
     public function productDetail(Product $product)
     {
-        return view('product.show', compact('product'));
+        $productSchema = Schema::product()
+            ->name($product->name)
+            ->description($product->description)
+            ->image($product->image_url)
+            ->sku($product->sku)
+            ->offers(
+                Schema::offer()
+                    ->price($product->price)
+                    ->priceCurrency('USD')
+                    ->availability('https://schema.org/InStock')
+                    ->url(route('products.show', $product))
+            );
+
+        $breadcrumbsSchema = Schema::breadcrumbList()
+            ->itemListElement([
+                Schema::listItem()->position(1)->item(Schema::thing()->name('Home')->url(url('/'))),
+                Schema::listItem()->position(2)->item(Schema::thing()->name('Products')->url(route('products.index'))),
+                Schema::listItem()->position(3)->item(Schema::thing()->name($product->name)->url(route('products.show', $product))),
+            ]);
+
+        return view('products.show', compact('product', 'productSchema', 'breadcrumbsSchema'));
     }
 
     public function cart()

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('schema')
+    {{ $siteSchema->toScript() }}
+@endsection
+
 @section('content')
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -69,10 +73,9 @@
                                 <div class="product-badge">New</div>
                             </div>
                             <div class="product-content">
-                                <h3 class="product-title">{{ $product->name }}</h3>
+                                <h3 class="product-title"><a href="{{ route('products.show', $product) }}">{{ $product->name }}</a></h3>
                                 <p class="product-price">${{ number_format($product->price, 2) }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-dark">View</a>
                                     <button class="btn btn-sm btn-dark add-to-cart-btn">
                                         <i class="bi bi-cart-plus"></i> Add to Cart
                                     </button>

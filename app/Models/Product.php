@@ -68,9 +68,19 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public function activeVariants()
+    {
+        return $this->hasMany(ProductVariant::class)->where('status', true);
+    }
+
     public function images()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 
     protected function imageUrl(): Attribute
