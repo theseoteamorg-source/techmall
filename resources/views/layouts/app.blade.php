@@ -320,6 +320,9 @@
                                 Categories
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @php
+                                    $categories = App\Models\Category::all();
+                                @endphp
                                 @foreach($categories as $category)
                                     <li><a class="dropdown-item" href="{{ route('products.index', ['category' => $category->slug]) }}">{{ $category->name }}</a></li>
                                 @endforeach
@@ -330,10 +333,10 @@
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
-                        <div class="search-bar me-3">
-                            <input type="text" class="form-control search-input" placeholder="Search...">
-                            <button class="search-btn"><i class="bi bi-search"></i></button>
-                        </div>
+                        <form action="{{ route('products.index') }}" method="GET" class="search-bar me-3">
+                            <input type="text" name="search" class="form-control search-input" placeholder="Search..." value="{{ request('search') }}">
+                            <button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
+                        </form>
                         <div class="header-icons d-flex align-items-center">
                             <a href="{{ route('login') }}" class="nav-link"><i class="bi bi-person-circle"></i></a>
                             <a href="{{ route('shop.cart') }}" class="nav-link position-relative">
