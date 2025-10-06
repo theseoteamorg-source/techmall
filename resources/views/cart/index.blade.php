@@ -1,124 +1,117 @@
-@extends('layouts.app')
+@extends('layouts.shop')
 
 @section('content')
-    <div class="container mx-auto px-6 py-16">
-        <h1 class="text-4xl font-bold text-gray-900 mb-12">Your Shopping Cart</h1>
+    <div class="container my-5">
+        <h1 class="mb-4">Your Shopping Cart</h1>
 
         @if(session('cart'))
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                <table class="min-w-full leading-normal">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Product</th>
-                            <th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Price</th>
-                            <th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Quantity</th>
-                            <th class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Total</th>
-                            <th class="px-5 py-3 border-b-2 border-gray-200"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php 
-                            $total = 0;
-                        @endphp
-                        @foreach(session('cart') as $id => $details)
-                            @php $total += $details['price'] * $details['quantity'] @endphp
-                            <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-20 h-20">
-                                            <img class="w-full h-full rounded-full" src="{{ $details['image'] }}" alt="{{ $details['name'] }}" />
-                                        </div>
-                                        <div class="ml-4">
-                                            <p class="text-gray-900 whitespace-no-wrap font-semibold">{{ $details['name'] }}</p>
-                                        </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Subtotal</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $total = 0 @endphp
+                                @foreach(session('cart') as $id => $details)
+                                    @php $total += $details['price'] * $details['quantity'] @endphp
+                                    <tr data-id="{{ $id }}">
+                                        <td data-th="Product">
+                                            <div class="row">
+                                                <div class="col-sm-3 hidden-xs"><img src="{{ $details['image'] }}" width="100" height="100" class="img-responsive"/></div>
+                                                <div class="col-sm-9">
+                                                    <h4 class="nomargin">{{ $details['name'] }}</h4>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td data-th="Price">${{ $details['price'] }}</td>
+                                        <td data-th="Quantity">
+                                            <form action="{{ route('cart.update') }}" method="PATCH" class="d-flex">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $id }}">
+                                                <input type="number" name="quantity" value="{{ $details['quantity'] }}" class="form-control form-control-sm quantity update-cart" style="width: 70px;"/>
+                                                <button type="submit" class="btn btn-sm btn-primary ms-2">Update</button>
+                                            </form>
+                                        </td>
+                                        <td data-th="Subtotal" class="text-center">${{ $details['price'] * $details['quantity'] }}</td>
+                                        <td class="actions" data-th="">
+                                            <form action="{{ route('cart.remove') }}" method="DELETE">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $id }}">
+                                                <button class="btn btn-danger btn-sm remove-from-cart"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Cart Summary</h5>
+                            <div class="d-flex justify-content-between">
+                                <span>Subtotal</span>
+                                <span>${{ $total }}</span>
+                            </div>
+
+                            @if(session('coupon'))
+                                @php
+                                    $discount = 0;
+                                    if (session('coupon')['type'] == 'fixed') {
+                                        $discount = session('coupon')['value'];
+                                    } else {
+                                        $discount = ($total * session('coupon')['value']) / 100;
+                                    }
+                                    $total -= $discount;
+                                @endphp
+                                <div class="d-flex justify-content-between">
+                                    <span>Coupon ({{ session('coupon')['code'] }}) <a href="{{ route('cart.removeCoupon') }}" class="text-danger">[Remove]</a></span>
+                                    <span class="text-success">-${{ number_format($discount, 2) }}</span>
+                                </div>
+                            @endif
+
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Total</span>
+                                <span>${{ number_format($total, 2) }}</span>
+                            </div>
+                            <hr>
+
+                            @if(!session('coupon'))
+                                <form action="{{ route('cart.applyCoupon') }}" method="POST">
+                                    @csrf
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="coupon_code" placeholder="Coupon code">
+                                        <button class="btn btn-secondary" type="submit">Apply</button>
                                     </div>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap">{{ format_price($details['price']) }}</p>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <form action="{{ route('cart.update') }}" method="POST" class="flex items-center">
-                                        @csrf
-                                        <input type="number" name="quantity" value="{{ $details['quantity'] }}" class="w-16 text-center bg-gray-100 border border-gray-300 rounded-md py-1"/>
-                                        <button type="submit" class="ml-2 text-blue-500 hover:text-blue-700 font-semibold">Update</button>
-                                    </form>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap">{{ format_price($details['price'] * $details['quantity']) }}</p>
-                                </td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
-                                    <form action="{{ route('cart.remove', $id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="text-red-500 hover:text-red-700 font-semibold">Remove</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                    @if($errors->has('coupon_code'))
+                                        <div class="text-danger">{{ $errors->first('coupon_code') }}</div>
+                                    @endif
+                                </form>
+                            @endif
 
-                <div class="px-5 py-5 bg-gray-50 border-t justify-end items-center">
-                    <div class="flex justify-end">
-                         <h3 class="text-2xl font-semibold text-gray-700">Subtotal:</h3>
-                         <h3 class="text-2xl font-bold text-gray-900 ml-4">{{ format_price($total) }}</h3>
+                            <div class="d-grid gap-2">
+                                <a href="{{ route('shop.checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
+                                <a href="{{ route('shop.index') }}" class="btn btn-light">Continue Shopping</a>
+                            </div>
+                        </div>
                     </div>
-                   
-
-                    @if(session('coupon'))
-                        @php
-                            $coupon = session('coupon');
-                            $discount = 0;
-                            if ($coupon['type'] == 'fixed') {
-                                $discount = $coupon['value'];
-                            } else {
-                                $discount = ($total * $coupon['value']) / 100;
-                            }
-                        @endphp
-                        <div class="flex justify-end mt-4">
-                            <h3 class="text-xl font-semibold text-gray-700">Discount ({{ $coupon['code'] }}):</h3>
-                            <h3 class="text-xl font-bold text-gray-900 ml-4">-{{ format_price($discount) }}</h3>
-                        </div>
-                         <div class="flex justify-end mt-4">
-                            <h3 class="text-2xl font-semibold text-gray-700">Total:</h3>
-                            <h3 class="text-2xl font-bold text-gray-900 ml-4">{{ format_price($total - $discount) }}</h3>
-                        </div>
-                       
-                        <div class="flex justify-end mt-4">
-                            <form action="{{ route('cart.removeCoupon') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="text-red-500 hover:text-red-700 font-semibold">Remove Coupon</button>
-                            </form>
-                        </div>
-                    @else
-                    <div class="flex justify-end mt-4">
-                         <h3 class="text-2xl font-semibold text-gray-700">Total:</h3>
-                         <h3 class="text-2xl font-bold text-gray-900 ml-4">{{ format_price($total) }}</h3>
-                    </div>
-                    @endif
                 </div>
             </div>
-
-            <div class="mt-8 ">
-                <form action="{{ route('cart.applyCoupon') }}" method="POST" class="w-full max-w-sm">
-                    @csrf
-                    <div class="flex items-center border-b-2 border-blue-500 py-2">
-                        <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" name="coupon_code" placeholder="Enter coupon code">
-                        <button class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded" type="submit">
-                            Apply Coupon
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="mt-8 flex justify-end">
-                <a href="{{ route('checkout.index') }}" class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-500 transition-colors">Checkout</a>
-            </div>
         @else
-            <div class="text-center py-20">
-                <h2 class="text-2xl font-semibold text-gray-700">Your cart is empty.</h2>
-                <p class="mt-4 text-gray-500">Browse our products and start shopping!</p>
-                <a href="{{ url('/') }}" class="mt-8 inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-500 transition-colors">Continue Shopping</a>
+            <div class="alert alert-info" role="alert">
+                Your cart is currently empty.
             </div>
+            <a href="{{ route('shop.index') }}" class="btn btn-primary">Return to Shop</a>
         @endif
     </div>
 @endsection

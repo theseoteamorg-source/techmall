@@ -17,12 +17,16 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\PaymentMethodController;
-use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostTagController;
-use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PageController as AdminPageController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\Admin\MediaController;
 
 // The root route was incorrectly defined as '\'
 Route::get('/', [ShopController::class, 'home'])->name('shop.home');
@@ -32,6 +36,10 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/category/{category:slug}', [ShopController::class, 'category'])->name('shop.category');
 Route::get('/brand/{brand:slug}', [ShopController::class, 'brand'])->name('shop.brand');
 Route::get('/product/{product:slug}', [ShopController::class, 'product'])->name('shop.product');
+
+// Blog Routes
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{post}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('contact', function(){
@@ -65,15 +73,13 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard/orders', [DashboardController::class, 'orders'])->name('dashboard.orders');
+    Route::get('/dashboard/profile', [DashboardController::class, 'profile'])->name('dashboard.profile');
 
-    Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
-    Route::get('/user/orders', [DashboardController::class, 'orders'])->name('user.orders');
-    Route::get('/user/orders/{order}', [DashboardController::class, 'showOrder'])->name('user.orders.show');
-    Route::get('/user/profile', [DashboardController::class, 'profile'])->name('user.profile');
-    Route::put('/user/profile', [DashboardController::class, 'updateProfile'])->name('user.profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 });
 
 Route::middleware([
@@ -95,6 +101,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     Route::resource('users', UserController::class);
     Route::resource('orders', OrderController::class);
+    Route::resource('customers', CustomerController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('brands', BrandController::class);
@@ -103,11 +110,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('posts', PostController::class);
     Route::resource('post-categories', PostCategoryController::class);
     Route::resource('post-tags', PostTagController::class);
-    Route::resource('pages', PageController::class);
+    Route::resource('pages', AdminPageController::class);
+    Route::resource('media', MediaController::class);
     Route::get('products/images/{id}', [ProductController::class, 'destroyImage'])->name('products.images.destroy');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
 });
 
-// The final require statement was incorrectly defined as '__DIR__.\'/auth.php\''
+// The final require statement was incorrectly defined as '__DIR__.\'/auth.php\'
 require __DIR__.'/auth.php';
+
+Route::get('/{page:slug}', [PageController::class, 'show'])->name('page.show');

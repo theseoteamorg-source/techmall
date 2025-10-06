@@ -27,7 +27,7 @@ class PostSeeder extends Seeder
                 'post_category_id' => $category->id,
                 'title' => $title,
                 'slug' => Str::slug($title),
-                'content' => '<p>This is some dummy content for post ' . ($i + 1) . '.</p>',
+                'body' => '<p>This is some dummy content for post ' . ($i + 1) . '.</p>',
                 'is_published' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),

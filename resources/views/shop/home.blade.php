@@ -26,7 +26,7 @@
         <div class="category-products-slider my-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="mb-0">{{ $category->name }}</h2>
-                <a href="{{ route('products.index', ['category' => $category->slug]) }}" class="btn btn-outline-primary">View All</a>
+                <a href="{{ route('shop.index', ['category' => $category->slug]) }}" class="btn btn-outline-primary">View All</a>
             </div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
                 @foreach($category->products as $product)

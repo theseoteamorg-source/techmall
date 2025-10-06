@@ -10,13 +10,12 @@ class SettingsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::table('settings')->insert([
-            'currency' => 'USD',
+            'key' => 'currency',
+            'value' => 'USD',
         ]);
     }
 }

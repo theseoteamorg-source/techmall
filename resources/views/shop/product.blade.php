@@ -1,28 +1,16 @@
-@extends('layouts.frontend')
+@extends('layouts.shop')
 
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('shop.index') }}">Shop</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('shop.category', $product->category->slug) }}">{{ $product->category->name }}</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
-                    </ol>
-                </nav>
+            <div class="col-md-6">
+                <img src="{{ $product->image_url }}" class="img-fluid" alt="{{ $product->name }}">
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <img class="img-fluid" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
-            </div>
-            <div class="col-lg-6">
-                <h2>{{ $product->name }}</h2>
-                <p class="lead">${{ $product->price }}</p>
-                <p>{{ $product->description }}</p>
-                <hr>
-                <form action="{{ route('cart.add', $product) }}" method="POST">
+            <div class="col-md-6">
+                <h1>{{ $product->name }}</h1>
+                <p class="lead">{{ $product->description }}</p>
+                <h3>${{ $product->price }}</h3>
+                <form action="{{ route('cart.add', $product->id) }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="quantity">Quantity</label>
@@ -33,23 +21,22 @@
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-lg-12">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                        <p>{{ $product->details }}</p>
+            <div class="col-md-12">
+                <h4>Reviews</h4>
+                @foreach ($product->reviews as $review)
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $review->user->name }}</h5>
+                            <p class="card-text">{{ $review->comment }}</p>
+                            <div>
+                                @for ($i = 0; $i < $review->rating; $i++)
+                                    <i class="fa fa-star"></i>
+                                @endfor
+                            </div>
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                        <p>Reviews coming soon...</p>
-                    </div>
-                </div>
+                @endforeach
+                <a href="{{ route('products.reviews.create', $product->slug) }}" class="btn btn-primary">Write a review</a>
             </div>
         </div>
     </div>

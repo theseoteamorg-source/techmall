@@ -67,13 +67,13 @@
                     <div class="col">
                         <div class="product-card-new">
                             <div class="product-image">
-                                <a href="{{ route('products.show', $product) }}">
+                                <a href="{{ route('shop.product', $product) }}">
                                     <img src="{{ $product->image }}" alt="{{ $product->name }}" class="card-img-top">
                                 </a>
                                 <div class="product-badge">New</div>
                             </div>
                             <div class="product-content">
-                                <h3 class="product-title"><a href="{{ route('products.show', $product) }}">{{ $product->name }}</a></h3>
+                                <h3 class="product-title"><a href="{{ route('shop.product', $product) }}">{{ $product->name }}</a></h3>
                                 <p class="product-price">${{ number_format($product->price, 2) }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <button class="btn btn-sm btn-dark add-to-cart-btn">

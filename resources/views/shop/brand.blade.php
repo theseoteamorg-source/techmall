@@ -1,50 +1,75 @@
-@extends('layouts.frontend')
+@extends('layouts.shop')
 
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-lg-3">
-                @include('shop.partials.sidebar')
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Filters</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('shop.brand', $brand->slug) }}" method="GET">
+                            <div class="form-group">
+                                <label for="min_price">Min Price</label>
+                                <input type="number" name="min_price" id="min_price" class="form-control" value="{{ request('min_price') }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="max_price">Max Price</label>
+                                <input type="number" name="max_price" id="max_price" class="form-control" value="{{ request('max_price') }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select name="category" id="category" class="form-control">
+                                    <option value="">All Categories</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->slug }}" {{ request('category') == $category->slug ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-9">
+            <div class="col-md-9">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="mb-0">{{ $brand->name }}</h4>
-                            <div class="d-flex align-items-center">
-                                <span class="me-2">Sort by:</span>
-                                <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}" class="btn btn-light me-2">Price Low to High</a>
-                                <a href="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}" class="btn btn-light me-2">Price High to Low</a>
-                                <a href="{{ request()->fullUrlWithQuery(['sort' => 'newness']) }}" class="btn btn-light">Newest</a>
+                            <div>
+                                <form action="{{ route('shop.brand', $brand->slug) }}" method="GET">
+                                    <select name="sort" class="form-control" onchange="this.form.submit()">
+                                        <option value="" {{ request('sort') == '' ? 'selected' : '' }}>Default Sorting</option>
+                                        <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Sort by price: low to high</option>
+                                        <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Sort by price: high to low</option>
+                                        <option value="newness" {{ request('sort') == 'newness' ? 'selected' : '' }}>Sort by newness</option>
+                                    </select>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    @forelse($products as $product)
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
+                </div>
+                <div class="row">
+                    @foreach ($products as $product)
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
                                 <a href="{{ route('shop.product', $product->slug) }}">
-                                    <img class="card-img-top" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
+                                    <img src="{{ $product->image_url }}" class="card-img-top" alt="{{ $product->name }}">
                                 </a>
                                 <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a href="{{ route('shop.product', $product->slug) }}">{{ $product->name }}</a>
-                                    </h5>
-                                    <h5>${{ $product->price }}</h5>
-                                    <p class="card-text">{{ $product->description }}</p>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                    <h5 class="card-title"><a href="{{ route('shop.product', $product->slug) }}">{{ $product->name }}</a></h5>
+                                    <p class="card-text">${{ $product->price }}</p>
+                                    <a href="{{ route('cart.add', $product->id) }}" class="btn btn-primary">Add to Cart</a>
                                 </div>
                             </div>
                         </div>
-                    @empty
-                        <div class="col-md-12">
-                            <p>No products found for this brand.</p>
-                        </div>
-                    @endforelse
+                    @endforeach
                 </div>
-                <div class="d-flex justify-content-center">
-                    {{ $products->appends(request()->except('page'))->links() }}
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ $products->links() }}
+                    </div>
                 </div>
             </div>
         </div>

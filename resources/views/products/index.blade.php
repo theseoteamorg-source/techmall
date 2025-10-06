@@ -9,7 +9,7 @@
                         Search
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('products.index') }}" method="GET">
+                        <form action="{{ route('shop.index') }}" method="GET">
                             <div class="search-bar">
                                 <input type="text" name="search" class="form-control search-input" placeholder="Search for products...">
                                 <button class="search-btn" type="submit"><i class="bi bi-search"></i></button>
@@ -25,7 +25,7 @@
                         <ul class="list-group">
                             @foreach ($categories as $category)
                                 <li class="list-group-item">
-                                    <a href="{{ route('products.index', ['category' => $category->slug]) }}">{{ $category->name }}</a>
+                                    <a href="{{ route('shop.index', ['category' => $category->slug]) }}">{{ $category->name }}</a>
                                 </li>
                             @endforeach
                         </ul>
@@ -39,7 +39,7 @@
                         <ul class="list-group">
                             @foreach ($brands as $brand)
                                 <li class="list-group-item">
-                                    <a href="{{ route('products.index', ['brand' => $brand->slug]) }}">{{ $brand->name }}</a>
+                                    <a href="{{ route('shop.index', ['brand' => $brand->slug]) }}">{{ $brand->name }}</a>
                                 </li>
                             @endforeach
                         </ul>

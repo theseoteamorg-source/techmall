@@ -6,6 +6,7 @@
         <a href="{{ route('admin.products.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Products</a>
         <a href="{{ route('admin.brands.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Brands</a>
         <a href="{{ route('admin.orders.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Orders</a>
+        <a href="{{ route('admin.customers.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Customers</a>
         <a href="{{ route('admin.coupons.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Coupons</a>
         <a href="{{ route('admin.payment-methods.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Payment Methods</a>
         <div class="list-group-item list-group-item-action bg-dark text-white dropdown">
@@ -19,6 +20,7 @@
             </ul>
         </div>
         <a href="{{ route('admin.pages.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Pages</a>
+        <a href="{{ route('admin.media.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Media</a>
         <a href="{{ route('admin.users.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Users</a>
         <a href="{{ route('admin.settings.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Settings</a>
     </div>
