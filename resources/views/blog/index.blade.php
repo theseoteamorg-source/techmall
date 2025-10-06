@@ -1,33 +1,32 @@
-@extends('layouts.shop')
+@extends('layouts.app')
 
 @section('content')
-    <div class="container my-5">
-        <h1 class="mb-4">Our Blog</h1>
+    <div class="container">
         <div class="row">
-            @forelse($posts as $post)
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="{{ route('blog.show', $post) }}">
-                            <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="{{ $post->title }}">
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="{{ route('blog.show', $post) }}">{{ $post->title }}</a></h5>
-                            <p class="card-text">{{ Str::limit($post->excerpt, 100) }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Posted on {{ $post->created_at->format('M d, Y') }}</small>
+            <div class="col-md-8">
+                <h1>Blog</h1>
+                @foreach ($posts as $post)
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid rounded-start" alt="{{ $post->title }}">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a></h5>
+                                    <p class="card-text">{{ Str::limit(strip_tags($post->content), 150) }}</p>
+                                    <p class="card-text"><small class="text-muted">Posted on {{ $post->created_at->format('M d, Y') }} in <a href="#">{{ $post->postCategory->name }}</a></small></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @empty
-                <div class="col">
-                    <p>No posts to display.</p>
-                </div>
-            @endforelse
-        </div>
+                @endforeach
 
-        <div class="d-flex justify-content-center">
-            {{ $posts->links() }}
+                {{ $posts->links() }}
+            </div>
+            <div class="col-md-4">
+                @include('blog.sidebar')
+            </div>
         </div>
     </div>
 @endsection

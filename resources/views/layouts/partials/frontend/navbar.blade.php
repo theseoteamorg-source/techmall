@@ -6,6 +6,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="{{ route('shop.home') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('shop.index') }}">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('shop.deals') }}">Deals</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Blog</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
             </ul>

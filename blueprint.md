@@ -1,10 +1,7 @@
-Of course. Here is the complete project document, merging our detailed frontend and admin blueprints into your existing phased format. This serves as a comprehensive roadmap for the development of the entire TechMall platform.
-
-***
 
 # TechMall E-Commerce Platform Blueprint
 
-*As of: Monday, October 6, 2025 at 2:49 PM PKT*
+*As of: Monday, October 6, 2025 at 4:35 PM PKT*
 
 ## 1. Project Overview
 
@@ -26,7 +23,7 @@ This section will be updated as features are built.
 * **Advanced Shopping Cart:** Add-to-cart, quantity updates, and coupon code functionality.
 * **Flexible Checkout Process:** Multi-step checkout with custom payment methods (e.g., Bank Transfer, COD) and price-based shipping.
 * **Full Order Management:** Order history for customers and detailed order processing for admins.
-* **Content Management System (CMS):** A WordPress-style blog and page management system.
+* **Content Management System (CMS):** A WordPress-style blog and page management system with categories, tags, and SEO fields.
 * **Marketing Tools:** Management for bundled deals and discount coupons.
 * **Comprehensive Admin Panel:** A secure and powerful area for administrators to manage every aspect of the store.
 
@@ -46,39 +43,39 @@ The following is a detailed, phased plan to implement the full e-commerce functi
 * [x] Redesign the homepage with sections for categories, brands, and new products.
 * [x] Implement a consistent and functional header and footer.
 
-### Phase 3: Advanced Product & Catalog Implementation
+### Phase 3: Advanced Product & Catalog Implementation (Completed)
 * **Admin Panel:**
-    * [ ] **Complete Product CRUD:** Implement full Create, Read, Update, Delete for products.
-    * [ ] **Implement Product Variations:** Build the interface to add attributes (Color, Size) and generate variants, each with its own unique price, SKU, stock level, and image gallery.
-    * [ ] **Implement Advanced Filtering:** Add filtering to the admin product list by `Stock Status`, `Price Range`, `Category`, and `Brand`.
-    * [ ] **Complete Category & Brand CRUD:** Ensure full management for categories (with icons) and brands (with logos).
-    * [ ] **Implement SEO Fields:** Add `URL Slug`, `Meta Title`, and `Meta Description` fields to Products, Categories, and Brands.
+    * [x] **Complete Product CRUD:** Implement full Create, Read, Update, Delete for products.
+    * [x] **Implement Product Variations:** Build the interface to add attributes (Color, Size) and generate variants, each with its own unique price, SKU, stock level, and image gallery.
+    * [x] **Implement Advanced Filtering:** Add filtering to the admin product list by `Stock Status`, `Price Range`, `Category`, and `Brand`.
+    * [x] **Complete Category & Brand CRUD:** Ensure full management for categories (with icons) and brands (with logos).
+    * [x] **Implement SEO Fields:** Add `URL Slug`, `Meta Title`, and `Meta Description` fields to Products, Categories, and Brands.
 * **Frontend:**
-    * [ ] **Develop Shop/Category Pages:** Create the main product listing pages with breadcrumb navigation.
-    * [ ] **Implement Sidebar Filtering:** Build the sidebar with filters for price, brand, and dynamic product attributes.
-    * [ ] **Implement Sorting:** Add functionality to sort products by price, newness, and rating.
-    * [ ] **Develop Product Detail Page:** Build the single product page with an image gallery (that updates with variant selection), detailed information, variant selectors (dropdowns/swatches), and tabs for description and reviews.
+    * [x] **Develop Shop/Category Pages:** Create the main product listing pages with breadcrumb navigation.
+    * [x] **Implement Sidebar Filtering:** Build the sidebar with filters for price, brand, and dynamic product attributes.
+    * [x] **Implement Sorting:** Add functionality to sort products by price, newness, and rating.
+    * [x] **Develop Product Detail Page:** Build the single product page with an image gallery (that updates with variant selection), detailed information, variant selectors (dropdowns/swatches), and tabs for description and reviews.
 
-### Phase 4: E-commerce Transactional Workflow
+### Phase 4: E-commerce Transactional Workflow (Completed)
 * **Frontend:**
-    * [ ] **Implement Full Shopping Cart:** Build the cart page with functionality to add, view, update quantities, and remove items.
-    * [ ] **Add Coupon Functionality:** Implement the input field in the cart to apply discount codes.
-    * [ ] **Build Checkout Flow:** Create a `CheckoutController` and a multi-step checkout view (Shipping Info -> Payment Method -> Order Review).
-    * [ ] **Implement Custom Payment Methods:** Display payment options (e.g., Bank Transfer, COD) with their instructions as configured in the admin panel.
-    * [ ] **Develop User Dashboard:** Create a secure area for logged-in users to view their order history and manage their profile details (name, password).
+    * [x] **Implement Full Shopping Cart:** Build the cart page with functionality to add, view, update quantities, and remove items.
+    * [x] **Add Coupon Functionality:** Implement the input field in the cart to apply discount codes.
+    * [x] **Build Checkout Flow:** Create a `CheckoutController` and a multi-step checkout view (Shipping Info -> Payment Method -> Order Review).
+    * [x] **Implement Custom Payment Methods:** Display payment options (e.g., Bank Transfer, COD) with their instructions as configured in the admin panel.
+    * [x] **Develop User Dashboard:** Create a secure area for logged-in users to view their order history and manage their profile details (name, a password).
 * **Admin Panel:**
-    * [ ] **Enhance Order Management:** Build the admin interface to view full order details, customer information, and update order statuses (e.g., `Processing`, `Shipped`).
-    * [ ] **Implement Review Management:** Create the interface to approve, edit (text and stars), and delete customer reviews.
+    * [x] **Enhance Order Management:** Build the admin interface to view full order details, customer information, and update order statuses (e.g., `Processing`, `Shipped`).
+    * [x] **Implement Review Management:** Create the interface to approve, edit (text and stars), and delete customer reviews.
 
-### Phase 5: Content, Marketing & Media Implementation
+### Phase 5: Content, Marketing & Media Implementation (Completed)
 * **Admin Panel:**
-    * [ ] **Build Blog & CMS:** Implement the WordPress-style system for managing `Posts`, `Pages`, `Categories`, and `Tags`, complete with a rich text editor and SEO fields.
-    * [ ] **Build Media Library:** Create a centralized library for managing all file uploads (images, PDFs) that integrates with the Product and Blog editors.
-    * [ ] **Build Marketing Tools:** Develop the interfaces for managing `Coupons` and bundled `Deals`.
+    * [x] **Build Blog & CMS:** Implement the WordPress-style system for managing `Posts`, `Pages`, `Categories`, and `Tags`, complete with a rich text editor and SEO fields.
+    * [x] **Build Media Library:** Create a centralized library for managing all file uploads (images, PDFs) that integrates with the Product and Blog editors.
+    * [x] **Build Marketing Tools:** Develop the interfaces for managing `Coupons` and bundled `Deals`.
 * **Frontend:**
-    * [ ] **Display Blog:** Create the blog index and single post pages, with a sidebar for categories and a comments section.
-    * [ ] **Render Static Pages:** Ensure content from the `Pages` module (e.g., "About Us") is displayed correctly.
-    * [ ] **Create Deals Page:** Build a dedicated page to display all active product deals.
+    * [x] **Display Blog:** Create the blog index and single post pages, with a sidebar for categories and a comments section.
+    * [x] **Create Deals Page:** Build a dedicated page to display all active product deals.
+    * [x] **Render Static Pages:** Ensure content from the `Pages` module (e.g., "About Us") is displayed correctly.
 
 ### Phase 6: Admin Panel Finalization & Settings
 * [ ] **Build Admin Dashboard:** Create a main dashboard that provides an overview of store performance (KPIs, sales charts, latest orders).
@@ -91,8 +88,20 @@ The following is a detailed, phased plan to implement the full e-commerce functi
     * [ ] Implement **Header & Footer Scripts** injection tool.
     * [ ] Implement **System Tools** (Cache Clearing button).
 
-### Phase 7: Final Review & Cleanup
+### Phase 7: Order and Shipment Management (Completed)
+
+* **Shipment Tracking:**
+    * [x] Create the `Shipment` model and migration with fields for `order_id`, `carrier`, and `tracking_number`.
+    * [x] Add the `shipments` relationship to the `Order` model.
+    * [x] Create the `ShipmentController` to manage shipment-related actions.
+    * [x] Add nested resource routes for shipments within the admin order management.
+    * [x] Update the order details view to include a form for adding new shipments and a list of existing shipments.
+    * [x] Implement the `store` method to create new shipments and update the order status to "shipped."
+    * [x] Implement the `destroy` method to delete shipments and revert the order status if no shipments remain.
+
+### Phase 8: Final Review & Cleanup
 * [ ] **Link Verification:** Systematically click through every link in both the frontend and admin panel to ensure there are no broken routes.
 * [ ] **Responsiveness Check:** Test the entire application on various screen sizes (desktop, tablet, mobile).
 * [ ] **Final Code Sweep:** Remove any commented-out code, unused variables, or redundant files.
 * [ ] **Performance Optimization:** Analyze and optimize database queries and asset loading.
+

@@ -11,7 +11,7 @@ class MediaController extends Controller
 {
     public function index()
     {
-        $media = Media::all();
+        $media = Media::latest()->paginate(15);
         return view('admin.media.index', compact('media'));
     }
 
@@ -38,7 +38,11 @@ class MediaController extends Controller
         $media->user_id = auth()->id();
         $media->save();
 
-        return redirect()->route('admin.media.index')->with('success', 'File uploaded successfully.');
+        return response()->json([
+            'id' => $media->id,
+            'name' => $media->name,
+            'url' => asset('storage/' . $media->file_name),
+        ]);
     }
 
     public function destroy(Media $medium)
@@ -47,5 +51,11 @@ class MediaController extends Controller
         $medium->delete();
 
         return redirect()->route('admin.media.index')->with('success', 'File deleted successfully.');
+    }
+
+    public function media_library(Request $request)
+    {
+        $media = Media::latest()->paginate(15);
+        return view('admin.media.media-library', compact('media'));
     }
 }

@@ -14,10 +14,11 @@ class Post extends Model
         'post_category_id',
         'title',
         'slug',
-        'body',
+        'content',
         'image',
         'meta_title',
         'meta_description',
+        'meta_keywords',
         'status',
     ];
 

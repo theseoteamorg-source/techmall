@@ -27,6 +27,18 @@
                             <input type="text" name="value" id="value" class="form-control" required>
                         </div>
                         <div class="form-group">
+                            <label for="min_spend">Minimum Spend</label>
+                            <input type="text" name="min_spend" id="min_spend" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="usage_limit">Usage Limit</label>
+                            <input type="number" name="usage_limit" id="usage_limit" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="usage_limit_per_user">Usage Limit Per User</label>
+                            <input type="number" name="usage_limit_per_user" id="usage_limit_per_user" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label for="expires_at">Expires At</label>
                             <input type="date" name="expires_at" id="expires_at" class="form-control">
                         </div>

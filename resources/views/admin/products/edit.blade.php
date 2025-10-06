@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" rows="3" required>{{ old('description', $product->description) }}</textarea>
+                    <textarea name="description" id="description" class="form-control tinymce @error('description') is-invalid @enderror" rows="3" required>{{ old('description', $product->description) }}</textarea>
                     @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -33,7 +33,7 @@
 
                 <div class="form-group">
                     <label for="details">Details</label>
-                    <textarea name="details" id="details" class="form-control @error('details') is-invalid @enderror" rows="3">{{ old('details', $product->details) }}</textarea>
+                    <textarea name="details" id="details" class="form-control tinymce @error('details') is-invalid @enderror" rows="3">{{ old('details', $product->details) }}</textarea>
                     @error('details')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -83,15 +83,13 @@
 
                 <div class="form-group">
                     <label for="image">Main Image</label>
-                    <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
+                    <div class="input-group">
+                        <input type="text" name="image" id="image_url" class="form-control" readonly value="{{ $product->image }}">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#media-modal" data-url="{{ route('admin.media.library') }}">Choose Image</button>
+                    </div>
                     @if ($product->image)
                         <img src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}" width="100" class="mt-2">
                     @endif
-                    @error('image')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -168,7 +166,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <div class="form-.group">
+                                    <div class="form-group">
                                         <label for="variants_{{ $variantIndex }}_stock">Stock</label>
                                         <input type="number" name="variants[{{ $variantIndex }}][stock]" id="variants_{{ $variantIndex }}_stock" class="form-control" value="{{ $variant->stock }}">
                                     </div>
@@ -191,6 +189,7 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let variantIndex = {{ $product->variants->count() }};
@@ -238,6 +237,33 @@
             variantsContainer.addEventListener('click', function(event) {
                 if (event.target.classList.contains('remove-variant')) {
                     event.target.closest('.variant-item').remove();
+                }
+            });
+
+            tinymce.init({
+                selector: '.tinymce',
+                plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                toolbar_mode: 'floating',
+                file_picker_callback: function (cb, value, meta) {
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
+
+                    input.onchange = function () {
+                        var file = this.files[0];
+                        var reader = new FileReader();
+                        reader.onload = function () {
+                            var id = 'blobid' + (new Date()).getTime();
+                            var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                            var base64 = reader.result.split(',')[1];
+                            var blobInfo = blobCache.create(id, file, base64);
+                            blobCache.add(blobInfo);
+                            cb(blobInfo.blobUri(), { title: file.name });
+                        };
+                        reader.readAsDataURL(file);
+                    };
+
+                    input.click();
                 }
             });
         });

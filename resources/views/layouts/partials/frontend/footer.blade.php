@@ -18,8 +18,8 @@
                 <h5>Policies</h5>
                 <ul class="list-unstyled">
                     <li><a href="{{ route('page.show', 'about-us') }}" class="text-white">About Us</a></li>
-                    <li><a href="#" class="text-white">Privacy Policy</a></li>
-                    <li><a href="#" class="text-white">Terms of Service</a></li>
+                    <li><a href="{{ route('page.show', 'privacy-policy') }}" class="text-white">Privacy Policy</a></li>
+                    <li><a href="{{ route('page.show', 'terms-of-service') }}" class="text-white">Terms of Service</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
@@ -39,7 +39,7 @@
             <div class="col-md-6 text-center text-md-end">
                 <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                <a href="#" class'="text-white me-3"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
     </div>

@@ -1,16 +1,25 @@
-@extends('layouts.dashboard')
-
-@section('title', 'Dashboard')
+@extends('layouts.shop')
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Welcome to your Dashboard</h3>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a href="{{ route('dashboard.index') }}" class="list-group-item list-group-item-action active">Dashboard</a>
+                    <a href="{{ route('dashboard.orders') }}" class="list-group-item list-group-item-action">Orders</a>
+                    <a href="{{ route('dashboard.profile') }}" class="list-group-item list-group-item-action">Profile</a>
+                    <a href="{{ route('logout') }}" class="list-group-item list-group-item-action" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
-                <div class="card-body">
-                    <p>From your dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.</p>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Dashboard</h3>
+                        <p>Welcome to your dashboard, {{ Auth::user()->name }}!</p>
+                    </div>
                 </div>
             </div>
         </div>

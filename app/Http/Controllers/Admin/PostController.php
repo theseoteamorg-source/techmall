@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category', 'tags')->latest()->paginate(10);
+        $posts = Post::with('postCategory', 'tags')->latest()->paginate(10);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -43,6 +43,9 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:post_tags,id',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
 
         $data = $request->except('image', 'tags');
@@ -92,6 +95,9 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:post_tags,id',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
 
         $data = $request->except('image', 'tags');

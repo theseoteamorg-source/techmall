@@ -27,6 +27,9 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
+use App\Http\Controllers\Admin\DealController;
+use App\Http\Controllers\Admin\ShipmentController;
 
 // The root route was incorrectly defined as '\'
 Route::get('/', [ShopController::class, 'home'])->name('shop.home');
@@ -36,6 +39,7 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/category/{category:slug}', [ShopController::class, 'category'])->name('shop.category');
 Route::get('/brand/{brand:slug}', [ShopController::class, 'brand'])->name('shop.brand');
 Route::get('/product/{product:slug}', [ShopController::class, 'product'])->name('shop.product');
+Route::get('/deals', [ShopController::class, 'deals'])->name('shop.deals');
 
 // Blog Routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -101,17 +105,21 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     Route::resource('users', UserController::class);
     Route::resource('orders', OrderController::class);
+    Route::resource('orders.shipments', ShipmentController::class)->except(['show', 'edit', 'update']);
     Route::resource('customers', CustomerController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('brands', BrandController::class);
     Route::resource('coupons', CouponController::class);
+    Route::resource('deals', DealController::class);
     Route::resource('payment-methods', PaymentMethodController::class);
     Route::resource('posts', PostController::class);
     Route::resource('post-categories', PostCategoryController::class);
     Route::resource('post-tags', PostTagController::class);
     Route::resource('pages', AdminPageController::class);
     Route::resource('media', MediaController::class);
+    Route::get('/media-library', [MediaController::class, 'media_library'])->name('media.library');
+    Route::resource('reviews', AdminReviewController::class);
     Route::get('products/images/{id}', [ProductController::class, 'destroyImage'])->name('products.images.destroy');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');

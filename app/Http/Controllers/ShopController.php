@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\Slider;
+use App\Models\Deal;
 use Illuminate\Http\Request;
 use Spatie\SchemaOrg\Schema;
 
@@ -145,6 +146,12 @@ class ShopController extends Controller
             ]);
 
         return view('shop.product', compact('product', 'productSchema', 'breadcrumbsSchema'));
+    }
+
+    public function deals()
+    {
+        $deals = Deal::with('product')->where('start_date', '<=', now())->where('end_date', '>=', now())->orWhereNull('start_date')->orWhereNull('end_date')->get();
+        return view('shop.deals', compact('deals'));
     }
 
     public function cart()

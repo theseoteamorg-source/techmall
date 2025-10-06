@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Coupon;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -16,15 +17,28 @@ class CartController extends Controller
     public function add(Request $request, Product $product)
     {
         $cart = session()->get('cart', []);
+        $variantId = $request->input('variant_id');
+        $quantity = $request->input('quantity', 1);
 
-        if (isset($cart[$product->id])) {
-            $cart[$product->id]['quantity']++;
+        $cartKey = $variantId ? $product->id . '-' . $variantId : $product->id;
+
+        if ($variantId) {
+            $variant = ProductVariant::find($variantId);
+            if (!$variant) {
+                return redirect()->back()->with('error', 'Invalid product variant.');
+            }
+        }
+
+        if (isset($cart[$cartKey])) {
+            $cart[$cartKey]['quantity'] += $quantity;
         } else {
-            $cart[$product->id] = [
+            $cart[$cartKey] = [
                 "name" => $product->name,
-                "quantity" => 1,
-                "price" => $product->price,
-                "image" => $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/150'
+                "quantity" => $quantity,
+                "price" => $variantId ? $variant->price : $product->price,
+                "image" => $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/150',
+                "variant_id" => $variantId,
+                "product_id" => $product->id,
             ];
         }
 

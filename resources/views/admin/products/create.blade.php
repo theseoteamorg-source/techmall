@@ -22,7 +22,7 @@
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" rows="3" required>{{ old('description') }}</textarea>
+                    <textarea name="description" id="description" class="form-control tinymce @error('description') is-invalid @enderror" rows="3" required>{{ old('description') }}</textarea>
                     @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
 
                 <div class="form-group">
                     <label for="details">Details</label>
-                    <textarea name="details" id="details" class="form-control @error('details') is-invalid @enderror" rows="3">{{ old('details') }}</textarea>
+                    <textarea name="details" id="details" class="form-control tinymce @error('details') is-invalid @enderror" rows="3">{{ old('details') }}</textarea>
                     @error('details')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -82,12 +82,10 @@
 
                 <div class="form-group">
                     <label for="image">Main Image</label>
-                    <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
-                    @error('image')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <div class="input-group">
+                        <input type="text" name="image" id="image_url" class="form-control" readonly>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#media-modal" data-url="{{ route('admin.media.library') }}">Choose Image</button>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -146,6 +144,7 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let variantIndex = 0;
@@ -193,6 +192,33 @@
             variantsContainer.addEventListener('click', function(event) {
                 if (event.target.classList.contains('remove-variant')) {
                     event.target.closest('.variant-item').remove();
+                }
+            });
+
+            tinymce.init({
+                selector: '.tinymce',
+                plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                toolbar_mode: 'floating',
+                file_picker_callback: function (cb, value, meta) {
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
+
+                    input.onchange = function () {
+                        var file = this.files[0];
+                        var reader = new FileReader();
+                        reader.onload = function () {
+                            var id = 'blobid' + (new Date()).getTime();
+                            var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                            var base64 = reader.result.split(',')[1];
+                            var blobInfo = blobCache.create(id, file, base64);
+                            blobCache.add(blobInfo);
+                            cb(blobInfo.blobUri(), { title: file.name });
+                        };
+                        reader.readAsDataURL(file);
+                    };
+
+                    input.click();
                 }
             });
         });
