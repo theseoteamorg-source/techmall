@@ -1,32 +1,38 @@
 <?php
 
-use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\CategoryController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CustomerController;
-use App\Http\Controllers\Admin\RedirectController;
-use App\Http\Controllers\Admin\CurrencyController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\PostCategoryController;
+use App\Http\Controllers\Admin\PostTagController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\DealController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\PermissionController;
 
-Route::group(['middleware' => ['web','auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {
-    Route::get('/', function () {
-        return redirect()->route('admin.dashboard');
-    });
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/categories', CategoryController::class);
-    Route::resource('/brands', BrandController::class);
-    Route::resource('/products', ProductController::class);
-    Route::get('/products/images/{image}', [ProductController::class, 'destroyImage'])->name('products.images.destroy');
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
-    Route::resource('/users', UserController::class);
-    Route::resource('/orders', OrderController::class);
-    Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
-    Route::resource('/customers', CustomerController::class);
-    Route::get('/redirect', [RedirectController::class, 'index'])->name('redirect.index');
-    Route::resource('/currencies', CurrencyController::class);
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('products', ProductController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('customers', CustomerController::class);
+    Route::resource('coupons', CouponController::class);
+    Route::resource('settings', SettingsController::class);
+    Route::resource('posts', PostController::class);
+    Route::resource('post-categories', PostCategoryController::class);
+    Route::resource('post-tags', PostTagController::class);
+    Route::resource('pages', PageController::class);
+    Route::resource('media', MediaController::class);
+    Route::resource('deals', DealController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('staff', StaffController::class);
+    Route::resource('permissions', PermissionController::class);
 });

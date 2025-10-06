@@ -30,6 +30,8 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\DealController;
 use App\Http\Controllers\Admin\ShipmentController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\ReportController;
 
 // The root route was incorrectly defined as '\'
 Route::get('/', [ShopController::class, 'home'])->name('shop.home');
@@ -101,7 +103,7 @@ Route::middleware([
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('users', UserController::class);
     Route::resource('orders', OrderController::class);
@@ -120,9 +122,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('media', MediaController::class);
     Route::get('/media-library', [MediaController::class, 'media_library'])->name('media.library');
     Route::resource('reviews', AdminReviewController::class);
-    Route::get('products/images/{id}', [ProductController::class, 'destroyImage'])->name('products.images.destroy');
+    Route::get('/products/images/{id}', [ProductController::class, 'destroyImage'])->name('products.images.destroy');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
+    Route::get('/settings/clear-cache', [SettingController::class, 'clearCache'])->name('settings.clear-cache');
+
+    Route::get('reports/sales', [ReportController::class, 'sales'])->name('reports.sales');
+    Route::get('reports/customers', [ReportController::class, 'customers'])->name('reports.customers');
+    Route::get('reports/low-stock', [ReportController::class, 'lowStock'])->name('reports.low-stock');
 });
 
 // The final require statement was incorrectly defined as '__DIR__.\'/auth.php\'

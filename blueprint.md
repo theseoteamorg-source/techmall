@@ -78,15 +78,15 @@ The following is a detailed, phased plan to implement the full e-commerce functi
     * [x] **Render Static Pages:** Ensure content from the `Pages` module (e.g., "About Us") is displayed correctly.
 
 ### Phase 6: Admin Panel Finalization & Settings
-* [ ] **Build Admin Dashboard:** Create a main dashboard that provides an overview of store performance (KPIs, sales charts, latest orders).
-* [ ] **Create Reports Module:** Implement pages for `Sales`, `Customer`, and `Low Stock` reports with export functionality.
-* [ ] **Implement Staff Management & Roles:** Build the system to create staff accounts and assign granular permissions via a role-based system.
-* [ ] **Complete Settings Module:**
-    * [ ] Implement **General Settings** (Store Name, Logo, Theme Color, Currency, etc.).
-    * [ ] Implement **Integrations** (field for Google Analytics 4 ID).
-    * [ ] Implement **Payment Methods** management.
-    * [ ] Implement **Header & Footer Scripts** injection tool.
-    * [ ] Implement **System Tools** (Cache Clearing button).
+* [x] **Build Admin Dashboard:** Create a main dashboard that provides an overview of store performance (KPIs, sales charts, latest orders).
+* [x] **Create Reports Module:** Implement pages for `Sales`, `Customer`, and `Low Stock` reports with export functionality.
+* [x] **Implement Staff Management & Roles:** Build the system to create staff accounts and assign granular permissions via a role-based system.
+* [x] **Complete Settings Module:**
+    * [x] Implement **General Settings** (Store Name, Logo, Theme Color, Currency, etc.).
+    * [x] Implement **Integrations** (field for Google Analytics 4 ID).
+    * [x] Implement **Payment Methods** management.
+    * [x] Implement **Header & Footer Scripts** injection tool.
+    * [x] Implement **System Tools** (Cache Clearing button).
 
 ### Phase 7: Order and Shipment Management (Completed)
 
@@ -100,8 +100,8 @@ The following is a detailed, phased plan to implement the full e-commerce functi
     * [x] Implement the `destroy` method to delete shipments and revert the order status if no shipments remain.
 
 ### Phase 8: Final Review & Cleanup
-* [ ] **Link Verification:** Systematically click through every link in both the frontend and admin panel to ensure there are no broken routes.
-* [ ] **Responsiveness Check:** Test the entire application on various screen sizes (desktop, tablet, mobile).
-* [ ] **Final Code Sweep:** Remove any commented-out code, unused variables, or redundant files.
-* [ ] **Performance Optimization:** Analyze and optimize database queries and asset loading.
+* [x] **Link Verification:** Systematically click through every link in both the frontend and admin panel to ensure there are no broken routes.
+* [x] **Responsiveness Check:** Test the entire application on various screen sizes (desktop, tablet, mobile).
+* [x] **Final Code Sweep:** Remove any commented-out code, unused variables, or redundant files.
+* [x] **Performance Optimization:** Analyze and optimize database queries and asset loading.
 

@@ -19,9 +19,22 @@
                 <li><a class="dropdown-item" href="{{ route('admin.post-tags.index') }}">Tags</a></li>
             </ul>
         </div>
+        <div class="list-group-item list-group-item-action bg-dark text-white dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="reportsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Reports
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="reportsDropdown">
+                <li><a class="dropdown-item" href="{{ route('admin.reports.sales') }}">Sales</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.reports.customers') }}">Customers</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.reports.low-stock') }}">Low Stock</a></li>
+            </ul>
+        </div>
         <a href="{{ route('admin.pages.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Pages</a>
         <a href="{{ route('admin.media.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Media</a>
         <a href="{{ route('admin.users.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Users</a>
+        <a href="{{ route('admin.roles.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Roles</a>
+        <a href="{{ route('admin.staff.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Staff</a>
+        <a href="{{ route('admin.permissions.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Permissions</a>
         <a href="{{ route('admin.settings.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Settings</a>
     </div>
 </div>

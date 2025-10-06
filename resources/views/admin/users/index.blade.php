@@ -1,38 +1,48 @@
-@extends('layouts.admin')
+@extends('adminlte::page')
+
+@section('title', 'Users')
+
+@section('content_header')
+    <h1>Users</h1>
+@stop
 
 @section('content')
-<div class="container">
-    <h1>Users</h1>
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">User List</h3>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Create User</a>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Role</th>
+                        <th>Roles</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach($users as $user)
-                    <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->is_admin ? 'Admin' : 'User' }}</td>
-                        <td>
-                            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                        </td>
-                    </tr>
-                    @endforeach --}}
+                    @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                @foreach ($user->getRoleNames() as $role)
+                                    <span class="badge badge-primary">{{ $role }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-</div>
-@endsection
+@stop
