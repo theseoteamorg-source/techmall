@@ -1,42 +1,62 @@
 @extends('layouts.admin')
 
-@section('title', 'Add Category')
-@section('content-header', 'Add Category')
-@section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('admin.categories.index') }}">Category List</a></li>
-    <li class="breadcrumb-item active">Add Category</li>
-@endsection
-
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Add New Category</h3>
-                </div>
-                <!-- /.card-header -->
-                <form action="{{ route('admin.categories.store') }}" method="POST">
-                    @csrf
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Add Category</h4>
+                    </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                        <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required autofocus>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="icon">Icon</label>
+                                <input type="file" name="icon" id="icon" class="form-control @error('icon') is-invalid @enderror">
+                                @error('icon')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <hr>
+                            <h5>SEO</h5>
+                            <div class="form-group">
+                                <label for="meta_title">Meta Title</label>
+                                <input type="text" name="meta_title" id="meta_title" class="form-control @error('meta_title') is-invalid @enderror" value="{{ old('meta_title') }}">
+                                @error('meta_title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="meta_description">Meta Description</label>
+                                <textarea name="meta_description" id="meta_description" class="form-control @error('meta_description') is-invalid @enderror">{{ old('meta_description') }}</textarea>
+                                @error('meta_description')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="meta_keywords">Meta Keywords</label>
+                                <input type="text" name="meta_keywords" id="meta_keywords" class="form-control @error('meta_keywords') is-invalid @enderror" value="{{ old('meta_keywords') }}">
+                                @error('meta_keywords')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Category</button>
+                        </form>
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="{{ route('admin.categories.index') }}" class="btn btn-default">Cancel</a>
-                    </div>
-                </form>
+                </div>
             </div>
-            <!-- /.card -->
         </div>
     </div>
 @endsection

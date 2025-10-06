@@ -1,41 +1,85 @@
-# Project Blueprint
+# TechMall E-Commerce Platform Blueprint
+**As of:** Monday, October 6, 2025
 
-## Overview
+## 1. Project Overview
+TechMall is a full-stack e-commerce web application built on the Laravel framework. It provides a modern, user-friendly interface for customers to browse products, make purchases, and manage their accounts. It also includes a comprehensive admin panel for managing products, categories, orders, users, and other store settings.
 
-This project is a full-stack e-commerce application built with Laravel. It includes features like product browsing, a shopping cart, user authentication, and an admin panel for managing products and users. The application is designed to be a modern, robust, and scalable e-commerce platform.
+## 2. Implemented Style, Design, and Features
 
-## Implemented Features
+### Design
+*   **Layout:** A two-layout structure (frontend and admin).
+*   **Admin Theme:** The admin panel UI is built using AdminLTE for a responsive and feature-rich experience.
+*   **Styling:** Bootstrap-based, focusing on a clean, responsive, and modern aesthetic for the frontend.
+*   **Branding:** The application is branded as "TechMall".
 
 ### Core Features
+*   **User Authentication:** User registration, login, and profile management.
+*   **Product Catalog:** Multi-level categories, brands, and basic product management.
+*   **Shopping Cart:** Basic add-to-cart functionality.
+*   **Admin Panel:** A secure area for administrators to manage store data.
+*   **Content Management System (CMS):** A WordPress-style system for managing `Posts`, `Post Categories`, `Post Tags`, and `Pages`.
 
-*   **User Authentication:** Users can register, log in, and manage their profiles.
-*   **Product Catalog:** Products are organized by categories and brands.
-*   **Shopping Cart:** Users can add products to their cart and proceed to checkout.
-*   **Admin Panel:** An admin panel for managing products, categories, brands, and users.
+## 3. Current Task: Implement Full CMS Backend
 
-### Design and Styling
+**Plan:**
+1.  [x] Create Model and Migration for `Post`.
+2.  [x] Create Model and Migration for `PostCategory`.
+3.  [x] Create Model and Migration for `PostTag`.
+4.  [x] Create Model and Migration for `Page`.
+5.  [x] Implement `PostController` with full CRUD functionality.
+6.  [x] Implement `PostCategoryController` with full CRUD functionality.
+7.  [x] Implement `PostTagController` with full CRUD functionality.
+8.  [x] Implement `PageController` with full CRUD functionality.
+9.  [x] Create all necessary Blade views for Posts, Post Categories, Post Tags, and Pages (index, create, edit, show).
+10. [x] Add navigation links for `Posts`, `Post Categories`, `Post Tags`, and `Pages` to the admin sidebar.
+11. [x] Run database migrations to create the necessary tables.
 
-*   **Frontend:** The frontend is built with Blade templates and styled with Bootstrap.
-*   **Layout:** A consistent layout is maintained across the application using a master layout file.
-*   **Responsive Design:** The application is designed to be responsive and work on different screen sizes.
+**Summary of Changes:**
+I have successfully implemented the complete backend for the Content Management System. This includes full CRUD (Create, Read, Update, Delete) functionality for Posts, Post Categories, Post Tags, and Pages. All necessary database tables have been created, and the admin sidebar has been updated with links to manage this content.
 
-### Review and Rating System
-*   **Database Schema:** A `reviews` table has been added to the database to store product reviews. The table includes columns for `user_id`, `product_id`, `rating`, and `comment`.
-*   **Models:**
-    *   A `Review` model has been created to represent a product review.
-    *   The `Product` model has a `hasMany` relationship with the `Review` model.
-    *   The `User` model has a `hasMany` relationship with the `Review` model.
-*   **Database Seeding:** A `ReviewSeeder` has been created to populate the `reviews` table with sample data.
-*   **Product Detail Page:**
-    *   The product detail page now displays the average rating and the total number of reviews for each product.
-    *   A "Reviews" tab has been added to the product detail page, which displays all the reviews for the product.
-    *   Each review shows the user's name, the rating they gave, their comment, and the date the review was submitted.
-*   **Review Submission:**
-    *   A form has been added to the product detail page to allow authenticated users to submit a new review.
-    *   The form includes a star rating system and a comment box.
-    *   A `ReviewController` has been created to handle the submission of new reviews.
-    *   A new route has been added to `routes/web.php` to handle the review submission.
+## 4. Detailed Development Plan
 
-## Current Plan
+### Phase 1: Foundation & Core UI (Completed)
+*   [x] Standardize frontend and admin layouts.
+*   [x] Organize partials for layouts.
+*   [x] Update all views to use the correct layouts.
+*   [x] Redesign the homepage with dynamic sections.
+*   [x] Implement a consistent header and footer.
 
-The current plan was to implement a product review and rating system. This has now been completed.
+### Phase 2: E-Commerce & Product Management (In Progress)
+*   **Admin Panel:**
+    *   [ ] **Product Management:**
+        *   [ ] Implement full CRUD for products.
+        *   [ ] Add product variations (color, size) with unique pricing and images.
+        *   [ ] Implement advanced filtering (stock, price, category).
+    *   [ ] **Category & Brand Management:**
+        *   [x] Implement full CRUD for Categories.
+        *   [x] Implement full CRUD for Brands.
+        *   [ ] Add SEO fields (slug, meta title, description).
+    *   [ ] **Order Management:**
+        *   [ ] View full order details and customer information.
+        *   [ ] Update order statuses (Processing, Shipped).
+*   **Frontend:**
+    *   [ ] **Shop & Product Pages:**
+        *   [ ] Develop shop page with sidebar filtering.
+        *   [ ] Implement product sorting.
+        *   [ ] Build product detail page with image gallery and variant selection.
+    *   [ ] **Transactional Workflow:**
+        *   [ ] Implement a full shopping cart page.
+        *   [ ] Add coupon functionality.
+        *   [ ] Build a multi-step checkout process.
+        *   [ ] Develop a user dashboard for order history and profile management.
+
+### Phase 3: Content, Marketing & Finalization (Next)
+*   **Frontend:**
+    *   [ ] Display the blog (index and single post pages).
+    *   [ ] Render static pages (e.g., "About Us").
+*   **Admin Panel:**
+    *   [ ] Build a media library for file uploads.
+    *   [ ] Develop marketing tools (Coupons, Deals).
+    *   [ ] Create a comprehensive admin dashboard with KPIs.
+    *   [ ] Implement staff management with roles and permissions.
+    *   [ ] Complete the store settings module.
+*   **Final Review:**
+    *   [ ] Verify all links and test responsiveness.
+    *   [ ] Perform a final code cleanup and optimization.

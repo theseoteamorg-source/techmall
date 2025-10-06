@@ -29,6 +29,12 @@
                 Sliders
             </a>
         </li>
+        <li>
+            <a href="{{ route('admin.settings.index') }}" class="nav-link text-white">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#gear"/></svg>
+                Settings
+            </a>
+        </li>
     </ul>
     <hr>
 </div>

@@ -5,34 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $categories = Category::latest()->paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:categories',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
 
         $slug = Str::slug($request->name);
@@ -41,38 +37,43 @@ class CategoryController extends Controller
             $slug = $slug . '-' . ($count + 1);
         }
 
+        $iconName = null;
+        if ($request->hasFile('icon')) {
+            $iconName = $slug . '-' . time() . '.' . $request->icon->extension();
+            Storage::disk('categories')->put($iconName, file_get_contents($request->icon));
+        }
+
         Category::create([
             'name' => $request->name,
             'slug' => $slug,
+            'icon' => $iconName,
+            'meta_title' => $request->meta_title,
+            'meta_description' => $request->meta_description,
+            'meta_keywords' => $request->meta_keywords,
         ]);
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Category $category)
     {
         return view('admin.categories.show', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Category $category)
     {
         return view('admin.categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Category $category)
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
 
         $slug = Str::slug($request->name);
@@ -81,20 +82,29 @@ class CategoryController extends Controller
             $slug = $slug . '-' . ($count + 1);
         }
 
-        $category->update([
-            'name' => $request->name,
-            'slug' => $slug,
-        ]);
+        $data = $request->only('name', 'meta_title', 'meta_description', 'meta_keywords');
+        $data['slug'] = $slug;
+
+        if ($request->hasFile('icon')) {
+            if ($category->icon && Storage::disk('categories')->exists($category->icon)) {
+                Storage::disk('categories')->delete($category->icon);
+            }
+            $iconName = $slug . '-' . time() . '.' . $request->icon->extension();
+            Storage::disk('categories')->put($iconName, file_get_contents($request->icon));
+            $data['icon'] = $iconName;
+        }
+
+        $category->update($data);
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Category updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category)
     {
+        if ($category->icon && Storage::disk('categories')->exists($category->icon)) {
+            Storage::disk('categories')->delete($category->icon);
+        }
         $category->delete();
 
         return redirect()->route('admin.categories.index')

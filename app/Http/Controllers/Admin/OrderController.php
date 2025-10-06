@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::latest()->paginate(10);
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -19,9 +19,16 @@ class OrderController extends Controller
         return view('admin.orders.show', compact('order'));
     }
 
-    public function destroy(Order $order)
+    public function update(Request $request, Order $order)
     {
-        $order->delete();
-        return redirect()->route('admin.orders.index')->with('success', 'Order deleted successfully.');
+        $request->validate([
+            'status' => 'required|in:processing,shipped,delivered,cancelled',
+        ]);
+
+        $order->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.orders.show', $order)->with('success', 'Order status updated successfully!');
     }
 }

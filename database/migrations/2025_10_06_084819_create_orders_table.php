@@ -14,13 +14,8 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->decimal('total', 10, 2);
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip');
+            $table->decimal('total', 8, 2);
+            $table->string('status')->default('processing');
             $table->timestamps();
         });
     }

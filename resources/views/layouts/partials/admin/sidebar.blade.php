@@ -1,69 +1,25 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="{{ route('admin.dashboard') }}" class="brand-link">
-        <img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Admin Panel</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="{{ route('profile.edit') }}" class="d-block">{{ Auth::user()->name }}</a>
-            </div>
-        </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview {{ request()->routeIs('admin.products.*') || request()->routeIs('admin.categories.*') || request()->routeIs('admin.brands.*') || request()->routeIs('admin.customers.*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->routeIs('admin.products.*') || request()->routeIs('admin.categories.*') || request()->routeIs('admin.brands.*') || request()->routeIs('admin.customers.*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-box"></i>
-                        <p>
-                            Product Management
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.products.index') }}" class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Products</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Categories</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.brands.index') }}" class="nav-link {{ request()->routeIs('admin.brands.*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Brands</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.customers.index') }}" class="nav-link {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Customers</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+<div class="bg-dark border-right vh-100" id="sidebar-wrapper">
+    <div class="sidebar-heading text-white">Admin Menu</div>
+    <div class="list-group list-group-flush">
+        <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action bg-dark text-white">Dashboard</a>
+        <a href="{{ route('admin.categories.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Categories</a>
+        <a href="{{ route('admin.products.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Products</a>
+        <a href="{{ route('admin.brands.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Brands</a>
+        <a href="{{ route('admin.orders.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Orders</a>
+        <a href="{{ route('admin.coupons.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Coupons</a>
+        <a href="{{ route('admin.payment-methods.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Payment Methods</a>
+        <div class="list-group-item list-group-item-action bg-dark text-white dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Blog
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{ route('admin.posts.index') }}">Posts</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.post-categories.index') }}">Categories</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.post-tags.index') }}">Tags</a></li>
             </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
+        </div>
+        <a href="{{ route('admin.pages.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Pages</a>
+        <a href="{{ route('admin.users.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Users</a>
+        <a href="{{ route('admin.settings.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Settings</a>
     </div>
-    <!-- /.sidebar -->
-</aside>
+</div>

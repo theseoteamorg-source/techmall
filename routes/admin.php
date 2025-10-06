@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\RedirectController;
+use App\Http\Controllers\Admin\CurrencyController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['web','auth', 'admin'], 'as' => 'admin.', 'prefix' => 'admin'], function () {
@@ -24,6 +25,8 @@ Route::group(['middleware' => ['web','auth', 'admin'], 'as' => 'admin.', 'prefix
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
     Route::resource('/users', UserController::class);
     Route::resource('/orders', OrderController::class);
+    Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
     Route::resource('/customers', CustomerController::class);
     Route::get('/redirect', [RedirectController::class, 'index'])->name('redirect.index');
+    Route::resource('/currencies', CurrencyController::class);
 });

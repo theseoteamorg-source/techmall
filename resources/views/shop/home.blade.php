@@ -1,26 +1,20 @@
-@extends('layouts.shop')
+@extends('layouts.app')
 
 @section('content')
 
 <!-- Hero Section -->
 <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?auto=format&fit=crop&w=1920&h=800&q=80" class="d-block w-100 hero-carousel-image" alt="Modern workspace">
+        @foreach($sliders as $slider)
+        <div class="carousel-item @if($loop->first) active @endif">
+            <img src="{{ $slider->image_url }}" class="d-block w-100 hero-carousel-image" alt="{{ $slider->title }}">
             <div class="carousel-caption d-none d-md-block">
-                <h1>Unleash Your Creativity</h1>
-                <p class="lead text-dark">Discover cutting-edge tech that fuels your passion and productivity.</p>
-                <a href="{{ route('shop.products') }}" class="btn btn-lg btn-primary">Shop All Products</a>
+                <h1>{{ $slider->title }}</h1>
+                <p class="lead text-dark">{{ $slider->subtitle }}</p>
+                <a href="{{ $slider->link }}" class="btn btn-lg btn-primary">{{ $slider->button_text }}</a>
             </div>
         </div>
-        <div class="carousel-item">
-            <img src="https://images.unsplash.com/photo-1550009158-94ae76552485?auto=format&fit=crop&w=1920&h=800&q=80" class="d-block w-100 hero-carousel-image" alt="Gaming setup">
-            <div class="carousel-caption d-none d-md-block">
-                <h1>Elevate Your Game</h1>
-                <p class="lead text-dark">Experience immersive gaming with our high-performance peripherals.</p>
-                <a href="#" class="btn btn-lg btn-primary">Explore Gaming Gear</a>
-            </div>
-        </div>
+        @endforeach
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></button>
     <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></button>
@@ -28,39 +22,46 @@
 
 <div class="section-container">
     <div class="container">
-        <!-- Featured Categories -->
-        <h2 class="text-center mb-5">Explore Our World</h2>
-        <div class="row g-4">
-            <div class="col-md-6"><a href="#" class="category-card"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&h=400" class="img-fluid"><div class="category-info"><h3>Laptops & PCs</h3></div></a></div>
-            <div class="col-md-6"><a href="#" class="category-card"><img src="https://images.unsplash.com/photo-1604671363073-1a17a62584a8?auto=format&fit=crop&w=600&h=400" class="img-fluid"><div class="category-info"><h3>Smartphones</h3></div></a></div>
-            <div class="col-12"><a href="#" class="category-card"><img src="https://images.unsplash.com/photo-1525997673393-197c3b0a23a3?auto=format&fit=crop&w=1200&h=400" class="img-fluid"><div class="category-info"><h3>Accessories</h3></div></a></div>
+        @foreach($categories as $category)
+        <div class="category-products-slider my-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">{{ $category->name }}</h2>
+                <a href="{{ route('products.index', ['category' => $category->slug]) }}" class="btn btn-outline-primary">View All</a>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+                @foreach($category->products as $product)
+                    <x-product-card :product="$product" />
+                @endforeach
+            </div>
         </div>
+        @endforeach
 
-        <!-- Featured Products -->
-        <h2 class="text-center mt-5 mb-5 pt-5">Top Picks For You</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-            @for ($i = 0; $i < 8; $i++)
-            <div class="col" style="animation-delay: {{ $i * 0.1 }}s">
-                <div class="card product-card-v3 h-100">
-                    <div class="product-img-container">
-                        <img src="https://placehold.co/400x400/3B82F6/FFFFFF?text=Tech+Product&font=inter" class="card-img-top" alt="Product Name">
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h3 class="card-title h6"><a href="#" class="text-dark text-decoration-none">Awesome New Gadget {{ $i + 1 }}</a></h3>
-                        <p class="card-text text-muted flex-grow-1">A brief, catchy description of this must-have item.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="card-text fw-bold fs-5 text-primary mb-0">Rs.{{ 999 + ($i * 50) }}</p>
-                            <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+        <!-- Testimonials Section -->
+        <div class="testimonials-section my-5">
+            <h2 class="text-center mb-5">What Our Customers Say</h2>
+            <div class="row">
+                @foreach($reviews as $review)
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <p class="card-text">"{{ $review->comment }}"</p>
+                                <div class="d-flex align-items-center">
+                                    <img src="https://i.pravatar.cc/50?u={{ $review->user->email }}" alt="{{ $review->user->name }}" class="rounded-circle me-3">
+                                    <div>
+                                        <h6 class="mb-0">{{ $review->user->name }}</h6>
+                                        <div class="text-warning">
+                                            @for($i = 0; $i < $review->rating; $i++) <i class="bi bi-star-fill"></i> @endfor
+                                            @for($i = 5 - $review->rating; $i > 0; $i--) <i class="bi bi-star"></i> @endfor
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="product-actions">
-                        <a href="#" class="btn btn-light btn-sm"><i class="bi bi-heart"></i></a>
-                        <a href="#" class="btn btn-light btn-sm"><i class="bi bi-arrow-left-right"></i></a>
-                    </div>
-                </div>
+                @endforeach
             </div>
-            @endfor
         </div>
+
     </div>
 </div>
 

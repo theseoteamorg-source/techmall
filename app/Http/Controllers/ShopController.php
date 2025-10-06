@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\Slider;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\Review;
+use App\Models\Slider;
+use Illuminate\Http\Request;
 use Spatie\SchemaOrg\Schema;
 
 class ShopController extends Controller
@@ -14,8 +15,11 @@ class ShopController extends Controller
     public function home()
     {
         $sliders = Slider::all();
-        $products = Product::all();
-        $brands = Brand::all();
+        $brands = Brand::all()->take(10);
+        $categories = Category::with(['products' => function ($query) {
+            $query->take(4);
+        }])->get();
+        $reviews = Review::latest()->take(5)->get();
 
         $siteSchema = Schema::webSite()
             ->url(url('/'))
@@ -24,10 +28,10 @@ class ShopController extends Controller
             ->inLanguage('en-US')
             ->publisher(Schema::organization()->name(config('app.name')));
 
-        return view('welcome', compact('sliders', 'products', 'brands', 'siteSchema'));
+        return view('shop.home', compact('sliders', 'categories', 'reviews', 'siteSchema', 'brands'));
     }
 
-    public function products(Request $request)
+    public function index(Request $request)
     {
         $categories = Category::all();
         $brands = Brand::all();
@@ -37,24 +41,88 @@ class ShopController extends Controller
             $products->where('name', 'like', '%' . $request->search . '%');
         }
 
-        if ($request->has('category')) {
-            $products->whereHas('category', function ($query) use ($request) {
-                $query->where('slug', $request->category);
-            });
+        if ($request->filled('min_price')) {
+            $products->where('price', '>=', $request->min_price);
         }
 
-        if ($request->has('brand')) {
-            $products->whereHas('brand', function ($query) use ($request) {
-                $query->where('slug', $request->brand);
-            });
+        if ($request->filled('max_price')) {
+            $products->where('price', '<=', $request->max_price);
         }
 
-        $products = $products->get();
+        if ($request->has('sort')) {
+            if ($request->sort == 'price_asc') {
+                $products->orderBy('price', 'asc');
+            } elseif ($request->sort == 'price_desc') {
+                $products->orderBy('price', 'desc');
+            } elseif ($request->sort == 'newness') {
+                $products->latest();
+            }
+        }
 
-        return view('products.index', compact('products', 'categories', 'brands'));
+        $products = $products->paginate(12);
+
+        return view('shop.index', compact('products', 'categories', 'brands'));
     }
 
-    public function productDetail(Product $product)
+    public function category(Request $request, Category $category)
+    {
+        $categories = Category::all();
+        $brands = Brand::all();
+        $products = $category->products();
+
+        if ($request->filled('min_price')) {
+            $products->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->filled('max_price')) {
+            $products->where('price', '<=', $request->max_price);
+        }
+
+        if ($request->has('sort')) {
+            if ($request->sort == 'price_asc') {
+                $products->orderBy('price', 'asc');
+            } elseif ($request->sort == 'price_desc') {
+                $products->orderBy('price', 'desc');
+            } elseif ($request->sort == 'newness') {
+                $products->latest();
+            }
+        }
+
+        $products = $products->paginate(12);
+
+        return view('shop.category', compact('products', 'category', 'categories', 'brands'));
+    }
+
+    public function brand(Request $request, Brand $brand)
+    {
+        $categories = Category::all();
+        $brands = Brand::all();
+        $products = $brand->products();
+
+        if ($request->filled('min_price')) {
+            $products->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->filled('max_price')) {
+            $products->where('price', '<=', $request->max_price);
+        }
+
+        if ($request->has('sort')) {
+            if ($request->sort == 'price_asc') {
+                $products->orderBy('price', 'asc');
+            } elseif ($request->sort == 'price_desc') {
+                $products->orderBy('price', 'desc');
+            } elseif ($request->sort == 'newness') {
+                $products->latest();
+            }
+        }
+
+        $products = $products->paginate(12);
+
+        return view('shop.brand', compact('products', 'brand', 'categories', 'brands'));
+    }
+
+    public function product(Product $product)
     {
         $productSchema = Schema::product()
             ->name($product->name)
@@ -66,17 +134,17 @@ class ShopController extends Controller
                     ->price($product->price)
                     ->priceCurrency('USD')
                     ->availability('https://schema.org/InStock')
-                    ->url(route('products.show', $product))
+                    ->url(route('shop.product', $product))
             );
 
         $breadcrumbsSchema = Schema::breadcrumbList()
             ->itemListElement([
                 Schema::listItem()->position(1)->item(Schema::thing()->name('Home')->url(url('/'))),
-                Schema::listItem()->position(2)->item(Schema::thing()->name('Products')->url(route('products.index'))),
-                Schema::listItem()->position(3)->item(Schema::thing()->name($product->name)->url(route('products.show', $product))),
+                Schema::listItem()->position(2)->item(Schema::thing()->name('Shop')->url(route('shop.index'))),
+                Schema::listItem()->position(3)->item(Schema::thing()->name($product->name)->url(route('shop.product', $product))),
             ]);
 
-        return view('products.show', compact('product', 'productSchema', 'breadcrumbsSchema'));
+        return view('shop.product', compact('product', 'productSchema', 'breadcrumbsSchema'));
     }
 
     public function cart()

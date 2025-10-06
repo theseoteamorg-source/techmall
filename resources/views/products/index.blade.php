@@ -58,7 +58,7 @@
                                 </a>
                                 <div class="card-body product-content">
                                     <h6 class="card-title product-title"><a href="{{ route('products.show', $product) }}">{{ $product->name }}</a></h6>
-                                    <p class="card-text product-price">${{ $product->price }}</p>
+                                    <p class="card-text product-price">{{ format_price($product->price) }}</p>
                                 </div>
                             </div>
                         </div>

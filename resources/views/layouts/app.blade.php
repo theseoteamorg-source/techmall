@@ -282,6 +282,31 @@
             justify-content: center;
             color: #fff;
         }
+        .cart-badge {
+            top: 20% !important;
+            left: 85% !important;
+        }
+
+        .cart-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .cart-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 250px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: .5rem;
+            padding: 1rem;
+        }
+
+        .cart-dropdown:hover .cart-dropdown-content {
+            display: block;
+        }
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -324,25 +349,55 @@
                                     $categories = App\Models\Category::all();
                                 @endphp
                                 @foreach($categories as $category)
-                                    <li><a class="dropdown-item" href="{{ route('products.index', ['category' => $category->slug]) }}">{{ $category->name }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('shop.index', ['category' => $category->slug]) }}">{{ $category->name }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('products.index') }}">Shop</a>
+                            <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
-                        <form action="{{ route('products.index') }}" method="GET" class="search-bar me-3">
+                        <form action="{{ route('shop.index') }}" method="GET" class="search-bar">
                             <input type="text" name="search" class="form-control search-input" placeholder="Search..." value="{{ request('search') }}">
                             <button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
                         </form>
                         <div class="header-icons d-flex align-items-center">
                             <a href="{{ route('login') }}" class="nav-link"><i class="bi bi-person-circle"></i></a>
-                            <a href="{{ route('cart.index') }}" class="nav-link position-relative">
-                                <i class="bi bi-cart-fill"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
-                            </a>
+                            <div class="cart-dropdown">
+                                <a href="{{ route('cart.index') }}" class="nav-link position-relative">
+                                    <i class="bi bi-cart-fill"></i>
+                                    @if(Cart::getContent()->count() > 0)
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">{{ Cart::getContent()->count() }}</span>
+                                    @endif
+                                </a>
+                                <div class="cart-dropdown-content">
+                                    @if(Cart::getContent()->count() > 0)
+                                        <ul class="list-unstyled">
+                                            @foreach(Cart::getContent() as $item)
+                                                <li class="d-flex align-items-center mb-3">
+                                                    <img src="{{ $item->attributes->image }}" alt="{{ $item->name }}" class="img-fluid rounded" width="50">
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0">{{ $item->name }}</h6>
+                                                        <small class="text-muted">{{ $item->quantity }} x {{ format_price($item->price) }}</small>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                        <hr>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h6 class="mb-0">Total:</h6>
+                                            <strong>{{ format_price(Cart::getTotal()) }}</strong>
+                                        </div>
+                                        <div class="d-grid gap-2">
+                                        <a href="{{ route('cart.index') }}" class="btn btn-primary btn-sm">View Cart</a>
+                                        <a href="{{ route('checkout.index') }}" class="btn btn-success btn-sm">Checkout</a>
+                                        </div>
+                                    @else
+                                        <p class="text-center mb-0">Your cart is empty.</p>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -368,10 +423,10 @@
 
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Products</h6>
-                    <p><a href="{{ route('products.index') }}" class="text-reset">Laptops</a></p>
-                    <p><a href="{{ route('products.index') }}" class="text-reset">Mobiles</a></p>
-                    <p><a href="{{ route('products.index') }}" class="text-reset">Accessories</a></p>
-                    <p><a href="{{ route('products.index') }}" class="text-reset">Gaming</a></p>
+                    <p><a href="{{ route('shop.index') }}" class="text-reset">Laptops</a></p>
+                    <p><a href="{{ route('shop.index') }}" class="text-reset">Mobiles</a></p>
+                    <p><a href="{{ route('shop.index') }}" class="text-reset">Accessories</a></p>
+                    <p><a href="{{ route('shop.index') }}" class="text-reset">Gaming</a></p>
                 </div>
 
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">

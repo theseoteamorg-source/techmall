@@ -48,8 +48,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function reviews()
+    public function posts()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Post::class);
     }
 }

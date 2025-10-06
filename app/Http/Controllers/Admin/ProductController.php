@@ -13,10 +13,43 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with(['category', 'brand'])->latest()->paginate(10);
-        return view('admin.products.index', compact('products'));
+        $query = Product::with(['category', 'brand']);
+
+        if ($request->filled('stock_status')) {
+            if ($request->stock_status == 'in_stock') {
+                $query->whereHas('variants', function ($q) {
+                    $q->where('stock', '>', 0);
+                });
+            } elseif ($request->stock_status == 'out_of_stock') {
+                $query->whereDoesntHave('variants', function ($q) {
+                    $q->where('stock', '>', 0);
+                });
+            }
+        }
+
+        if ($request->filled('min_price')) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->filled('max_price')) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        if ($request->filled('brand_id')) {
+            $query->where('brand_id', $request->brand_id);
+        }
+
+        $products = $query->latest()->paginate(10);
+        $categories = Category::all();
+        $brands = Brand::all();
+
+        return view('admin.products.index', compact('products', 'categories', 'brands'));
     }
 
     public function create()

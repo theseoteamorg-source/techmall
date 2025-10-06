@@ -51,9 +51,9 @@
                 <div class="d-flex align-items-center mb-4">
                     <p class="display-4 fw-bold text-primary mb-0 me-3" id="product-price">
                         @if($product->activeVariants->isNotEmpty())
-                            ${{ number_format($product->activeVariants->first()->price, 2) }}
+                            {{ format_price($product->activeVariants->first()->price) }}
                         @else
-                            ${{ number_format($product->price, 2) }}
+                            {{ format_price($product->price) }}
                         @endif
                     </p>
                 </div>
@@ -130,7 +130,7 @@
                         </div>
                         <div class="tab-pane fade p-3" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                             <h3 class="mb-4">Customer Reviews</h3>
-                            
+
                             @forelse($product->reviews as $review)
                                 <div class="d-flex mb-4">
                                     <div class="flex-shrink-0 me-3">
@@ -271,7 +271,7 @@
             variantSelector.addEventListener('change', function(event) {
                 if (event.target.name === 'variant_id') {
                     const price = parseFloat(event.target.dataset.price).toFixed(2);
-                    priceElement.textContent = '$' + price;
+                    priceElement.textContent = "{{ config('app.currency', 'USD') }} " + price;
                 }
             });
         }

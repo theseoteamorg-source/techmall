@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->string('status')->default('pending');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->foreignId('post_category_id')->nullable()->constrained()->onDelete('set null');
         });
     }
 
@@ -21,8 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropForeign(['post_category_id']);
+            $table->dropColumn('post_category_id');
         });
     }
 };
