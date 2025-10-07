@@ -16,7 +16,12 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('total', 8, 2);
             $table->string('status')->default('processing');
+            $table->text('notes')->nullable();
+            $table->string('tracking_number')->nullable();
             $table->timestamps();
+
+            $table->index('user_id');
+            $table->index('status');
         });
     }
 

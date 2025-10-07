@@ -1,59 +1,66 @@
-# Project Blueprint
+# Project Blueprint: Feature-Rich E-commerce Platform
 
-## Overview
+## 1. Overview
 
-This project is a full-stack e-commerce application built with Laravel. The goal is to create a robust and scalable platform for selling products online.
+This document outlines the plan for building a modern, feature-rich e-commerce platform using the Laravel framework. The goal is to create a scalable, secure, and user-friendly online store with a comprehensive set of features for both customers and administrators.
 
-## Implemented Features
+## 2. Style and Design
 
-### Database Schema
+The application will feature a modern and clean design, with a focus on user experience and accessibility. The following design principles will be applied:
 
-*   **products**: Stores product information, including name, description, price, and relationships to categories and brands.
-*   **categories**: Stores product categories.
-*   **brands**: Stores product brands.
-*   **users**: Stores user information for authentication.
-*   **customers**: Stores customer information for orders.
-*   **orders**: Stores order information.
-*   **order_items**: Stores the items within each order.
-*   **coupons**: Stores coupon information for discounts.
-*   **payment_methods**: Stores available payment methods.
-*   **posts**: Stores blog post information.
-*   **post_categories**: Stores blog post categories.
-*   **post_tags**: Stores blog post tags.
-*   **pages**: Stores static pages.
-*   **media**: Stores media files.
-*   **deals**: Stores information about special deals.
-*   **shipments**: Stores shipment information for orders.
-*   **reviews**: Stores product reviews.
-*   **sliders**: Stores information for homepage sliders.
-*   **settings**: Stores general application settings.
-*   **currencies**: Stores currency information.
-*   **redirects**: Stores URL redirect information.
+*   **Responsive Design:** The layout will be fully responsive, ensuring a seamless experience across all devices (desktops, tablets, and smartphones).
+*   **Minimalist Aesthetic:** The design will be clean and uncluttered, with a focus on product presentation.
+*   **Intuitive Navigation:** The user interface will be easy to navigate, with a clear and logical structure.
+*   **High-Quality Visuals:** The platform will use high-quality product images and a visually appealing color scheme.
+*   **Typography:** We will use a clean and readable font pairing, with a clear hierarchy for headings and body text.
+*   **Interactivity:** The application will incorporate subtle animations and transitions to enhance the user experience.
 
-### Models
+## 3. Implemented Features
 
-*   `Product`: Eloquent model for the `products` table.
-*   `Category`: Eloquent model for the `categories` table.
-*   `Brand`: Eloquent model for the `brands` table.
-*   `User`: Eloent model for the `users` table.
+This section will be updated as new features are implemented.
 
-### Controllers
+***(Initially empty)***
 
-*   `CategoryController`: Resourceful controller for managing categories in the admin panel.
-*   `BrandController`: Resourceful controller for managing brands in the admin panel.
+## 4. Current Development Plan
 
-### Views
+### Phase 1: Core E-commerce Functionality
 
-*   **Admin/Categories**: Views for listing, creating, and editing categories.
-*   **Admin/Brands**: Views for listing, creating, and editing brands.
-*   **Shop/Index**: The main homepage of the e-commerce store, featuring a dynamic hero slider, a product listing, and a features section highlighting key customer benefits.
+*   **[COMPLETED] Project Setup:**
+    *   Initialize a new Laravel project.
+    *   Configure the database connection.
+    *   Run initial database migrations.
+*   **[IN PROGRESS] Database Schema:**
+    *   Create database migrations for the following tables:
+        *   `products`: To store product information.
+        *   `categories`: To organize products into categories.
+        *   `brands`: To associate products with brands.
+        *   `product_variants`: To manage product variations (e.g., size, color).
+        *   `orders`: To store customer orders.
+        *   `order_items`: To store the items within each order.
+        *   `customers`: To store customer information.
+        *   `users`: For user authentication.
+*   **Product Management:**
+    *   Create a `Product` model and resource controller.
+    *   Implement views for listing products and viewing product details.
+*   **Shopping Cart:**
+    *   Create a `Cart` model and controller.
+    *   Implement functionality to add, update, and remove items from the cart.
+*   **User Authentication:**
+    *   Implement user registration and login using Laravel Breeze.
 
-## Current Task: UI and Configuration
+### Phase 2: Checkout and Payments
 
-*   **Product Card Layout:** Corrected the product card layout in `shop.index.blade.php` to ensure the price and "Add to Cart" button are displayed on separate lines for a cleaner look.
-*   **Star Rating:** Implemented a star rating system for products, which is now displayed on the product cards.
-*   **Currency and Country:** Configured the application to use "Rs" as the currency symbol and "Pakistan" as the country. This was done by updating the `config/settings.php` file and the `shop.index.blade.php` view.
+*   **Checkout Process:**
+    *   Create a multi-step checkout process (shipping address, payment method, order summary).
+*   **Payment Gateway Integration:**
+    *   Integrate a popular payment gateway like Stripe or PayPal.
 
-## Next Steps
+### Phase 3: Advanced Features & Admin Panel
 
-*   Create views to display the `categories` and `brands` on the frontend.
+*   **Admin Panel:**
+    *   Create an admin dashboard for managing products, orders, and customers.
+*   **Search and Filtering:**
+    *   Implement a robust product search functionality with filters for categories, brands, and price.
+*   **Product Reviews:**
+    *   Allow users to submit reviews and ratings for products.
+

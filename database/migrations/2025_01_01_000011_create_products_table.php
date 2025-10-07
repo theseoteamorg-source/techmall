@@ -18,14 +18,25 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->longText('details')->nullable();
             $table->decimal('price', 8, 2);
+            $table->string('sku')->unique()->nullable();
             $table->string('image')->nullable();
-            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('brand_id')->nullable()->constrained()->onDelete('set null');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->boolean('published')->default(false);
+            $table->boolean('featured')->default(false);
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
             $table->boolean('include_in_sitemap')->default(true);
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
+
+            $table->index('slug');
+            $table->index('category_id');
+            $table->index('brand_id');
         });
     }
 
