@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -49,6 +50,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        $product->load('variants');
         return view('admin.products.edit', compact('product'));
     }
 
@@ -91,5 +93,27 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Product deleted successfully');
+    }
+
+    public function updateVariants(Request $request, Product $product)
+    {
+        $variantsData = $request->input('variants', []);
+        $defaultVariantId = $request->input('is_default');
+
+        foreach ($variantsData as $variantId => $variantData) {
+            $variant = ProductVariant::find($variantId);
+            if ($variant) {
+                $variant->update($variantData);
+            }
+        }
+
+        $product->variants()->update(['is_default' => false]);
+
+        $defaultVariant = ProductVariant::find($defaultVariantId);
+        if ($defaultVariant) {
+            $defaultVariant->update(['is_default' => true]);
+        }
+
+        return redirect()->back()->with('success', 'Product variants updated successfully.');
     }
 }

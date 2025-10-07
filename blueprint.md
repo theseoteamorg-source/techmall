@@ -104,13 +104,13 @@ The following is a detailed, phased plan to implement the full e-commerce functi
 * [x] **Consolidate `coupons` table migrations:** Merged `add_new_fields_to_coupons_table` into the `create_coupons_table` migration.
 * [x] Deleted the redundant migration files.
 
-### Phase 9: Product Variant Enhancement
-* [ ] **Migration:** Add a `is_default` boolean column to the `product_variants` table.
-* [ ] **Admin Panel:**
-    * [ ] Update the product edit page in the admin panel to allow setting one variant as the default (e.g., with a radio button).
-    * [ ] Update the `ProductController` to handle the logic for setting and updating the default variant. Only one variant per product should be the default.
-* [ ] **Frontend:**
-    * [ ] Modify the `shop/product.blade.php` file to identify and display the default variant's price and select it by default when the page loads.
+### Phase 9: Product Variant Enhancement (Completed)
+* [x] **Migration:** Add a `is_default` boolean column to the `product_variants` table.
+* [x] **Admin Panel:**
+    * [x] Update the product edit page in the admin panel to allow setting one variant as the default (e.g., with a radio button).
+    * [x] Update the `ProductController` to handle the logic for setting and updating the default variant. Only one variant per product should be the default.
+* [x] **Frontend:**
+    * [x] Modify the `shop/product.blade.php` file to identify and display the default variant's price and select it by default when the page loads.
 
 ### Phase 10: Final Review & Cleanup
 * [ ] **Link Verification:** Systematically click through every link in both the frontend and admin panel to ensure there are no broken routes.

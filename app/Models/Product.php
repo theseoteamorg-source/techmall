@@ -43,4 +43,9 @@ class Product extends Model
     {
         return $this->reviews()->avg('rating');
     }
+
+    public function getDefaultVariantAttribute()
+    {
+        return $this->variants->where('is_default', true)->first();
+    }
 }
