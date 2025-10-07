@@ -97,7 +97,9 @@
                                             <i class="far fa-star text-warning"></i>
                                         @endfor
                                     </div>
-                                    <p class="card-text">${{ $product->price }}</p>
+                                    <div class="mb-2">
+                                        <p class="card-text h5">{{ config('settings.currency_symbol') }}{{ $product->price }}</p>
+                                    </div>
                                     <div class="mt-auto">
                                         <a href="{{ route('cart.add', $product->id) }}" class="btn btn-primary btn-block">Add to Cart</a>
                                     </div>

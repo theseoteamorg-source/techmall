@@ -35,7 +35,7 @@ This project is a full-stack e-commerce application built with Laravel. The goal
 *   `Product`: Eloquent model for the `products` table.
 *   `Category`: Eloquent model for the `categories` table.
 *   `Brand`: Eloquent model for the `brands` table.
-*   `User`: Eloquent model for the `users` table.
+*   `User`: Eloent model for the `users` table.
 
 ### Controllers
 
@@ -48,11 +48,11 @@ This project is a full-stack e-commerce application built with Laravel. The goal
 *   **Admin/Brands**: Views for listing, creating, and editing brands.
 *   **Shop/Index**: The main homepage of the e-commerce store, featuring a dynamic hero slider, a product listing, and a features section highlighting key customer benefits.
 
-## Current Task: Homepage Slider
+## Current Task: UI and Configuration
 
-*   **Database Seeding:** Created a `SliderSeeder` to populate the `sliders` table with sample data for the hero slider.
-*   **Controller Logic:** Updated the `ShopController` to fetch slider data from the database and pass it to the homepage view.
-*   **View Implementation:** Replaced the static hero section with a dynamic Bootstrap carousel in the `shop.index.blade.php` view. The carousel is populated with data from the `sliders` table.
+*   **Product Card Layout:** Corrected the product card layout in `shop.index.blade.php` to ensure the price and "Add to Cart" button are displayed on separate lines for a cleaner look.
+*   **Star Rating:** Implemented a star rating system for products, which is now displayed on the product cards.
+*   **Currency and Country:** Configured the application to use "Rs" as the currency symbol and "Pakistan" as the country. This was done by updating the `config/settings.php` file and the `shop.index.blade.php` view.
 
 ## Next Steps
 
