@@ -16,6 +16,7 @@ class ProductVariant extends Model
         'sku',
         'stock',
         'status',
+        'is_default',
     ];
 
     public function product()

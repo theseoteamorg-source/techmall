@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('sku')->unique()->nullable();
             $table->string('image')->nullable();
             $table->integer('stock')->default(0);
+            $table->boolean('status')->default(true);
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

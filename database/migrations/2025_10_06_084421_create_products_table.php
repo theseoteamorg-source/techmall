@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->string('sku')->unique()->nullable();
             $table->string('image')->nullable();
+            $table->string('product_type')->default('simple');
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->bigInteger('brand_id')->unsigned()->nullable();
             $table->boolean('published')->default(false);

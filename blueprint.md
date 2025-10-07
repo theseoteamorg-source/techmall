@@ -1,7 +1,7 @@
 
 # TechMall E-Commerce Platform Blueprint
 
-*As of: Monday, October 6, 2025 at 4:45 PM PKT*
+*As of: Monday, October 7, 2025 at 3:15 PM PKT*
 
 ## 1. Project Overview
 
@@ -99,7 +99,12 @@ The following is a detailed, phased plan to implement the full e-commerce functi
     * [x] Implement the `store` method to create new shipments and update the order status to "shipped."
     * [x] Implement the `destroy` method to delete shipments and revert the order status if no shipments remain.
 
-### Phase 8: Product Variant Enhancement
+### Phase 8: Database Migration Consolidation (Completed)
+* [x] **Consolidate `orders` table migrations:** Merged `add_billing_details_to_orders_table`, `add_coupon_code_and_discount_to_orders_table`, and `add_payment_method_to_orders_table` into the `create_orders_table` migration.
+* [x] **Consolidate `coupons` table migrations:** Merged `add_new_fields_to_coupons_table` into the `create_coupons_table` migration.
+* [x] Deleted the redundant migration files.
+
+### Phase 9: Product Variant Enhancement
 * [ ] **Migration:** Add a `is_default` boolean column to the `product_variants` table.
 * [ ] **Admin Panel:**
     * [ ] Update the product edit page in the admin panel to allow setting one variant as the default (e.g., with a radio button).
@@ -107,7 +112,7 @@ The following is a detailed, phased plan to implement the full e-commerce functi
 * [ ] **Frontend:**
     * [ ] Modify the `shop/product.blade.php` file to identify and display the default variant's price and select it by default when the page loads.
 
-### Phase 9: Final Review & Cleanup
+### Phase 10: Final Review & Cleanup
 * [ ] **Link Verification:** Systematically click through every link in both the frontend and admin panel to ensure there are no broken routes.
 * [ ] **Responsiveness Check:** Test the entire application on various screen sizes (desktop, tablet, mobile).
 * [ ] **Final Code Sweep:** Remove any commented-out code, unused variables, or redundant files.

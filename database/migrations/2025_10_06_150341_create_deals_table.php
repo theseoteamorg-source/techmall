@@ -16,13 +16,11 @@ return new class extends Migration
         Schema::create('deals', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('product_id');
-            $table->integer('discount_percentage');
+            $table->enum('type', ['combo', 'discount'])->default('discount');
+            $table->decimal('discount', 8, 2);
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->timestamps();
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
