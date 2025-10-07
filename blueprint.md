@@ -17,9 +17,13 @@ The application will feature a modern and clean design, with a focus on user exp
 
 ## 3. Implemented Features
 
-This section will be updated as new features are implemented.
-
-***(Initially empty)***
+*   **Database Schema:**
+    *   Created migrations for `products`, `categories`, `brands`, `product_variants`, `orders`, `order_items`, `users`, and several other related tables.
+    *   Optimized database schema with appropriate data types, indexes, and foreign key constraints.
+*   **Product Management:**
+    *   Created `Product` model with `SoftDeletes` and fillable attributes.
+    *   Created a resourceful `ProductController` for handling CRUD operations.
+    *   Developed Blade views for creating, reading, updating, and deleting products (`index`, `create`, `edit`).
 
 ## 4. Current Development Plan
 
@@ -29,20 +33,12 @@ This section will be updated as new features are implemented.
     *   Initialize a new Laravel project.
     *   Configure the database connection.
     *   Run initial database migrations.
-*   **[IN PROGRESS] Database Schema:**
-    *   Create database migrations for the following tables:
-        *   `products`: To store product information.
-        *   `categories`: To organize products into categories.
-        *   `brands`: To associate products with brands.
-        *   `product_variants`: To manage product variations (e.g., size, color).
-        *   `orders`: To store customer orders.
-        *   `order_items`: To store the items within each order.
-        *   `customers`: To store customer information.
-        *   `users`: For user authentication.
-*   **Product Management:**
+*   **[COMPLETED] Database Schema:**
+    *   Create and optimize database migrations for all necessary tables.
+*   **[COMPLETED] Product Management:**
     *   Create a `Product` model and resource controller.
-    *   Implement views for listing products and viewing product details.
-*   **Shopping Cart:**
+    *   Implement views for listing, creating, editing, and deleting products.
+*   **[IN PROGRESS] Shopping Cart:**
     *   Create a `Cart` model and controller.
     *   Implement functionality to add, update, and remove items from the cart.
 *   **User Authentication:**

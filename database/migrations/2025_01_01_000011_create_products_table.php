@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
@@ -20,8 +20,8 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->string('sku')->unique()->nullable();
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->bigInteger('category_id')->unsigned()->nullable();
+            $table->bigInteger('brand_id')->unsigned()->nullable();
             $table->boolean('published')->default(false);
             $table->boolean('featured')->default(false);
             $table->string('meta_title')->nullable();
