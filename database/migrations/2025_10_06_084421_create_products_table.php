@@ -16,9 +16,15 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->longText('details')->nullable();
             $table->decimal('price', 8, 2);
             $table->string('image')->nullable();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('brand_id')->nullable()->constrained()->onDelete('set null');
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->boolean('include_in_sitemap')->default(true);
             $table->timestamps();
         });
     }

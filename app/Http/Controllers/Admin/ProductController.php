@@ -73,6 +73,7 @@ class ProductController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'include_in_sitemap' => 'required|boolean',
             'variants.*.name' => 'required_with:variants.*.price,variants.*.sku,variants.*.stock|string|max:255',
             'variants.*.price' => 'required_with:variants.*.name|numeric',
             'variants.*.sku' => 'nullable|string|max:255',
@@ -88,19 +89,22 @@ class ProductController extends Controller
         $imageName = $slug . '-' . time() . '.' . $request->image->extension();
         Storage::disk('products')->put($imageName, file_get_contents($request->image));
 
-        $product = Product::create([
-            'name' => $request->name,
-            'slug' => $slug,
-            'description' => $request->description,
-            'details' => $request->details,
-            'price' => $request->price,
-            'category_id' => $request->category_id,
-            'brand_id' => $request->brand_id,
-            'image' => $imageName,
-            'meta_title' => $request->meta_title,
-            'meta_description' => $request->meta_description,
-            'meta_keywords' => $request->meta_keywords,
+        $product_data = $request->only([
+            'name',
+            'description',
+            'details',
+            'price',
+            'category_id',
+            'brand_id',
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'include_in_sitemap'
         ]);
+        $product_data['slug'] = $slug;
+        $product_data['image'] = $imageName;
+        $product = Product::create($product_data);
+
 
         if ($request->has('variants')) {
             foreach ($request->variants as $variantData) {
@@ -147,6 +151,7 @@ class ProductController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'include_in_sitemap' => 'required|boolean',
             'variants.*.id' => 'nullable|exists:product_variants,id',
             'variants.*.name' => 'required_with:variants.*.price,variants.*.sku,variants.*.stock|string|max:255',
             'variants.*.price' => 'required_with:variants.*.name|numeric',
@@ -160,7 +165,18 @@ class ProductController extends Controller
             $slug = $slug . '-' . ($count + 1);
         }
 
-        $data = $request->except(['_token', '_method', 'images', 'variants']);
+        $data = $request->only([
+            'name',
+            'description',
+            'details',
+            'price',
+            'category_id',
+            'brand_id',
+            'meta_title',
+            'meta_description',
+            'meta_keywords',
+            'include_in_sitemap'
+        ]);
         $data['slug'] = $slug;
 
         if ($request->hasFile('image')) {

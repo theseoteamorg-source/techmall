@@ -1,15 +1,51 @@
 @extends('layouts.shop')
 
 @section('content')
-    <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="hero-text">
-                        <h2>Find Your Next Favorite Tech Gadget</h2>
-                        <p>Explore our wide range of products and discover the latest in tech.</p>
+    <!-- Hero Slider -->
+    <div id="hero-slider" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach ($sliders as $key => $slider)
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                    <img src="{{ $slider->image_path }}" class="d-block w-100" alt="{{ $slider->heading }}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ $slider->heading }}</h5>
+                        <p>{{ $slider->sub_heading }}</p>
                     </div>
+                </div>
+            @endforeach
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hero-slider" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hero-slider" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container mt-5">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="feature">
+                    <i class="fas fa-exchange-alt fa-3x mb-3"></i>
+                    <h5>7 Days Exchange</h5>
+                    <p>We offer a 7-day exchange policy on all products.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature">
+                    <i class="fas fa-certificate fa-3x mb-3"></i>
+                    <h5>Original Products</h5>
+                    <p>All our products are 100% original and genuine.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature">
+                    <i class="fas fa-shipping-fast fa-3x mb-3"></i>
+                    <h5>Fast Delivery</h5>
+                    <p>Get your products delivered to your doorstep in no time.</p>
                 </div>
             </div>
         </div>
@@ -40,14 +76,31 @@
                                 <a href="{{ route('shop.product', $product->slug) }}">
                                     <img src="{{ $product->image_url }}" class="card-img-top" alt="{{ $product->name }}">
                                 </a>
-                                <div class="card-body">
+                                <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">
                                         <a href="{{ route('shop.product', $product->slug) }}">{{ $product->name }}</a>
                                     </h5>
+                                    <div class="d-flex justify-content-start align-items-center mb-2">
+                                        @php
+                                            $averageRating = $product->averageRating();
+                                            $fullStars = floor($averageRating);
+                                            $halfStar = $averageRating - $fullStars >= 0.5;
+                                            $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+                                        @endphp
+                                        @for ($i = 0; $i < $fullStars; $i++)
+                                            <i class="fas fa-star text-warning"></i>
+                                        @endfor
+                                        @if ($halfStar)
+                                            <i class="fas fa-star-half-alt text-warning"></i>
+                                        @endif
+                                        @for ($i = 0; $i < $emptyStars; $i++)
+                                            <i class="far fa-star text-warning"></i>
+                                        @endfor
+                                    </div>
                                     <p class="card-text">${{ $product->price }}</p>
-                                </div>
-                                <div class="card-footer bg-transparent border-top-0">
-                                     <a href="{{ route('cart.add', $product->id) }}" class="btn btn-primary btn-block">Add to Cart</a>
+                                    <div class="mt-auto">
+                                        <a href="{{ route('cart.add', $product->id) }}" class="btn btn-primary btn-block">Add to Cart</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -68,18 +121,13 @@
 
 @push('styles')
 <style>
-    .hero-section {
-        background: #f8f9fa;
-        padding: 60px 0;
-        text-align: center;
+    .carousel-item img {
+        max-height: 400px;
+        object-fit: cover;
     }
-
-    .product-card {
-        transition: transform .2s;
-    }
-
-    .product-card:hover {
-        transform: scale(1.05);
+    .product-card .card-body {
+        display: flex;
+        flex-direction: column;
     }
 </style>
 @endpush

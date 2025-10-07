@@ -34,6 +34,7 @@ class ShopController extends Controller
 
     public function index(Request $request)
     {
+        $sliders = Slider::all();
         $categories = Category::all();
         $brands = Brand::all();
         $products = Product::query();
@@ -62,7 +63,7 @@ class ShopController extends Controller
 
         $products = $products->paginate(12);
 
-        return view('shop.index', compact('products', 'categories', 'brands'));
+        return view('shop.index', compact('products', 'categories', 'brands', 'sliders'));
     }
 
     public function category(Request $request, Category $category)

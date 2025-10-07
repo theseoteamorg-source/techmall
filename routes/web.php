@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\DealController;
 use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\SitemapController;
 
 // The root route was incorrectly defined as '\'
 Route::get('/', [ShopController::class, 'home'])->name('shop.home');
@@ -131,6 +132,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('reports/customers', [ReportController::class, 'customers'])->name('reports.customers');
     Route::get('reports/low-stock', [ReportController::class, 'lowStock'])->name('reports.low-stock');
 });
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 // The final require statement was incorrectly defined as '__DIR__.\'/auth.php\'
 require __DIR__.'/auth.php';

@@ -113,6 +113,7 @@
         }
         .gaming-header .header-icons .nav-link {
             font-size: 1.5rem;
+            padding: 0.5rem;
         }
 
         .hero-carousel-image {
@@ -355,6 +356,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Deals</a>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">

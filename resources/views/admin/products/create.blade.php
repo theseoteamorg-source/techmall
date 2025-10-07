@@ -82,10 +82,12 @@
 
                 <div class="form-group">
                     <label for="image">Main Image</label>
-                    <div class="input-group">
-                        <input type="text" name="image" id="image_url" class="form-control" readonly>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#media-modal" data-url="{{ route('admin.media.library') }}">Choose Image</button>
-                    </div>
+                    <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
+                    @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -123,6 +125,21 @@
                     <input type="text" name="meta_keywords" id="meta_keywords" class="form-control @error('meta_keywords') is-invalid @enderror" value="{{ old('meta_keywords') }}">
                     @error('meta_keywords')
                         <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="hidden" name="include_in_sitemap" value="0">
+                        <input class="form-check-input" type="checkbox" name="include_in_sitemap" id="include_in_sitemap" value="1" {{ old('include_in_sitemap', true) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="include_in_sitemap">
+                            Include in Sitemap
+                        </label>
+                    </div>
+                    @error('include_in_sitemap')
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
