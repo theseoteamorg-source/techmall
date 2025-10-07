@@ -1,7 +1,7 @@
 
 # TechMall E-Commerce Platform Blueprint
 
-*As of: Monday, October 7, 2025 at 3:15 PM PKT*
+*As of: Monday, October 7, 2025 at 3:20 PM PKT*
 
 ## 1. Project Overview
 
@@ -77,19 +77,12 @@ The following is a detailed, phased plan to implement the full e-commerce functi
     * [x] **Create Deals Page:** Build a dedicated page to display all active product deals.
     * [x] **Render Static Pages:** Ensure content from the `Pages` module (e.g., "About Us") is displayed correctly.
 
-### Phase 6: Admin Panel Finalization & Settings
+### Phase 6: Admin Panel Finalization & Settings (Completed)
 * [x] **Build Admin Dashboard:** Create a main dashboard that provides an overview of store performance (KPIs, sales charts, latest orders).
 * [x] **Create Reports Module:** Implement pages for `Sales`, `Customer`, and `Low Stock` reports with export functionality.
 * [x] **Implement Staff Management & Roles:** Build the system to create staff accounts and assign granular permissions via a role-based system.
-* [ ] **Complete Settings Module:**
-    * [ ] Implement **General Settings** (Store Name, Logo, Theme Color, Currency, etc.).
-    * [ ] Implement **Integrations** (field for Google Analytics 4 ID).
-    * [ ] Implement **Payment Methods** management.
-    * [ ] Implement **Header & Footer Scripts** injection tool.
-    * [ ] Implement **System Tools** (Cache Clearing button).
 
 ### Phase 7: Order and Shipment Management (Completed)
-
 * **Shipment Tracking:**
     * [x] Create the `Shipment` model and migration with fields for `order_id`, `carrier`, and `tracking_number`.
     * [x] Add the `shipments` relationship to the `Order` model.
@@ -112,8 +105,20 @@ The following is a detailed, phased plan to implement the full e-commerce functi
 * [x] **Frontend:**
     * [x] Modify the `shop/product.blade.php` file to identify and display the default variant's price and select it by default when the page loads.
 
-### Phase 10: Final Review & Cleanup
+### Phase 10: Category URL and View Refactoring (Completed)
+* [x] **Standardize URL Structure:** Updated `SitemapService` and `routes/web.php` to use the singular `/category/{slug}` URL structure instead of the plural `/categories/{slug}`.
+* [x] **Refactor Controller:** Updated the `CategoryController@show` method to handle product sorting by price and newness.
+* [x] **Consolidate Views:** Moved the existing category view from `resources/views/shop/category.blade.php` to the more appropriate `resources/views/category/show.blade.php`.
+* [x] **Cleanup:** Deleted the old, redundant view file at `resources/views/shop/category.blade.php`.
+
+### Phase 11: Final Review & Cleanup
 * [ ] **Link Verification:** Systematically click through every link in both the frontend and admin panel to ensure there are no broken routes.
 * [ ] **Responsiveness Check:** Test the entire application on various screen sizes (desktop, tablet, mobile).
 * [ ] **Final Code Sweep:** Remove any commented-out code, unused variables, or redundant files.
 * [ ] **Performance Optimization:** Analyze and optimize database queries and asset loading.
+* [ ] **Complete Settings Module:**
+    * [ ] Implement **General Settings** (Store Name, Logo, Theme Color, Currency, etc.).
+    * [ ] Implement **Integrations** (field for Google Analytics 4 ID).
+    * [ ] Implement **Payment Methods** management.
+    * [ ] Implement **Header & Footer Scripts** injection tool.
+    * [ ] Implement **System Tools** (Cache Clearing button).

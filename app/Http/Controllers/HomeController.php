@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Product;
+use App\Models\Slider;
 use Illuminate\Http\Request;
+use Spatie\SchemaOrg\Schema;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -23,6 +17,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $products = Product::all();
+        $brands = Brand::all();
+        $sliders = Slider::all();
+        $siteSchema = Schema::webSite()->url(url('/'))->name('E-commerce');
+
+        return view('welcome', compact('products', 'brands', 'sliders', 'siteSchema'));
     }
 }

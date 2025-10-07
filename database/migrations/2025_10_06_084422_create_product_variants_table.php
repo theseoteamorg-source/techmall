@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('product_variants', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('product_id')->unsigned();
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->decimal('price', 8, 2);
             $table->string('sku')->unique()->nullable();
@@ -22,8 +22,6 @@ return new class extends Migration
             $table->boolean('status')->default(true);
             $table->boolean('is_default')->default(false);
             $table->timestamps();
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
             $table->index('product_id');
             $table->index('sku');

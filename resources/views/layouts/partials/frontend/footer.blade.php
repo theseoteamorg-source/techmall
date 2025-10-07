@@ -8,7 +8,7 @@
             <div class="col-md-2">
                 <h5>Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('shop.home') }}" class="text-white">Home</a></li>
+                    <li><a href="{{ route('home') }}" class="text-white">Home</a></li>
                     <li><a href="{{ route('shop.index') }}" class="text-white">Shop</a></li>
                     <li><a href="{{ route('blog.index') }}" class="text-white">Blog</a></li>
                     <li><a href="{{ route('contact') }}" class="text-white">Contact</a></li>

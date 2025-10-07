@@ -7,53 +7,27 @@ use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    public function index()
+    public function show(Request $request, Brand $brand)
     {
-        $brands = Brand::all();
-        return view('admin.brands.index', compact('brands'));
-    }
+        $productsQuery = $brand->products();
 
-    public function create()
-    {
-        return view('admin.brands.create');
-    }
+        switch ($request->get('sort')) {
+            case 'price_asc':
+                $productsQuery->orderBy('price', 'asc');
+                break;
+            case 'price_desc':
+                $productsQuery->orderBy('price', 'desc');
+                break;
+            case 'newness':
+                $productsQuery->orderBy('created_at', 'desc');
+                break;
+            default:
+                // No sorting
+                break;
+        }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|unique:brands|max:255',
-            'slug' => 'required|unique:brands|max:255',
-        ]);
+        $products = $productsQuery->paginate(12);
 
-        Brand::create($request->all());
-
-        return redirect()->route('admin.brands.index')
-            ->with('success', 'Brand created successfully.');
-    }
-
-    public function edit(Brand $brand)
-    {
-        return view('admin.brands.edit', compact('brand'));
-    }
-
-    public function update(Request $request, Brand $brand)
-    {
-        $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255',
-        ]);
-
-        $brand->update($request->all());
-
-        return redirect()->route('admin.brands.index')
-            ->with('success', 'Brand updated successfully');
-    }
-
-    public function destroy(Brand $brand)
-    {
-        $brand->delete();
-
-        return redirect()->route('admin.brands.index')
-            ->with('success', 'Brand deleted successfully');
+        return view('brand.show', compact('brand', 'products'));
     }
 }

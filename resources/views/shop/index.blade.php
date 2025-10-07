@@ -1,4 +1,4 @@
-@extends('layouts.shop')
+@extends('layouts.frontend')
 
 @section('content')
     <!-- Hero Slider -->
@@ -73,12 +73,12 @@
                     @forelse ($products as $product)
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100 product-card">
-                                <a href="{{ route('shop.product', $product->slug) }}">
+                                <a href="{{ route('shop.product.show', $product->slug) }}">
                                     <img src="{{ $product->image_url }}" class="card-img-top" alt="{{ $product->name }}">
                                 </a>
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">
-                                        <a href="{{ route('shop.product', $product->slug) }}">{{ $product->name }}</a>
+                                        <a href="{{ route('shop.product.show', $product->slug) }}">{{ $product->name }}</a>
                                     </h5>
                                     <div class="d-flex justify-content-start align-items-center mb-2">
                                         @php

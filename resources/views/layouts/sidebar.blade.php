@@ -1,40 +1,40 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-        <span class="fs-4">Admin Panel</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
+<div class="position-sticky pt-3">
+    <ul class="nav flex-column">
         <li class="nav-item">
-            <a href="{{ route('admin.dashboard') }}" class="nav-link active" aria-current="page">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+            <a class="nav-link active" aria-current="page" href="{{ route('dashboard.index') }}">
+                <span data-feather="home"></span>
                 Dashboard
             </a>
         </li>
-        <li>
-            <a href="{{ route('admin.users.index') }}" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-                Users
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('admin.orders.index') }}" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span data-feather="file"></span>
                 Orders
             </a>
         </li>
-        <li>
-            <a href="{{ route('sliders.index') }}" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-                Sliders
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span data-feather="shopping-cart"></span>
+                Products
             </a>
         </li>
-        <li>
-            <a href="{{ route('admin.settings.index') }}" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#gear"/></svg>
-                Settings
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span data-feather="users"></span>
+                Customers
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span data-feather="bar-chart-2"></span>
+                Reports
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span data-feather="layers"></span>
+                Integrations
             </a>
         </li>
     </ul>
-    <hr>
 </div>

@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@techmall.com',
             'password' => Hash::make('password'),
-            'is_admin' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

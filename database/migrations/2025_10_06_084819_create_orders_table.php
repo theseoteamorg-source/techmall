@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->unsigned();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('total', 8, 2);
             $table->string('coupon_code')->nullable();
             $table->decimal('discount', 8, 2)->default(0);
@@ -27,8 +27,6 @@ return new class extends Migration
             $table->string('city');
             $table->string('postal_code');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->index('user_id');
             $table->index('status');

@@ -7,53 +7,33 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Category $category)
     {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
-    }
+        $productsQuery = $category->products();
 
-    public function create()
-    {
-        return view('admin.categories.create');
-    }
+        switch ($request->get('sort')) {
+            case 'price_asc':
+                $productsQuery->orderBy('price', 'asc');
+                break;
+            case 'price_desc':
+                $productsQuery->orderBy('price', 'desc');
+                break;
+            case 'newness':
+                $productsQuery->orderBy('created_at', 'desc');
+                break;
+            default:
+                // No sorting
+                break;
+        }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|unique:categories|max:255',
-            'slug' => 'required|unique:categories|max:255',
-        ]);
+        $products = $productsQuery->paginate(12);
 
-        Category::create($request->all());
-
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Category created successfully.');
-    }
-
-    public function edit(Category $category)
-    {
-        return view('admin.categories.edit', compact('category'));
-    }
-
-    public function update(Request $request, Category $category)
-    {
-        $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255',
-        ]);
-
-        $category->update($request->all());
-
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Category updated successfully');
-    }
-
-    public function destroy(Category $category)
-    {
-        $category->delete();
-
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'Category deleted successfully');
+        return view('category.show', compact('category', 'products'));
     }
 }
