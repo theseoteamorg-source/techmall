@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->foreignId('post_category_id')->nullable()->constrained()->onDelete('set null');
+            $table->unsignedBigInteger('post_category_id')->nullable()->constrained()->onDelete('set null');
         });
     }
 

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shipments', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('order_id')->constrained()->onDelete('cascade');
-            $table->string('carrier');
-            $table->string('tracking_number');
-            $table->timestamps();
+        Schema::table('product_variants', function (Blueprint $table) {
+            $table->boolean('is_default')->default(false);
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shipments');
+        Schema::table('product_variants', function (Blueprint $table) {
+            $table->dropColumn('is_default');
+        });
     }
 };
