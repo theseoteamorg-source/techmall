@@ -38,4 +38,9 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function getFormattedPriceAttribute()
+    {
+        return 'Rs. ' . number_format($this->price, 2);
+    }
 }

@@ -1,27 +1,40 @@
-<div class="bg-dark border-right vh-100" id="sidebar-wrapper">
-    <div class="sidebar-heading text-white">Admin Menu</div>
-    <div class="list-group list-group-flush">
-        <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action bg-dark text-white">Dashboard</a>
-        <a href="{{ route('admin.categories.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Categories</a>
-        <a href="{{ route('admin.products.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Products</a>
-        <a href="{{ route('admin.brands.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Brands</a>
-        <a href="{{ route('admin.orders.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Orders</a>
-        <a href="{{ route('admin.customers.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Customers</a>
-        <a href="{{ route('admin.coupons.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Coupons</a>
-        <a href="{{ route('admin.payment-methods.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Payment Methods</a>
-        <div class="list-group-item list-group-item-action bg-dark text-white dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Blog
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+        <span class="fs-4">Admin Panel</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="{{ route('admin.dashboard') }}" class="nav-link active" aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                Dashboard
             </a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ route('admin.posts.index') }}">Posts</a></li>
-                <li><a class="dropdown-item" href="{{ route('admin.post-categories.index') }}">Categories</a></li>
-                <li><a class="dropdown-item" href="{{ route('admin.post-tags.index') }}">Tags</a></li>
-            </ul>
-        </div>
-        <a href="{{ route('admin.pages.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Pages</a>
-        <a href="{{ route('admin.media.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Media</a>
-        <a href="{{ route('admin.users.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Users</a>
-        <a href="{{ route('admin.settings.index') }}" class="list-group-item list-group-item-action bg-dark text-white">Settings</a>
-    </div>
+        </li>
+        <li>
+            <a href="{{ route('admin.users.index') }}" class="nav-link text-white">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                Users
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.orders.index') }}" class="nav-link text-white">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                Orders
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('sliders.index') }}" class="nav-link text-white">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                Sliders
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.settings.index') }}" class="nav-link text-white">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#gear"/></svg>
+                Settings
+            </a>
+        </li>
+    </ul>
+    <hr>
 </div>

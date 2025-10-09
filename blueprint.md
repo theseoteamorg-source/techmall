@@ -1,10 +1,6 @@
-Of course. Here is the complete project document, merging our detailed frontend and admin blueprints into your existing phased format. This serves as a comprehensive roadmap for the development of the entire TechMall platform.
-
-***
-
 # TechMall E-Commerce Platform Blueprint
 
-*As of: Monday, October 6, 2025 at 2:49 PM PKT*
+*As of: Monday, October 6, 2025 at 3:00 PM PKT*
 
 ## 1. Project Overview
 
@@ -15,7 +11,7 @@ TechMall is a full-stack e-commerce web application built on the Laravel framewo
 This section will be updated as features are built.
 
 ### Design:
-* **Layout:** A two-layout structure (frontend and admin).
+* **Layout:** A unified layout system using a single `layouts.app` master layout.
 * **Admin Theme:** The admin panel UI will be built using the **AdminLTE** template for a responsive and feature-rich experience.
 * **Styling:** Bootstrap-based, focusing on a clean, responsive, and modern aesthetic for the frontend.
 * **Branding:** The application will be branded as "TechMall".
@@ -39,6 +35,7 @@ The following is a detailed, phased plan to implement the full e-commerce functi
 * [x] Organize partials for both frontend and admin layouts.
 * [x] Update all views to extend the new, correct layouts.
 * [x] Remove all old, unused, or duplicate view files.
+* [x] Unify the layout system by replacing the `frontend` and `admin` layouts with a single, more flexible `app` layout.
 
 ### Phase 2: Frontend Homepage & Core UI (Completed)
 * [x] Create `Brand` model and migration.
@@ -70,14 +67,14 @@ The following is a detailed, phased plan to implement the full e-commerce functi
     * [ ] **Enhance Order Management:** Build the admin interface to view full order details, customer information, and update order statuses (e.g., `Processing`, `Shipped`).
     * [ ] **Implement Review Management:** Create the interface to approve, edit (text and stars), and delete customer reviews.
 
-### Phase 5: Content, Marketing & Media Implementation
+### Phase 5: Content, Marketing & Media Implementation (In Progress)
 * **Admin Panel:**
-    * [ ] **Build Blog & CMS:** Implement the WordPress-style system for managing `Posts`, `Pages`, `Categories`, and `Tags`, complete with a rich text editor and SEO fields.
+    * [x] **Build Blog & CMS:** Implement the WordPress-style system for managing `Posts`, `Pages`, `Categories`, and `Tags`, complete with a rich text editor and SEO fields.
     * [ ] **Build Media Library:** Create a centralized library for managing all file uploads (images, PDFs) that integrates with the Product and Blog editors.
     * [ ] **Build Marketing Tools:** Develop the interfaces for managing `Coupons` and bundled `Deals`.
 * **Frontend:**
-    * [ ] **Display Blog:** Create the blog index and single post pages, with a sidebar for categories and a comments section.
-    * [ ] **Render Static Pages:** Ensure content from the `Pages` module (e.g., "About Us") is displayed correctly.
+    * [x] **Display Blog:** Create the blog index and single post pages, with a sidebar for categories and a comments section.
+    * [x] **Render Static Pages:** Ensure content from the `Pages` module (e.g., "About Us") is displayed correctly.
     * [ ] **Create Deals Page:** Build a dedicated page to display all active product deals.
 
 ### Phase 6: Admin Panel Finalization & Settings
@@ -96,3 +93,15 @@ The following is a detailed, phased plan to implement the full e-commerce functi
 * [ ] **Responsiveness Check:** Test the entire application on various screen sizes (desktop, tablet, mobile).
 * [ ] **Final Code Sweep:** Remove any commented-out code, unused variables, or redundant files.
 * [ ] **Performance Optimization:** Analyze and optimize database queries and asset loading.
+
+---
+
+## 4. Current Task
+
+**Goal:** Unify the layout system by replacing the `frontend` and `admin` layouts with a single, more flexible `app` layout.
+
+**Plan:**
+1.  **Create `layouts.app`:** Create a new master layout file at `resources/views/layouts/app.blade.php`. (✓ Done)
+2.  **Update Views:** Modify all existing views to extend `layouts.app` instead of the old layouts. (✓ Done)
+3.  **Remove Old Layouts:** Delete the now-redundant `layouts/frontend.blade.php` and `layouts/admin.blade.php` files. (✓ Done)
+4.  **Update Blueprint:** Document the completion of this layout unification task. (✓ Done)
