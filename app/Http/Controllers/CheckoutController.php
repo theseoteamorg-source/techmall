@@ -1,1 +1,13 @@
-<?php\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\Request;\n\nclass CheckoutController extends Controller\n{\n    public function index()\n    {\n        return view(\'shop.checkout\');\n    }\n}\n
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class CheckoutController extends Controller
+{
+    public function index()
+    {
+        return view('shop.checkout');
+    }
+}

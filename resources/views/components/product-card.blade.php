@@ -1,23 +1,35 @@
-@props(['product'])
+@props(['product', 'class' => 'col'])
 
-<div class="col">
-    <div class="card product-card-v3 h-100">
-        <div class="product-img-container">
-            <a href="{{ route('shop.product', $product) }}">
+<div class="{{ $class }} product-card" data-price="{{ $product->price }}">
+    <div class="card h-100">
+         <a href="{{ route('shop.product.show', $product->slug) }}">
             <img src="{{ $product->image_url }}" class="card-img-top" alt="{{ $product->name }}">
-            </a>
-        </div>
+        </a>
         <div class="card-body d-flex flex-column">
-            <h3 class="card-title h6"><a href="{{ route('shop.product', $product) }}" class="text-dark text-decoration-none">{{ $product->name }}</a></h3>
-            <p class="card-text text-muted flex-grow-1">{{ \Illuminate\Support\Str::limit($product->description, 75) }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-                <p class="card-text fw-bold fs-5 text-primary mb-0">{{ format_price($product->price) }}</p>
-                <a href="{{ route('cart.add', $product) }}" class="btn btn-primary btn-sm">Add to Cart</a>
+            <h5 class="card-title">
+                <a href="{{ route('shop.product.show', $product->slug) }}">{{ $product->name }}</a>
+            </h5>
+             <div class="d-flex justify-content-start align-items-center mb-2">
+                @php
+                    $averageRating = $product->averageRating();
+                    $fullStars = floor($averageRating);
+                    $halfStar = $averageRating - $fullStars >= 0.5;
+                    $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+                @endphp
+                @for ($i = 0; $i < $fullStars; $i++)
+                    <i class="fas fa-star text-warning"></i>
+                @endfor
+                @if ($halfStar)
+                    <i class="fas fa-star-half-alt text-warning"></i>
+                @endif
+                @for ($i = 0; $i < $emptyStars; $i++)
+                    <i class="far fa-star text-warning"></i>
+                @endfor
             </div>
-        </div>
-        <div class="product-actions">
-            <a href="#" class="btn btn-light btn-sm"><i class="bi bi-heart"></i></a>
-            <a href="#" class="btn btn-light btn-sm"><i class="bi bi-arrow-left-right"></i></a>
+            <p class="card-text fw-bold h5">{{ config('settings.currency_symbol') }}{{ number_format($product->price, 2) }}</p>
+            <div class="mt-auto">
+                 <a href="{{ route('cart.add', $product->id) }}" class="btn btn-primary btn-block">Add to Cart</a>
+            </div>
         </div>
     </div>
 </div>

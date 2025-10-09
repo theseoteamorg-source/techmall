@@ -3,20 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Slider;
 use App\Models\Category;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(12);
-        $sliders = Slider::all();
+        $products = Product::query()
+            ->when($request->filled('category'), function ($query) use ($request) {
+                $query->whereHas('category', function ($q) use ($request) {
+                    $q->where('slug', $request->category);
+                });
+            })
+            ->when($request->filled('brand'), function ($query) use ($request) {
+                $query->whereHas('brand', function ($q) use ($request) {
+                    $q->where('slug', $request->brand);
+                });
+            })
+            ->when($request->filled('sort'), function ($query) use ($request) {
+                match ($request->sort) {
+                    'price_asc' => $query->orderBy('price', 'asc'),
+                    'price_desc' => $query->orderBy('price', 'desc'),
+                    'newness' => $query->latest(),
+                    default => $query,
+                };
+            })
+            ->paginate(12);
+
         $categories = Category::all();
         $brands = Brand::all();
-        return view('shop.index', compact('products', 'sliders', 'categories', 'brands'));
+
+        return view('shop.index', compact('products', 'categories', 'brands'));
     }
 
     public function product(Product $product)

@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Darryldecode\Cart\CartServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -174,6 +175,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\SitemapServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
 
     ],
 
@@ -225,7 +227,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Sitemap' => App\Facades\Sitemap::class,
-
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
     ],
 
 ];

@@ -1,5 +1,20 @@
 @extends('layouts.frontend')
 
+@push('styles')
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<style>
+    .category-products-slider .swiper-container {
+        padding-bottom: 40px;
+    }
+    .category-products-slider .swiper-pagination {
+        bottom: 0;
+    }
+    .category-products-slider .swiper-button-next, .category-products-slider .swiper-button-prev {
+        color: var(--primary-color);
+    }
+</style>
+@endpush
+
 @section('content')
 
 <!-- Hero Section -->
@@ -28,10 +43,17 @@
                 <h2 class="mb-0">{{ $category->name }}</h2>
                 <a href="{{ route('shop.index', ['category' => $category->slug]) }}" class="btn btn-outline-primary">View All</a>
             </div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-                @foreach($category->products as $product)
-                    <x-product-card :product="$product" />
-                @endforeach
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach($category->products->take(4) as $product)
+                        <div class="swiper-slide">
+                            <x-product-card :product="$product" />
+                        </div>
+                    @endforeach
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
         @endforeach
@@ -82,3 +104,37 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 50,
+                },
+            }
+        });
+    });
+</script>
+@endpush
