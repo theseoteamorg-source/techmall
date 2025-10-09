@@ -13,6 +13,9 @@ class Coupon extends Model
         'code',
         'type',
         'value',
+        'min_spend',
+        'usage_limit',
+        'usage_limit_per_user',
         'expires_at',
     ];
 

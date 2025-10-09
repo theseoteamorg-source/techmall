@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Currency;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class SettingController extends Controller
 {
@@ -19,9 +20,22 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         $setting = Setting::firstOrCreate([]);
-        $setting->currency = $request->currency;
+
+        $setting->update($request->all());
+
+        if ($request->hasFile('logo')) {
+            $path = $request->file('logo')->store('logos', 'public');
+            $setting->logo = $path;
+        }
+
         $setting->save();
 
         return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
+    public function clearCache()
+    {
+        Artisan::call('cache:clear');
+        return redirect()->back()->with('success', 'Cache cleared successfully.');
     }
 }

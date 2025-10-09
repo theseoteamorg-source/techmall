@@ -11,7 +11,7 @@ class Product extends Model
 
     protected $fillable = [
         'name', 'slug', 'description', 'details', 'price', 'category_id', 'brand_id', 'image',
-        'meta_title', 'meta_description', 'meta_keywords'
+        'meta_title', 'meta_description', 'meta_keywords', 'include_in_sitemap', 'product_type'
     ];
 
     public function category()
@@ -42,5 +42,15 @@ class Product extends Model
     public function getFormattedPriceAttribute()
     {
         return 'Rs. ' . number_format($this->price, 2);
+    }
+
+    public function averageRating()
+    {
+        return $this->reviews()->avg('rating');
+    }
+
+    public function getDefaultVariantAttribute()
+    {
+        return $this->variants->where('is_default', true)->first();
     }
 }

@@ -1,17 +1,11 @@
-@extends('layouts.app')
-
-@section('title', $page->title)
+@extends('layouts.shop')
 
 @section('content')
-    <div class="container">
+    <div class="container py-5">
         <div class="row">
             <div class="col-md-12">
                 <h1>{{ $page->title }}</h1>
-                <div class="card">
-                    <div class="card-body">
-                        {!! $page->content !!}
-                    </div>
-                </div>
+                <p>{{ $page->body }}</p>
             </div>
         </div>
     </div>

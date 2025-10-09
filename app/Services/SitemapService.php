@@ -16,7 +16,7 @@ class SitemapService
         // Add static pages
         $sitemap .= $this->addUrl(URL::to('/'));
         $sitemap .= $this->addUrl(URL::to('/products'));
-        $sitemap .= $this->addUrl(URL::to('/categories'));
+        $sitemap .= $this->addUrl(URL::to('/category'));
         $sitemap .= $this->addUrl(URL::to('/brands'));
 
         // Add dynamic pages from the database
@@ -27,7 +27,7 @@ class SitemapService
 
         $categories = DB::table('categories')->orderBy('created_at', 'desc')->get();
         foreach ($categories as $category) {
-            $sitemap .= $this->addUrl(URL::to('/categories/' . $category->slug));
+            $sitemap .= $this->addUrl(URL::to('/category/' . $category->slug));
         }
 
         $brands = DB::table('brands')->orderBy('created_at', 'desc')->get();

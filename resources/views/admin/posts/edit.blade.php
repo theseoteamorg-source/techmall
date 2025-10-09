@@ -47,7 +47,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="content">Content</label>
-                                <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror" rows="10" required>{{ old('content', $post->content) }}</textarea>
+                                <textarea name="content" id="content" class="form-control tinymce @error('content') is-invalid @enderror" rows="10">{{ old('content', $post->content) }}</textarea>
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -56,16 +56,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="image">Image</label>
-                                <input type="file" name="image" id="image" class="form-control-file @error('image') is-invalid @enderror">
-                                @error('image')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div class="input-group">
+                                    <input type="text" name="image" id="image_url" class="form-control" readonly value="{{ $post->image }}">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#media-modal" data-url="{{ route('admin.media.library') }}">Choose Image</button>
+                                </div>
                                 @if ($post->image)
-                                    <div class="mt-2">
-                                        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" width="200">
-                                    </div>
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="img-thumbnail mt-2" width="200">
                                 @endif
                             </div>
                             <div class="form-group">
@@ -76,6 +72,35 @@
                                     @endforeach
                                 </select>
                                 @error('tags')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <hr>
+                            <h4>SEO</h4>
+                            <div class="form-group">
+                                <label for="meta_title">Meta Title</label>
+                                <input type="text" name="meta_title" id="meta_title" class="form-control @error('meta_title') is-invalid @enderror" value="{{ old('meta_title', $post->meta_title) }}">
+                                @error('meta_title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="meta_description">Meta Description</label>
+                                <textarea name="meta_description" id="meta_description" class="form-control @error('meta_description') is-invalid @enderror" rows="3">{{ old('meta_description', $post->meta_description) }}</textarea>
+                                @error('meta_description')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="meta_keywords">Meta Keywords</label>
+                                <input type="text" name="meta_keywords" id="meta_keywords" class="form-control @error('meta_keywords') is-invalid @enderror" value="{{ old('meta_keywords', $post->meta_keywords) }}">
+                                @error('meta_keywords')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -93,9 +118,36 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         $(document).ready(function() {
             $('.select2').select2();
+            tinymce.init({
+                selector: '.tinymce',
+                plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                toolbar_mode: 'floating',
+                file_picker_callback: function (cb, value, meta) {
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
+
+                    input.onchange = function () {
+                        var file = this.files[0];
+                        var reader = new FileReader();
+                        reader.onload = function () {
+                            var id = 'blobid' + (new Date()).getTime();
+                            var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                            var base64 = reader.result.split(',')[1];
+                            var blobInfo = blobCache.create(id, file, base64);
+                            blobCache.add(blobInfo);
+                            cb(blobInfo.blobUri(), { title: file.name });
+                        };
+                        reader.readAsDataURL(file);
+                    };
+
+                    input.click();
+                }
+            });
         });
     </script>
 @endpush

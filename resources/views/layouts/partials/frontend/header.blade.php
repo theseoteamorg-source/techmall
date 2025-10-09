@@ -1,8 +1,7 @@
-
 <header class="gaming-header sticky-top">
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('shop.home') }}">Techmall</a>
+            <a class="navbar-brand" href="{{ route('home') }}">Techmall</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -11,7 +10,7 @@
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('shop.home') }}">Home</a>
+                        <a class="nav-link active" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
@@ -31,9 +30,29 @@
                     </form>
 
                     <ul class="navbar-nav header-icons">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="bi bi-person-circle"></i></a>
-                        </li>
+                        @guest
+                            <li class="nav-item">
+                                <a href="{{ route('login') }}" class="nav-link"><i class="bi bi-person-circle"></i></a>
+                            </li>
+                        @else
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                Logout
+                                            </a>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endguest
                         <li class="nav-item">
                             <a href="#" class="nav-link"><i class="bi bi-heart"></i></a>
                         </li>

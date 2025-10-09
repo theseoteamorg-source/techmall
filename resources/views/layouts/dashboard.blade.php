@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') - {{ config('app.name', 'TechMall') }}</title>
+@extends('layouts.app')
 
+@section('content')
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
@@ -36,7 +32,14 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-                @yield('content')
+                <div class="row">
+                    <div class="col-md-3">
+                        @include('layouts.sidebar')
+                    </div>
+                    <div class="col-md-9">
+                        @yield('dashboard-content')
+                    </div>
+                </div>
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content -->
@@ -57,3 +60,4 @@
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 </body>
 </html>
+@endsection

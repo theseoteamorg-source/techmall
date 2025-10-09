@@ -9,50 +9,17 @@
                         <h4>Add Brand</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.brands.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.brands.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required autofocus>
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Enter name">
                             </div>
                             <div class="form-group">
-                                <label for="logo">Logo</label>
-                                <input type="file" name="logo" id="logo" class="form-control @error('logo') is-invalid @enderror">
-                                @error('logo')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <label for="slug">Slug</label>
+                                <input type="text" name="slug" class="form-control" id="slug" placeholder="Enter slug">
                             </div>
-                            <hr>
-                            <h5>SEO</h5>
-                            <div class="form-group">
-                                <label for="meta_title">Meta Title</label>
-                                <input type="text" name="meta_title" id="meta_title" class="form-control @error('meta_title') is-invalid @enderror" value="{{ old('meta_title') }}">
-                                @error('meta_title')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="meta_description">Meta Description</label>
-                                <textarea name="meta_description" id="meta_description" class="form-control @error('meta_description') is-invalid @enderror">{{ old('meta_description') }}</textarea>
-                                @error('meta_description')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="meta_keywords">Meta Keywords</label>
-                                <input type="text" name="meta_keywords" id="meta_keywords" class="form-control @error('meta_keywords') is-invalid @enderror" value="{{ old('meta_keywords') }}">
-                                @error('meta_keywords')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <button type="submit" class="btn btn-primary">Add Brand</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
                 </div>

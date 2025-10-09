@@ -25,6 +25,7 @@ class ProductSeeder extends Seeder
             'category_id' => 1,
             'brand_id' => 1,
             'image' => 'https://via.placeholder.com/640x480.png/000000?text=Spigen+Case',
+            'product_type' => 'variable',
         ]);
 
         ProductVariant::create([
@@ -34,6 +35,7 @@ class ProductSeeder extends Seeder
             'sku' => 'SPG-TF-IP14-BLK',
             'stock' => 100,
             'status' => true,
+            'is_default' => true,
         ]);
 
         ProductVariant::create([
@@ -63,6 +65,7 @@ class ProductSeeder extends Seeder
             'category_id' => 4,
             'brand_id' => 2,
             'image' => 'https://via.placeholder.com/640x480.png/0000FF?text=Anker+Power+Bank',
+            'product_type' => 'variable',
         ]);
 
         ProductVariant::create([
@@ -72,6 +75,7 @@ class ProductSeeder extends Seeder
             'sku' => 'ANK-PC-10K-BLK',
             'stock' => 200,
             'status' => true,
+            'is_default' => true,
         ]);
 
         ProductVariant::create([
@@ -101,6 +105,7 @@ class ProductSeeder extends Seeder
             'category_id' => 2,
             'brand_id' => 3,
             'image' => 'https://via.placeholder.com/640x480.png/FFFFFF?text=Belkin+Protector',
+            'product_type' => 'variable',
         ]);
 
         ProductVariant::create([
@@ -110,6 +115,7 @@ class ProductSeeder extends Seeder
             'sku' => 'BLK-UG-IP14-CLR',
             'stock' => 300,
             'status' => true,
+            'is_default' => true,
         ]);
 
         ProductVariant::create([
@@ -130,6 +136,7 @@ class ProductSeeder extends Seeder
             'category_id' => 3,
             'brand_id' => 4,
             'image' => 'https://via.placeholder.com/640x480.png/000000?text=Samsung+Charger',
+            'product_type' => 'variable',
         ]);
 
         ProductVariant::create([
@@ -139,6 +146,7 @@ class ProductSeeder extends Seeder
             'sku' => 'SAM-WC-45W-BLK-ONLY',
             'stock' => 120,
             'status' => true,
+            'is_default' => true,
         ]);
 
         ProductVariant::create([
@@ -159,6 +167,7 @@ class ProductSeeder extends Seeder
             'category_id' => 5,
             'brand_id' => 5,
             'image' => 'https://via.placeholder.com/640x480.png/FFFFFF?text=Apple+EarPods',
+            'product_type' => 'variable',
         ]);
 
         ProductVariant::create([
@@ -168,6 +177,7 @@ class ProductSeeder extends Seeder
             'sku' => 'APL-EP-LTN-WHT',
             'stock' => 500,
             'status' => true,
+            'is_default' => true,
         ]);
 
          ProductVariant::create([

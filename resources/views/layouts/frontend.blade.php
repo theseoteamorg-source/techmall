@@ -18,9 +18,10 @@
 
     <style>
         :root {
-            --primary-color: #007bff; 
-            --primary-hover: #0056b3;
-            --accent-color: #fd7e14;
+            --primary-color: #0d6efd;
+            --primary-hover: #0b5ed7;
+            --secondary-color: #6c757d;
+            --accent-color: #ffc107;
             --background-color: #f8f9fa;
             --surface-color: #ffffff;
             --text-color: #212529;
@@ -113,6 +114,7 @@
         }
         .gaming-header .header-icons .nav-link {
             font-size: 1.5rem;
+            padding: 0.5rem;
         }
 
         .hero-carousel-image {
@@ -328,7 +330,7 @@
     </style>
 </head>
 <body>
-    @include('layouts.partials.frontend.header')
+    @include('layouts.partials.frontend.navbar')
 
     <main>
         @yield('content')

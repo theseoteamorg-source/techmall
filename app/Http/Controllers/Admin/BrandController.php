@@ -29,6 +29,7 @@ class BrandController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'include_in_sitemap' => 'required|boolean',
         ]);
 
         $slug = Str::slug($request->name);
@@ -50,6 +51,7 @@ class BrandController extends Controller
             'meta_title' => $request->meta_title,
             'meta_description' => $request->meta_description,
             'meta_keywords' => $request->meta_keywords,
+            'include_in_sitemap' => $request->include_in_sitemap,
         ]);
 
         return redirect()->route('admin.brands.index')
@@ -74,6 +76,7 @@ class BrandController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'include_in_sitemap' => 'required|boolean',
         ]);
 
         $slug = Str::slug($request->name);
@@ -82,7 +85,7 @@ class BrandController extends Controller
             $slug = $slug . '-' . ($count + 1);
         }
 
-        $data = $request->only('name', 'meta_title', 'meta_description', 'meta_keywords');
+        $data = $request->only('name', 'meta_title', 'meta_description', 'meta_keywords', 'include_in_sitemap');
         $data['slug'] = $slug;
 
         if ($request->hasFile('logo')) {

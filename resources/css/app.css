@@ -1,1 +1,7 @@
-/* Add your global styles here */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+    display: none;
+}

@@ -12,14 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->longText('details')->nullable();
             $table->decimal('price', 8, 2);
+            $table->string('sku')->unique()->nullable();
             $table->string('image')->nullable();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->string('product_type')->default('simple');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('brand_id')->nullable()->constrained()->onDelete('set null');
+            $table->boolean('published')->default(false);
+            $table->boolean('featured')->default(false);
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->boolean('include_in_sitemap')->default(true);
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->index('slug');
+            $table->index('category_id');
+            $table->index('brand_id');
         });
     }
 

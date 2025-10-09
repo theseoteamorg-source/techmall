@@ -18,6 +18,8 @@ class Post extends Model
         'image',
         'meta_title',
         'meta_description',
+        'meta_keywords',
+        'is_published',
         'status',
     ];
 
