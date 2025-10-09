@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Page;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use App\Models\User;
 
 class PageSeeder extends Seeder
@@ -42,15 +41,15 @@ class PageSeeder extends Seeder
         ];
 
         foreach ($pages as $page) {
-            DB::table('pages')->insert([
-                'user_id' => $user->id,
-                'title' => $page['title'],
-                'slug' => $page['slug'],
-                'content' => $page['content'],
-                'is_published' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            Page::firstOrCreate(
+                ['slug' => $page['slug']],
+                [
+                    'user_id' => $user->id,
+                    'title' => $page['title'],
+                    'content' => $page['content'],
+                    'is_published' => 1,
+                ]
+            );
         }
     }
 }

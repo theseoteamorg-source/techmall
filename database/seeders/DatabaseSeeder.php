@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             PageSeeder::class,
             PaymentMethodSeeder::class,
+            DummyDataSeeder::class, // Add this line
         ]);
     }
 }

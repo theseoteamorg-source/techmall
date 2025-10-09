@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\PostCategory;
@@ -22,16 +22,16 @@ class PostSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             $title = 'This is a dummy post ' . ($i + 1);
-            DB::table('posts')->insert([
-                'user_id' => $user->id,
-                'post_category_id' => $category->id,
-                'title' => $title,
-                'slug' => Str::slug($title),
-                'body' => '<p>This is some dummy content for post ' . ($i + 1) . '.</p>',
-                'is_published' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            Post::firstOrCreate(
+                ['slug' => Str::slug($title)],
+                [
+                    'user_id' => $user->id,
+                    'post_category_id' => $category->id,
+                    'title' => $title,
+                    'body' => '<p>This is some dummy content for post ' . ($i + 1) . '.</p>',
+                    'is_published' => 1,
+                ]
+            );
         }
     }
 }

@@ -13,16 +13,18 @@ class PaymentMethodSeeder extends Seeder
      */
     public function run(): void
     {
-        PaymentMethod::create([
-            'name' => 'Cash on Delivery',
+        PaymentMethod::firstOrCreate([
             'code' => 'cod',
+        ], [
+            'name' => 'Cash on Delivery',
             'description' => 'Pay with cash upon delivery.',
             'status' => 1,
         ]);
 
-        PaymentMethod::create([
-            'name' => 'Bank Transfer',
+        PaymentMethod::firstOrCreate([
             'code' => 'bank_transfer',
+        ], [
+            'name' => 'Bank Transfer',
             'description' => 'Pay via bank transfer.',
             'status' => 1,
         ]);

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Review;
 use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
@@ -15,6 +16,7 @@ class ProductSeeder extends Seeder
     {
         Product::truncate();
         ProductVariant::truncate();
+        Review::truncate();
 
         // Spigen Cases
         $spigenCase = Product::create([

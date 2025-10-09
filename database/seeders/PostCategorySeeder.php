@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\PostCategory;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class PostCategorySeeder extends Seeder
@@ -24,12 +24,10 @@ class PostCategorySeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            DB::table('post_categories')->insert([
-                'name' => $category,
-                'slug' => Str::slug($category),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            PostCategory::firstOrCreate(
+                ['slug' => Str::slug($category)],
+                ['name' => $category]
+            );
         }
     }
 }

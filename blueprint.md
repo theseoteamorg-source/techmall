@@ -50,6 +50,7 @@ Techmall is a modern e-commerce platform built with Laravel. It provides a seaml
 *   **Dynamic Fields:** The site name, introduction, address, phone number, and social media links are all retrieved from the application\'s configuration.
 *   **Theming:** The footer was originally styled with a dark, futuristic theme. It has since been updated to a light theme for better readability and a cleaner look.
 *   **Newsletter Removal:** The newsletter subscription form has been removed from the footer to simplify the design and improve user experience.
+*   **Copyright Section:** The copyright section of the footer has been made more compact by reducing its vertical padding.
 
 ### 2.7. Category Page Improvements
 
@@ -83,6 +84,30 @@ Techmall is a modern e-commerce platform built with Laravel. It provides a seaml
 *   **Product Display:** The products associated with each deal are displayed using the reusable `product-card` component, ensuring a consistent look and feel across the site.
 *   **No Deals Message:** If there are no active deals, a user-friendly message is displayed to the user.
 
-## 3. Current Task: Footer Style Update
+## 3. Frontend Views
 
-I have updated the footer to have a white background, matching the header. The text color has been set to dark for optimal readability. I have also reduced the height of the copyright section to make the footer more compact.
+Here is a list of all the frontend-facing views in the application:
+
+*   `about.blade.php`: The "About Us" page.
+*   `contact.blade.php`: The contact form and information page.
+*   `policy.blade.php`: The privacy policy page.
+*   `terms.blade.php`: The terms and conditions page.
+*   `blog/index.blade.php`: The main blog page, listing all posts.
+*   `blog/show.blade.php`: The individual blog post page.
+*   `brand/show.blade.php`: The page that displays all products belonging to a specific brand.
+*   `cart/index.blade.php`: The shopping cart page.
+*   `category/show.blade.php`: The page that displays all products within a specific category.
+*   `checkout/index.blade.php`: The checkout page.
+*   `checkout/success.blade.php`: The order success/thank you page.
+*   `deals/index.blade.php`: The page that displays all active deals and promotions.
+*   `home/index.blade.php`: The main homepage of your application.
+*   `page/show.blade.php`: A generic page for displaying custom content.
+*   `products/index.blade.php`: The main product listing page (shop).
+*   `products/show.blade.php`: The individual product detail page.
+*   `shop/cart.blade.php`: An alternative cart view.
+*   `shop/checkout.blade.php`: An alternative checkout view.
+*   `shop/deals.blade.php`: An alternative deals view.
+*   `shop/home.blade.php`: An alternative home page view.
+*   `shop/index.blade.php`: An alternative shop/product listing view.
+*   `shop/product.blade.php`: An alternative product detail view.
+*   `shop/thank-you.blade.php`: An alternative order success/thank you page.

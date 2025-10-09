@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\PostTag;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class PostTagSeeder extends Seeder
@@ -25,12 +25,10 @@ class PostTagSeeder extends Seeder
         ];
 
         foreach ($tags as $tag) {
-            DB::table('post_tags')->insert([
-                'name' => $tag,
-                'slug' => Str::slug($tag),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            PostTag::firstOrCreate(
+                ['slug' => Str::slug($tag)],
+                ['name' => $tag]
+            );
         }
     }
 }

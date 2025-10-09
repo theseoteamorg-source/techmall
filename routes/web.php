@@ -47,6 +47,7 @@ Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.ind
 
 Route::get('/pages/{slug}', [PageController::class, 'show'])->name('page.show');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 Route::get('/brand/{brand:slug}', [BrandController::class, 'show'])->name('brand.show');
